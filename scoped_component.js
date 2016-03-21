@@ -1,9 +1,7 @@
-$.component("menu", function($scope) {
-  $scope(".get").click(function() {
-    $scope(".today").html("Soup and sandwiches");
-  });
-  
-  $scope(".reset").click(function() {
-    $scope(".today").html("...");
-  });
-});
+$.component = function(selector, fn) {
+  var $selector = $("[data-component~='" + selector + "']"),
+  getInScope = function(scoped_selector) {
+    return $selector.find(scoped_selector);
+  };
+  return fn.call(this, getInScope); 
+}
