@@ -1,0 +1,19 @@
+{
+  "name": "mozart",
+  "version": "1.0.0",
+  "description": "Organizational front end api that applies convention over configuration",
+  "main": "scoped_component.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adamjgrant/Mozart.git"
+  },
+  "author": "Adam Grant",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adamjgrant/Mozart/issues"
+  },
+  "homepage": "https://github.com/adamjgrant/Mozart#readme"
+}
