@@ -4,7 +4,7 @@
   "description": "Organizational front end api that applies convention over configuration",
   "main": "scoped_component.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "phantomjs test.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/adamjgrant/Mozart/issues"
   },
-  "homepage": "https://github.com/adamjgrant/Mozart#readme"
+  "homepage": "https://github.com/adamjgrant/Mozart#readme",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "phantomjs": "^2.1.7"
+  }
 }
