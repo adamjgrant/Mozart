@@ -3,21 +3,22 @@ var assert = require("chai").assert,
     $      = require("jquery"),
     Mozart = require("./mozart");
 
-// Our test component
-
-var test_component = {};
-test_component.events = function(_$) {
-  _$.click(function($) { return "foo"; });
-};
-
 expect(Mozart.init).to.be.a('function');
 
 // 1st Class INSTANCE VARIABLE
+
+var test_component = {},
+    _$_outside;
+
+test_component.events = function(_$) {
+  _$.click(function() { return "foo"; });
+  _$_outside
+};
+
 Mozart.init([
   "test-component"
 ]);
 
-// Instance variable has prototype functions
-expect(test_component.api).to.be.a('function');
+expect(_$_outside).to.be.a('function');
 
 phantom.exit();

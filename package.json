@@ -18,6 +18,7 @@
   "homepage": "https://github.com/adamjgrant/Mozart#readme",
   "dependencies": {
     "chai": "^3.5.0",
+    "jquery": "^3.1.1",
     "phantomjs": "^2.1.7"
   }
 }

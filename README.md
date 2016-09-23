@@ -7,7 +7,23 @@ Based on
 ## As the component author
 
 1. Pick a name for your component. For this guide, we'll use "filter table".
-2.
+2. Define a variable with the name of your component as slugs and set to a variable.
+
+For example,
+
+    var filter_table = {};
+
+3. Set a key of this object to the variable `events`.
+
+This will be a function that accepts a scoped version of the jQuery `$`
+
+    var filter_table.events = function(_$) {
+      _$(".title").click(function() {
+        // ...  
+      });
+    }
+
+This scoped _$ is ignorant to any selector that is not in `[data-component="filter-table"]`
 
 ## As the component end user
 

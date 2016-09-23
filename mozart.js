@@ -16,21 +16,21 @@ Mozart = {
         console.error(_component, "not a valid init object. Must be a string or {class:instance}")
       }
 
-      components.push { class: component_class, instance: component_instance };
+      components.push({ class: component_class, instance: component_instance });
     }
 
     $.each(_components, format_component_as_class_and_instance);
-    $.each(components, function(component) {
-      var html_name = this.parameterize(this.scope(component["class"]), true),
-          js_name = this.parameterize(this.scope(component["class"]), false),
-          component_function = window[js_name],
-          component_selectors = [html_name];
+    $.each(components, function(index, component) {
+      var html_name = this.parameterize(component["class"], true),
+          js_name = this.parameterize(component["class"], false),
+          component_selectors = html_name;
 
-      // if (component["instance"]) {
-      //   component_selectors.push(this.parameterize(this.scope(component["instance"]), true));
-      // }
-
-      component_function(component_selectors, component_function.events);
+      // Push _$ through to the component's events function
+      // TODO: Not sure this is the best way to go. Race condition with user's event
+      // function being defined. Maybe we need to rethink syntax.
+      $(document).ready(function() {
+        this.scope(component_selectors, window[js_name].events);
+      });
     }.bind(this));
   },
 
