@@ -28,19 +28,22 @@ Mozart = {
       // Push _$ through to the component's events function
       // TODO: Not sure this is the best way to go. Race condition with user's event
       // function being defined. Maybe we need to rethink syntax.
-      this.scope(component_selectors, window[js_name].events);
-      this.scope(component_selectors, window[js_name].api);
+      this.set_scope(component_selectors, window[js_name].events, window[js_name]);
+      this.set_scope(component_selectors, window[js_name].api, window[js_name]);
     }.bind(this));
   },
 
-  scope: function(selectors, fn) {
+  set_scope: function(selectors, fn, component_js) {
     var selector = [""].concat((selectors).split(" ")).reduce(function(a, b) {
           return a + '[data-component~="' + b + '"]';
         }),
-        _$ = function(scoped_selector) {
-          // return $selector.find(scoped_selector);
-          return $(selector + " " + scoped_selector);
-        };
+
+    // TODO: _$ also needs .api, .router. and .config
+    _$ = function(scoped_selector) {
+      _jQuery = $(selector + " " + scoped_selector);
+      _jQuery.api = component_js.api // TODO: Not sure if this is enough.
+      return _jQuery;
+    };
 
     return (fn === undefined ? $selector : fn.call(this, _$));
   },
