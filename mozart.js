@@ -32,10 +32,9 @@ var Mozart = {
         window[js_name][prop] = window[js_name][prop] || {}
       });
 
-      // Push _$ through to the component's events function
-      // TODO: Not sure this is the best way to go. Race condition with user's event
-      // function being defined. Maybe we need to rethink syntax.
       var router = this.create_router_for(js_name, window[js_name].config["router"]);
+
+      // Call the events and api functions for the component to push in the _$
       this.set_scope(component_selectors, window[js_name].events, window[js_name], router);
       this.set_scope(component_selectors, window[js_name].api, window[js_name], router);
     }.bind(this));
@@ -84,15 +83,13 @@ var Mozart = {
           return a + '[data-component~="' + b + '"]';
         }),
 
-    // TODO: _$ also needs .api, .router. and .config
-    _$ = function(scoped_selector) {
-      _jQuery = $(selector + " " + scoped_selector);
-      _jQuery.api = component_js.api // TODO: Not sure if this is enough.
-      _jQuery.router = router
-      return _jQuery;
-    };
+        // TODO: _$ also needs .api, .router. and .config
+        _$ = function(scoped_selector) { return $(selector + " " + scoped_selector); };
 
-    return (fn === undefined ? $selector : fn.call(this, _$));
+        _$.api    = component_js.api
+        _$.router = router
+
+    return (fn === undefined ? _$ : fn.call(this, _$));
   },
 
   parameterize: function(str, dashes) {

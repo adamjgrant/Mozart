@@ -19,18 +19,19 @@ describe("Mozart class", function() {
 describe("Mozart 1st Class Instance Variable", function() {
   var _$_outside_api,
       _$_outside_event,
-      _$_outside_router;
-      
+      _$_router_outside_event;
+
   window.test_component = {};
 
   test_component.events = function(_$) {
     _$("p").click(function() { return "foo"; });
     _$_outside_event = _$;
-    _$_outside_router = _$.router;
+    _$_router_outside_event = _$.router;
   };
 
   test_component.api = function(_$) {
     _$_outside_api = _$;
+    _$_router_outside_api = _$.router
   }
 
   Mozart.init([
@@ -42,7 +43,12 @@ describe("Mozart 1st Class Instance Variable", function() {
     expect(_$_outside_api).to.be.a('function');
   });
 
+  it("sees a component variable", function() {
+    expect(test_component).to.be.a('object');
+  });
+
   it("defines a router if one is not present", function() {
-    expect(_$_outside_router).to.be.a('object');
+    expect(_$_router_outside_event).to.be.a('object');
+    expect(_$_router_outside_api).to.be.a('object');
   });
 });
