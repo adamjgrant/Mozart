@@ -29,6 +29,7 @@ Mozart = {
       // TODO: Not sure this is the best way to go. Race condition with user's event
       // function being defined. Maybe we need to rethink syntax.
       this.scope(component_selectors, window[js_name].events);
+      this.scope(component_selectors, window[js_name].api);
     }.bind(this));
   },
 
@@ -47,15 +48,7 @@ Mozart = {
   parameterize: function(str, dashes) {
     var separator = dashes ? "-" : "_"
     return str.toLowerCase().replace(/[^a-z0-9]+/g,separator).replace(/(^-|-$)/g,'');
-  },
-
-  Component: function() {}
-}
-Mozart.Component.prototype.api = function() {};
-
-if (typeof(module) == "object") {
-  module.exports = Mozart;
+  }
 }
 
-$.component = function(selectors, fn) {
-}
+if (typeof(module) == "object") { module.exports = Mozart; }

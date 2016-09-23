@@ -8,17 +8,27 @@ expect(Mozart.init).to.be.a('function');
 // 1st Class INSTANCE VARIABLE
 
 var test_component = {},
-    _$_outside;
+    _$_outside_api,
+    _$_outside_event;
 
 test_component.events = function(_$) {
   _$("p").click(function() { return "foo"; });
-  _$_outside = _$;
+  _$_outside_event = _$;
 };
+
+test_component.api = function(_$) {
+  _$_outside_api = _$;
+
+  return {
+    create: function(blah) {}
+  }
+}
 
 Mozart.init([
   "test-component"
 ]);
 
-expect(_$_outside).to.be.a('function');
+expect(_$_outside_event).to.be.a('function');
+expect(_$_outside_api).to.be.a('function');
 
 phantom.exit();

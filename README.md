@@ -6,6 +6,8 @@ Based on
 
 ## As the component author
 
+Note, the component's files should be loaded before Mozart itself.
+
 1. Pick a name for your component. For this guide, we'll use "filter table".
 2. Define a variable with the name of your component as slugs and set to a variable.
 
