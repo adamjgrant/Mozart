@@ -1,14 +1,3 @@
-// var assert = require("chai").assert,
-//     expect = require("chai").expect,
-//     mocha  = require("mocha"),
-//     $      = require("jquery");
-//
-//
-//
-//
-//
-//
-
 describe("Mozart class", function() {
   it("is defined", function() {
     expect(Mozart).to.be.a('object');
@@ -21,21 +10,24 @@ describe("Mozart 1st Class Instance Variable", function() {
       _$_outside_event,
       _$_router_outside_event;
 
-  window.test_component = {};
+  window.test_component_without_api = {};
+  window.test_component_without_events = {}
 
-  test_component.events = function(_$) {
+  test_component_without_api.events = function(_$) {
     _$("p").click(function() { return "foo"; });
     _$_outside_event = _$;
     _$_router_outside_event = _$.router;
+    _$_api_outside_event = _$.api;
   };
 
-  test_component.api = function(_$) {
+  test_component_without_events.api = function(_$) {
     _$_outside_api = _$;
-    _$_router_outside_api = _$.router
-  }
+    _$_router_outside_api = _$.router;
+  };
 
   Mozart.init([
-    "test-component"
+    "test-component-without-events",
+    "test-component-without-api"
   ]);
 
   it("defines a scoped jQuery (_$)", function() {
@@ -43,12 +35,17 @@ describe("Mozart 1st Class Instance Variable", function() {
     expect(_$_outside_api).to.be.a('function');
   });
 
-  it("sees a component variable", function() {
-    expect(test_component).to.be.a('object');
+  it("sees a component variables", function() {
+    expect(test_component_without_api).to.be.a('object');
+    expect(test_component_without_events).to.be.a('object');
   });
 
   it("defines a router if one is not present", function() {
     expect(_$_router_outside_event).to.be.a('object');
     expect(_$_router_outside_api).to.be.a('object');
+  });
+
+  it("defines an api if one is not present", function() {
+    expect(_$_api_outside_event).to.be.a('function')
   });
 });
