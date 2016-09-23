@@ -6,13 +6,13 @@ Mozart = {
     var format_component_as_class_and_instance = function(index, _component) {
       component_class = component_instance = _component;
 
-      if (typeof(_component) != "String") {
+      if (typeof(_component) != "string") {
         for (key in _component) {
           component_class = key;
           component_instance = _component[key];
         }
       }
-      else if (typeof(_component) != "object") {
+      else if (typeof(_component) != "object" && typeof(_component) != "string") {
         console.error(_component, "not a valid init object. Must be a string or {class:instance}")
       }
 
@@ -28,9 +28,7 @@ Mozart = {
       // Push _$ through to the component's events function
       // TODO: Not sure this is the best way to go. Race condition with user's event
       // function being defined. Maybe we need to rethink syntax.
-      $(document).ready(function() {
-        this.scope(component_selectors, window[js_name].events);
-      });
+      this.scope(component_selectors, window[js_name].events);
     }.bind(this));
   },
 
@@ -38,9 +36,9 @@ Mozart = {
     var selector = [""].concat((selectors).split(" ")).reduce(function(a, b) {
           return a + '[data-component~="' + b + '"]';
         }),
-        $selector = $(selector),
         _$ = function(scoped_selector) {
-          return $selector.find(scoped_selector);
+          // return $selector.find(scoped_selector);
+          return $(selector + " " + scoped_selector);
         };
 
     return (fn === undefined ? $selector : fn.call(this, _$));

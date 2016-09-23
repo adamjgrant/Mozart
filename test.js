@@ -11,8 +11,8 @@ var test_component = {},
     _$_outside;
 
 test_component.events = function(_$) {
-  _$.click(function() { return "foo"; });
-  _$_outside
+  _$("p").click(function() { return "foo"; });
+  _$_outside = _$;
 };
 
 Mozart.init([
