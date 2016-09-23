@@ -99,7 +99,7 @@ Mozart.Component.prototype.set_api = function() {
       $.get(this.variable.router.index);
     }
   }, this.variable.api);
-  for (key in api) { this.set_scope(api[key]); }
+  // for (key in api) { this.set_scope(api[key]); }
 
   return api
 };

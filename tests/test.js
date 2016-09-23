@@ -6,8 +6,7 @@ describe("Mozart class", function() {
 });
 
 describe("Mozart 1st Class Instance Variable", function() {
-  var _$_outside_api,
-      _$_outside_event,
+  var _$_outside_event,
       _$_router_outside_event;
 
   window.test_component_without_api = {};
@@ -23,7 +22,6 @@ describe("Mozart 1st Class Instance Variable", function() {
 
   test_component_without_router.api = {
     show: function(_$) {
-      _$_outside_api = _$;
       $.get(_$.router.show);
     }
   }
@@ -45,7 +43,6 @@ describe("Mozart 1st Class Instance Variable", function() {
 
   it("defines a scoped jQuery (_$)", function() {
     expect(_$_outside_event).to.be.a('function');
-    expect(_$_outside_api).to.be.a('function');
   });
 
   it("sees a component variables", function() {
@@ -55,7 +52,6 @@ describe("Mozart 1st Class Instance Variable", function() {
 
   it("defines a router if one is not present", function() {
     expect(_$_router_outside_event).to.be.a('object');
-    expect(_$_router_outside_api).to.be.a('object');
   });
 
   it("defines an api if one is not present", function() {
