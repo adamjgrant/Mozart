@@ -56,6 +56,8 @@ Mozart.Component.prototype.get_variable = function() {
 
 Mozart.Component.prototype.get_router = function() {
   // Override user config for router with whatever the user defines
+  // TODO: This needs to be split out into component.router function and
+  // component.config.router object as outlined in the readme.
   this.variable.router = $.extend(true,
     {
       base_url: "/",
@@ -93,6 +95,9 @@ Mozart.Component.prototype.get_router = function() {
 };
 
 Mozart.Component.prototype.set_api = function() {
+  // TODO: Like what we're going to do with route, this should be split out into
+  // a component.api function and component.config.api object so that _$ can be
+  // applied to component.config.api's functions from component.api functions
   var api = $.extend(true, {
     index: function(_$) {
       $.get(this.variable.router.index);
