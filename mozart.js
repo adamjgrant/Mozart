@@ -59,35 +59,34 @@ Mozart.Component.prototype.get_router = function() {
   this.variable.router = $.extend(true,
     {
       base_url: "/",
-      base_name: name
+      name: name
     },
     this.variable.router
   );
-  root_url = this.variable.router.base_url + this.js_name;
 
   return {
     index: {
-      url: root_url + ".json",
+      url: "#{base_url}#{name}.json",
       method: "GET"
     },
     show: {
-      url: root_url + "/:id.json",
+      url: "#{base_url}#{name}/#{id}.json",
       method: "GET"
     },
     destroy: {
-      url: root_url + "/:id.json",
+      url: "#{base_url}#{name}/#{id}.json",
       method: "DELETE"
     },
     update: {
-      url: root_url + "/:id",
+      url: "#{base_url}#{name}/#{id}",
       method: "PUT"
     },
     new: {
-      url: root_url + "/new.json",
+      url: "#{base_url}#{name}/new.json",
       method: "GET"
     },
     create: {
-      url: root_url + "/:id",
+      url: "#{base_url}#{name}/#{id}",
       method: "POST"
     }
   }
@@ -112,6 +111,8 @@ Mozart.Component.prototype.set_scope = function(fn_name_or_function) {
       _$ = function(scoped_selector) { return $(selector + " " + scoped_selector); };
 
   _$.api    = this.variable.api
+  // TODO: This may be where we want to transform router into a function that automatically handles
+  // interpolation like ":id"
   _$.router = this.variable.router
   var fn = typeof(fn_name_or_function) == "function" ? fn_name_or_function : this.variable[fn_name_or_function];
   return (fn === undefined ? _$ : fn.call(this, _$));
