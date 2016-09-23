@@ -11,7 +11,8 @@ describe("Mozart 1st Class Instance Variable", function() {
       _$_router_outside_event;
 
   window.test_component_without_api = {};
-  window.test_component_without_events = {}
+  window.test_component_without_router = {};
+  window.test_component_with_everything = {};
 
   test_component_without_api.events = function(_$) {
     _$("p").click(function() { return "foo"; });
@@ -20,13 +21,25 @@ describe("Mozart 1st Class Instance Variable", function() {
     _$_api_outside_event = _$.api;
   };
 
-  test_component_without_events.api = function(_$) {
-    _$_outside_api = _$;
-    _$_router_outside_api = _$.router;
+  test_component_without_router.api = {
+    show: function(_$) {
+      _$_outside_api = _$;
+      $.get(_$.router.show);
+    }
+  }
+
+  test_component_with_everything.events = function(_$) {
+    $("p").click(function() { return "foo" })
+  };
+
+  test_component_with_everything.api = {
+    show: function(_$) {
+      $.get(_$.router.show);
+    }
   };
 
   Mozart.init([
-    "test-component-without-events",
+    "test-component-without-router",
     "test-component-without-api"
   ]);
 
@@ -37,7 +50,7 @@ describe("Mozart 1st Class Instance Variable", function() {
 
   it("sees a component variables", function() {
     expect(test_component_without_api).to.be.a('object');
-    expect(test_component_without_events).to.be.a('object');
+    expect(test_component_without_router).to.be.a('object');
   });
 
   it("defines a router if one is not present", function() {
@@ -46,6 +59,10 @@ describe("Mozart 1st Class Instance Variable", function() {
   });
 
   it("defines an api if one is not present", function() {
-    expect(_$_api_outside_event).to.be.a('function')
+    expect(_$_api_outside_event).to.be.a('object')
   });
+});
+
+describe("2nd class Mozart instance variable", function() {
+
 });

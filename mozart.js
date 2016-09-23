@@ -22,12 +22,7 @@ var Mozart = {
     $.each(_components, format_component_as_class_and_instance);
     $.each(components, function(index, _component) {
       var component = new this.Component(_component["class"])
-      if (!component.variable) { console.error("Could not find the base component variable " + component.js_name) }
-
-      // Call the events and api functions for the component to push in the _$
-      $.each(["events", "api"], function(index, fn_name) {
-        component.set_scope(fn_name);
-      })
+      component.set_scope("events");
     }.bind(this));
   },
 
@@ -39,14 +34,25 @@ var Mozart = {
   Component: function(name) {
     this.html_name = Mozart.parameterize(name, true);
     this.js_name   = Mozart.parameterize(name);
-    this.variable  = window[this.js_name];
-    this.variable = $.extend(true, {
+    this.variable  = this.get_variable();
+    this.variable  = $.extend(true, {
       config: {},
       router: this.get_router(),
       api:    this.set_api()
     }, this.variable);
+    this._$ = function(fn) { return this.setScope(fn) };
   }
 }
+
+Mozart.Component.prototype.get_variable = function() {
+  variable = window[this.js_name];
+  if (!variable) {
+    return console.error("Could not find the base component variable " + this.js_name)
+  }
+  else {
+    return window[this.js_name];
+  }
+};
 
 Mozart.Component.prototype.get_router = function() {
   // Override user config for router with whatever the user defines
@@ -88,16 +94,17 @@ Mozart.Component.prototype.get_router = function() {
 };
 
 Mozart.Component.prototype.set_api = function() {
-  return function(_$) {
-    return {
-      index: function() {
-        $.get(this.variable.router.index);
-      }
+  var api = $.extend(true, {
+    index: function(_$) {
+      $.get(this.variable.router.index);
     }
-  }
+  }, this.variable.api);
+  for (key in api) { this.set_scope(api[key]); }
+
+  return api
 };
 
-Mozart.Component.prototype.set_scope = function(fn_name) {
+Mozart.Component.prototype.set_scope = function(fn_name_or_function) {
   var selector = [""].concat((this.html_name).split(" ")).reduce(function(a, b) {
         return a + '[data-component~="' + b + '"]';
       }),
@@ -106,6 +113,6 @@ Mozart.Component.prototype.set_scope = function(fn_name) {
 
   _$.api    = this.variable.api
   _$.router = this.variable.router
-  var fn = this.variable[fn_name]
+  var fn = typeof(fn_name_or_function) == "function" ? fn_name_or_function : this.variable[fn_name_or_function];
   return (fn === undefined ? _$ : fn.call(this, _$));
 };
