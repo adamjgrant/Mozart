@@ -28,6 +28,8 @@ var Mozart = {
     }.bind(this));
   },
 
+  initialized: [],
+
   parameterize: function(str, dashes) {
     var separator = dashes ? "-" : "_"
     return str.toLowerCase().replace(/[^a-z0-9]+/g,separator).replace(/(^-|-$)/g,'');
@@ -39,13 +41,6 @@ var Mozart = {
       this.js_name   = Mozart.parameterize(name);
       m$[this.js_name]        = m$[this.js_name] || {};
       m$[this.js_name].config = m$[this.js_name].config || {};
-
-      if (origin) {
-        this.origin_html_name = Mozart.parameterize(origin, true);
-        this.origin_js_name   = Mozart.parameterize(origin);
-        m$[this.origin_js_name]        = m$[this.origin_js_name] || {};
-        m$[this.origin_js_name].config = m$[this.origin_js_name].config || {};
-      }
 
       default_variable = {
         config: {
@@ -61,10 +56,15 @@ var Mozart = {
       default_variable.api    = this.set_api(origin);
       m$[this.js_name]        = $.extend(true, default_variable, m$[this.js_name]);
       this._$                 = function(fn) { return this.set_scope(fn) };
+      Mozart.initialized.push(name);
     }.bind(this);
 
     if (class_and_instance['class'] == class_and_instance['instance']) {
       initialize(class_and_instance['class']);
+    }
+    else if (Mozart.initialized.indexOf(class_and_instance['class']) == -1) {
+      initialize(class_and_instance['class']);
+      initialize(class_and_instance['instance'], class_and_instance['class']);
     }
     else {
       initialize(class_and_instance['instance'], class_and_instance['class']);
@@ -73,12 +73,12 @@ var Mozart = {
 }
 
 String.prototype.interpolate = function (o) {
-    return this.replace(/#\{(.+?)\}/g,
-        function (a, b) {
-            var r = o[b];
-            return typeof r === 'string' || typeof r === 'number' ? r : a;
-        }
-    );
+  return this.replace(/#\{(.+?)\}/g,
+    function (a, b) {
+      var r = o[b];
+      return typeof r === 'string' || typeof r === 'number' ? r : a;
+    }
+  );
 };
 
 Mozart.Component.prototype.get_variable = function() {
