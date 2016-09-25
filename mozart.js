@@ -25,6 +25,7 @@ var Mozart = {
     $.each(components, function(index, _component) {
       var component = new this.Component(_component)
       component.set_scope("events");
+      component.set_scope("ready");
     }.bind(this));
   },
 

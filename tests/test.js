@@ -7,7 +7,8 @@ describe("Mozart class", function() {
 
 describe("Mozart 1st Class Instance Variable", function() {
   var _$_outside_event,
-      _$_router_outside_event;
+      _$_router_outside_event,
+      _$_outside_ready;
 
   m$.test_component_without_api     = {};
   m$.test_component_without_router  = {};
@@ -26,6 +27,10 @@ describe("Mozart 1st Class Instance Variable", function() {
   m$.test_component_with_everything.events = function(_$) {
     $("p").click(function() { return "foo" })
   };
+
+  m$.test_component_with_everything.ready = function(_$) {
+    _$_outside_ready = _$;
+  }
 
   m$.test_component_with_everything.config = {
     api: {
@@ -107,6 +112,10 @@ describe("Mozart 1st Class Instance Variable", function() {
     expect(_$_api_outside_event).to.be.a('object')
   });
 
+  it("applies _$ to ready function", function() {
+    expect(_$_outside_ready).to.be.a('function');
+  });
+
   it("sets a router object with default functions for interpolating", function() {
     expect(m$.test_component_with_everything.router.index).to.be.a('function');
     expect(m$.test_component_with_everything.router.show).to.be.a('function');
@@ -141,6 +150,6 @@ describe("2nd class Mozart instance variable", function() {
   });
 
   it("does not change base 1st class component", function() {
-    expect(m$.test_component_for_extending_without_bare_initialization.config.router.routes.custom.url).to.equal('notoverwritten')
+    expect(m$.test_component_for_extending_without_bare_initialization.config.router.routes.custom.url).to.equal('notoverwritten');
   });
 });
