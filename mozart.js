@@ -51,10 +51,10 @@ var Mozart = {
         api: {}
       };
       default_variable        = origin ? m$[origin] : default_variable
-      m$[this.js_name]        = $.extend(true, default_variable, m$[this.js_name]);
+      m$[this.js_name]        = $.extend(true, {}, default_variable, m$[this.js_name]);
       default_variable.router = this.set_router(origin);
       default_variable.api    = this.set_api(origin);
-      m$[this.js_name]        = $.extend(true, default_variable, m$[this.js_name]);
+      m$[this.js_name]        = $.extend(true, {}, default_variable, m$[this.js_name]);
       this._$                 = function(fn) { return this.set_scope(fn) };
       Mozart.initialized.push(name);
     }.bind(this);
@@ -92,7 +92,7 @@ Mozart.Component.prototype.get_variable = function() {
 };
 
 Mozart.Component.prototype.get_router = function() {
-  router = $.extend(true,
+  router = $.extend(true, {},
     {
       base_url: "/",
       name: this.js_name
@@ -140,7 +140,7 @@ Mozart.Component.prototype.get_api = function() {
         }.bind(this);
       }.bind(this));
 
-  var api = $.extend(true, default_api, m$[this.js_name].api);
+  var api = $.extend(true, {}, default_api, m$[this.js_name].api);
   return api;
 };
 
@@ -161,7 +161,7 @@ Mozart.Component.prototype.set_router = function() {
   $.each(m$[this.js_name].config.router.routes, function(route_key, value) {
     routes[route_key] = function(options) {
       router_config = m$[this.js_name].config.router;
-      options = $.extend(true, {
+      options = $.extend(true, {}, {
         base_url: router_config.base_url,
         name: router_config.name
       }, options);

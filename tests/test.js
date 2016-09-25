@@ -55,7 +55,7 @@ describe("Mozart 1st Class Instance Variable", function() {
       base_url: "custom",
       routes: {
         custom: {
-          url: "custom",
+          url: "notoverwritten",
           method: "GET"
         }
       }
