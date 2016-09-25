@@ -72,7 +72,7 @@ describe("Mozart 1st Class Instance Variable", function() {
   });
 
   it("sets a router object with default functions for interpolating", function() {
-    expect(test_component_with_everything.router.index).to.be.a('function');
+    expect(test_component_with_everything.router.index()).to.be.a('function');
   });
 });
 

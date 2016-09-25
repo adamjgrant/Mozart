@@ -34,8 +34,7 @@ var Mozart = {
   Component: function(name) {
     this.html_name = Mozart.parameterize(name, true);
     this.js_name   = Mozart.parameterize(name);
-    this.variable  = this.get_variable();
-    this.variable.config = this.variable.config || {}
+    window[this.js_name].config = window[this.js_name].config || {}
     default_variable = {
       config: {
         router: this.get_router(),
@@ -44,10 +43,10 @@ var Mozart = {
       router: {},
       api: {}
     };
-    this.variable  = $.extend(true, default_variable, this.variable);
+    window[this.js_name] = $.extend(true, default_variable, window[this.js_name]);
     default_variable.router = this.set_router();
     default_variable.api = this.set_api();
-    this.variable  = $.extend(true, default_variable, this.variable);
+    window[this.js_name] = $.extend(true, default_variable, window[this.js_name]);
     this._$ = function(fn) { return this.set_scope(fn) };
   }
 }
@@ -78,9 +77,9 @@ Mozart.Component.prototype.get_router = function() {
   router = $.extend(true,
     {
       base_url: "/",
-      name: name
+      name: this.js_name
     },
-    this.variable.config["router"]
+    window[this.js_name].config["router"]
   );
 
   router.routes = {
@@ -121,7 +120,7 @@ Mozart.Component.prototype.get_api = function() {
     index: function(_$) {
       $.get(this.variable.router.index);
     }
-  }, this.variable.api);
+  }, window[this.js_name].api);
   // for (key in api) { this.set_scope(api[key]); }
 
   return api
@@ -130,13 +129,18 @@ Mozart.Component.prototype.get_api = function() {
 Mozart.Component.prototype.set_api = function() {};
 Mozart.Component.prototype.set_router = function() {
   var routes = {};
-  $.each(this.variable.config.router.routes, function(route_key, value) {
+  $.each(window[this.js_name].config.router.routes, function(route_key, value) {
     routes[route_key] = function(options) {
+      router_config = window[this.js_name].config.router;
+      options = $.extend(true, {
+        base_url: router_config.base_url,
+        name: router_config.name
+      }, options);
       return {
         url: value.url.interpolate(options),
         method: value.method
       }
-    }
+    }.bind(this);
   }.bind(this));
   return routes
 };
@@ -147,8 +151,8 @@ Mozart.Component.prototype.set_scope = function(fn_name_or_function) {
       }),
       _$ = function(scoped_selector) { return $(selector + " " + scoped_selector); };
 
-  _$.api    = this.variable.api
-  _$.router = this.variable.router
-  var fn = typeof(fn_name_or_function) == "function" ? fn_name_or_function : this.variable[fn_name_or_function];
+  _$.api    = window[this.js_name].api
+  _$.router = window[this.js_name].router
+  var fn = typeof(fn_name_or_function) == "function" ? fn_name_or_function : window[this.js_name][fn_name_or_function];
   return (fn === undefined ? _$ : fn.call(this, _$));
 };
