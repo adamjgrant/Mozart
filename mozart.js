@@ -35,14 +35,31 @@ var Mozart = {
     this.html_name = Mozart.parameterize(name, true);
     this.js_name   = Mozart.parameterize(name);
     this.variable  = this.get_variable();
-    this.variable  = $.extend(true, {
-      config: {},
-      router: this.get_router(),
-      api:    this.set_api()
-    }, this.variable);
-    this._$ = function(fn) { return this.setScope(fn) };
+    this.variable.config = this.variable.config || {}
+    default_variable = {
+      config: {
+        router: this.get_router(),
+        api: this.get_api()
+      },
+      router: {},
+      api: {}
+    };
+    this.variable  = $.extend(true, default_variable, this.variable);
+    default_variable.router = this.set_router();
+    default_variable.api = this.set_api();
+    this.variable  = $.extend(true, default_variable, this.variable);
+    this._$ = function(fn) { return this.set_scope(fn) };
   }
 }
+
+String.prototype.interpolate = function (o) {
+    return this.replace(/#\{(.+?)\}/g,
+        function (a, b) {
+            var r = o[b];
+            return typeof r === 'string' || typeof r === 'number' ? r : a;
+        }
+    );
+};
 
 Mozart.Component.prototype.get_variable = function() {
   variable = window[this.js_name];
@@ -58,15 +75,15 @@ Mozart.Component.prototype.get_router = function() {
   // Override user config for router with whatever the user defines
   // TODO: This needs to be split out into component.router function and
   // component.config.router object as outlined in the readme.
-  this.variable.router = $.extend(true,
+  router = $.extend(true,
     {
       base_url: "/",
       name: name
     },
-    this.variable.router
+    this.variable.config["router"]
   );
 
-  return {
+  router.routes = {
     index: {
       url: "#{base_url}#{name}.json",
       method: "GET"
@@ -92,9 +109,11 @@ Mozart.Component.prototype.get_router = function() {
       method: "POST"
     }
   }
+
+  return router;
 };
 
-Mozart.Component.prototype.set_api = function() {
+Mozart.Component.prototype.get_api = function() {
   // TODO: Like what we're going to do with route, this should be split out into
   // a component.api function and component.config.api object so that _$ can be
   // applied to component.config.api's functions from component.api functions
@@ -108,16 +127,27 @@ Mozart.Component.prototype.set_api = function() {
   return api
 };
 
+Mozart.Component.prototype.set_api = function() {};
+Mozart.Component.prototype.set_router = function() {
+  var routes = {};
+  $.each(this.variable.config.router.routes, function(route_key, value) {
+    routes[route_key] = function(options) {
+      return {
+        url: value.url.interpolate(options),
+        method: value.method
+      }
+    }
+  }.bind(this));
+  return routes
+};
+
 Mozart.Component.prototype.set_scope = function(fn_name_or_function) {
   var selector = [""].concat((this.html_name).split(" ")).reduce(function(a, b) {
         return a + '[data-component~="' + b + '"]';
       }),
-      // TODO: _$ also needs .api, .router. and .config
       _$ = function(scoped_selector) { return $(selector + " " + scoped_selector); };
 
   _$.api    = this.variable.api
-  // TODO: This may be where we want to transform router into a function that automatically handles
-  // interpolation like ":id"
   _$.router = this.variable.router
   var fn = typeof(fn_name_or_function) == "function" ? fn_name_or_function : this.variable[fn_name_or_function];
   return (fn === undefined ? _$ : fn.call(this, _$));

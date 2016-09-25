@@ -22,7 +22,7 @@ describe("Mozart 1st Class Instance Variable", function() {
 
   test_component_without_router.api = {
     show: function(_$) {
-      $.get(_$.router.show);
+      $.get(_$.router.show());
     }
   }
 
@@ -30,15 +30,28 @@ describe("Mozart 1st Class Instance Variable", function() {
     $("p").click(function() { return "foo" })
   };
 
-  test_component_with_everything.api = {
-    show: function(_$) {
-      $.get(_$.router.show);
+  test_component_with_everything.config = {
+    api: {
+      show: function(_$) {
+        $.get(_$.router.show);
+      }
+    },
+    router: {
+      base_url: "custom_base",
+      name: "custom_name",
+      routes: {
+        show: {
+          url: "#{base_url}#{name}/#{id}.json",
+          method: "GET"
+        }
+      }
     }
-  };
+  }
 
   Mozart.init([
     "test-component-without-router",
-    "test-component-without-api"
+    "test-component-without-api",
+    "test_component_with_everything"
   ]);
 
   it("defines a scoped jQuery (_$)", function() {
@@ -56,6 +69,10 @@ describe("Mozart 1st Class Instance Variable", function() {
 
   it("defines an api if one is not present", function() {
     expect(_$_api_outside_event).to.be.a('object')
+  });
+
+  it("sets a router object with default functions for interpolating", function() {
+    expect(test_component_with_everything.router.index).to.be.a('function');
   });
 });
 
