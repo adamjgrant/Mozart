@@ -12,7 +12,7 @@ describe("Mozart 1st Class Instance Variable", function() {
   m$.test_component_without_api     = {};
   m$.test_component_without_router  = {};
   m$.test_component_with_everything = {};
-  m$.test_component_for_extending   = {};
+  m$.test_component_for_extending_without_bare_initialization   = {};
 
   m$.test_component_without_api.events = function(_$) {
     _$("p").click(function() { return "foo"; });
@@ -43,12 +43,29 @@ describe("Mozart 1st Class Instance Variable", function() {
     }
   }
 
+  m$.test_component_for_extending_without_bare_initialization.config = {
+    api: {
+      custom: function(_$, options) {
+        $.ajax(_$.router.show(options))
+      }
+    },
+    router: {
+      base_url: "custom",
+      routes: {
+        custom: {
+          url: "custom",
+          method: "GET"
+        }
+      }
+    }
+  }
+
   Mozart.init([
     "test-component-without-router",
     "test-component-without-api",
     "test_component_with_everything",
-    { "test_component_for_extending": "extended1" },
-    { "test_component_for_extending": "extended2" }
+    {"test_component_for_extending_without_bare_initialization" : "extended1"},
+    {"test_component_for_extending_without_bare_initialization" : "extended2"}
   ]);
 
   it("defines a scoped jQuery (_$)", function() {
@@ -81,8 +98,18 @@ describe("Mozart 1st Class Instance Variable", function() {
 
 describe("2nd class Mozart instance variable", function() {
   it("creates a 2nd class component variable", function() {
-    expect(m$.test_component_for_extending).to.be.a('object');
-    expect(extended1).to.be.a('object');
-    expect(extended2).to.be.a('object');
+    expect(m$.test_component_for_extending_without_bare_initialization).to.be.a('object');
+    expect(m$.extended1).to.be.a('object');
+    expect(m$.extended2).to.be.a('object');
+  });
+
+  it("inherits configuration from the 1st class component", function() {
+    expect(m$.extended1.config.api.custom).to.be.a('function');
+    expect(m$.extended1.config.router.base_url).to.equal('custom');
+    expect(m$.extended2.config.router.routes.custom).to.be.a('object');
+  });
+
+  it("allows 1st class variable to initialize first, even if not initialized bare", function() {
+    expect(m$.test_component_for_extending_without_bare_initialization.config.api.index).to.be.a('function');
   });
 });

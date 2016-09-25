@@ -5,9 +5,10 @@ var Mozart = {
     var components = [];
 
     var format_component_as_class_and_instance = function(index, _component) {
-      component_class = component_instance = _component;
+      var component_class = _component,
+          component_instance = _component;
 
-      if (typeof(_component) != "string") {
+      if (typeof(_component) == "object") {
         for (key in _component) {
           component_class = key;
           component_instance = _component[key];
@@ -22,7 +23,7 @@ var Mozart = {
 
     $.each(_components, format_component_as_class_and_instance);
     $.each(components, function(index, _component) {
-      var component = new this.Component(_component["class"])
+      var component = new this.Component(_component)
       component.set_scope("events");
     }.bind(this));
   },
@@ -32,23 +33,42 @@ var Mozart = {
     return str.toLowerCase().replace(/[^a-z0-9]+/g,separator).replace(/(^-|-$)/g,'');
   },
 
-  Component: function(name) {
-    this.html_name = Mozart.parameterize(name, true);
-    this.js_name   = Mozart.parameterize(name);
-    m$[this.js_name].config = m$[this.js_name].config || {}
-    default_variable = {
-      config: {
-        router: this.get_router(),
-        api: this.get_api()
-      },
-      router: {},
-      api: {}
-    };
-    m$[this.js_name] = $.extend(true, default_variable, m$[this.js_name]);
-    default_variable.router = this.set_router();
-    default_variable.api = this.set_api();
-    m$[this.js_name] = $.extend(true, default_variable, m$[this.js_name]);
-    this._$ = function(fn) { return this.set_scope(fn) };
+  Component: function(class_and_instance) {
+    var initialize = function(name, origin) {
+      this.html_name = Mozart.parameterize(name, true);
+      this.js_name   = Mozart.parameterize(name);
+      m$[this.js_name]        = m$[this.js_name] || {};
+      m$[this.js_name].config = m$[this.js_name].config || {};
+
+      if (origin) {
+        this.origin_html_name = Mozart.parameterize(origin, true);
+        this.origin_js_name   = Mozart.parameterize(origin);
+        m$[this.origin_js_name]        = m$[this.origin_js_name] || {};
+        m$[this.origin_js_name].config = m$[this.origin_js_name].config || {};
+      }
+
+      default_variable = {
+        config: {
+          router: this.get_router(),
+          api: this.get_api()
+        },
+        router: {},
+        api: {}
+      };
+      default_variable        = origin ? m$[origin] : default_variable
+      m$[this.js_name]        = $.extend(true, default_variable, m$[this.js_name]);
+      default_variable.router = this.set_router(origin);
+      default_variable.api    = this.set_api(origin);
+      m$[this.js_name]        = $.extend(true, default_variable, m$[this.js_name]);
+      this._$                 = function(fn) { return this.set_scope(fn) };
+    }.bind(this);
+
+    if (class_and_instance['class'] == class_and_instance['instance']) {
+      initialize(class_and_instance['class']);
+    }
+    else {
+      initialize(class_and_instance['instance'], class_and_instance['class']);
+    }
   }
 }
 
