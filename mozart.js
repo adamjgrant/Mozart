@@ -71,9 +71,6 @@ Mozart.Component.prototype.get_variable = function() {
 };
 
 Mozart.Component.prototype.get_router = function() {
-  // Override user config for router with whatever the user defines
-  // TODO: This needs to be split out into component.router function and
-  // component.config.router object as outlined in the readme.
   router = $.extend(true,
     {
       base_url: "/",
