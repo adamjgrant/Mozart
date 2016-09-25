@@ -117,8 +117,8 @@ Mozart.Component.prototype.get_api = function() {
   // a component.api function and component.config.api object so that _$ can be
   // applied to component.config.api's functions from component.api functions
   var api = $.extend(true, {
-    index: function(_$) {
-      $.get(this.variable.router.index);
+    index: function(_$, options) {
+      $.get(window[this.js_name].router.index());
     }
   }, window[this.js_name].api);
   // for (key in api) { this.set_scope(api[key]); }
@@ -126,7 +126,17 @@ Mozart.Component.prototype.get_api = function() {
   return api
 };
 
-Mozart.Component.prototype.set_api = function() {};
+Mozart.Component.prototype.set_api = function() {
+  var api = {};
+  $.each(window[this.js_name].config.api, function(api_key, value) {
+    api[api_key] = function(options) {
+      _$ = this.set_scope()
+      window[this.js_name].config.api[api_key].apply(this, _$, options)
+    }.bind(this);
+  }.bind(this));
+
+  return api
+};
 Mozart.Component.prototype.set_router = function() {
   var routes = {};
   $.each(window[this.js_name].config.router.routes, function(route_key, value) {
