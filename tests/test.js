@@ -7,7 +7,7 @@ describe("Mozart class", function() {
 
 describe("_$ scoped jQuery", function() {
   var $p_outside_test_component2 = [],
-      $p = $("<div data-component='test-component2'><p>foo</p></div>");
+      $p = $("<div data-component='test_component2'><p>foo</p></div>");
 
   $('body').append($p);
   m$.test_component2 = {};
@@ -20,6 +20,7 @@ describe("_$ scoped jQuery", function() {
 
   it("sees children in component", function() {
     expect($p_outside_test_component2['length']).to.equal(1);
+    $p.remove();
   });
 });
 

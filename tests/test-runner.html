@@ -18,8 +18,10 @@
         <script src="../mozart.js"></script>
         <script src="./test.js"></script>
         <script>
+          $(document).ready(function() {
             if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
             else { mocha.run(); }
+          });
         </script>
     </body>
 </html>
