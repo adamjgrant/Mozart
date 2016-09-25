@@ -178,13 +178,13 @@ Mozart.Component.prototype.set_scope = function(fn_name_or_function) {
   var selector = [""].concat((this.js_name).split(" ")).reduce(function(a, b) {
         return a + '[data-component~="' + b + '"]';
       }),
-      $selector = $(selector);
       _$ = function(scoped_selector) {
-        return $selector.find(scoped_selector);
+        return $(selector).find(scoped_selector);
       }
 
   _$.api    = m$[this.js_name].api
   _$.router = m$[this.js_name].router
+  _$.selector = selector
   var fn = typeof(fn_name_or_function) == "function" ? fn_name_or_function : m$[this.js_name][fn_name_or_function];
   return (fn === undefined ? _$ : fn.call(this, _$) );
 };
