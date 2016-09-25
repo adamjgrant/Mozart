@@ -38,7 +38,6 @@ var Mozart = {
 
   Component: function(class_and_instance) {
     var initialize = function(name, origin) {
-      this.html_name = Mozart.parameterize(name, true);
       this.js_name   = Mozart.parameterize(name);
       m$[this.js_name]        = m$[this.js_name] || {};
       m$[this.js_name].config = m$[this.js_name].config || {};
@@ -176,7 +175,7 @@ Mozart.Component.prototype.set_router = function() {
 };
 
 Mozart.Component.prototype.set_scope = function(fn_name_or_function) {
-  var selector = [""].concat((this.html_name).split(" ")).reduce(function(a, b) {
+  var selector = [""].concat((this.js_name).split(" ")).reduce(function(a, b) {
         return a + '[data-component~="' + b + '"]';
       }),
       $selector = $(selector);
