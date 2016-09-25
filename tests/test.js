@@ -69,9 +69,11 @@ describe("Mozart 1st Class Instance Variable", function() {
     }
   }
 
+  var options_id_outside_api_custom;
   m$.test_component_for_extending_without_bare_initialization.config = {
     api: {
       custom: function(_$, options) {
+        options_id_outside_api_custom = options.id;
         $.ajax(_$.router.show(options))
       }
     },
@@ -128,7 +130,12 @@ describe("Mozart 1st Class Instance Variable", function() {
   });
 
   it("defines an api if one is not present", function() {
-    expect(_$_api_outside_event).to.be.a('object')
+    expect(_$_api_outside_event).to.be.a('object');
+  });
+
+  it("passes options from api call to config api function", function() {
+    m$.test_component_for_extending_without_bare_initialization.api.custom({id: 1});
+    expect(options_id_outside_api_custom).to.equal(1);
   });
 
   it("applies _$ to ready function", function() {
