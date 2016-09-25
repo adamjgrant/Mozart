@@ -179,7 +179,10 @@ Mozart.Component.prototype.set_scope = function(fn_name_or_function) {
   var selector = [""].concat((this.html_name).split(" ")).reduce(function(a, b) {
         return a + '[data-component~="' + b + '"]';
       }),
-      _$ = function(scoped_selector) { return $(selector + " " + scoped_selector); };
+      $selector = $(selector);
+      _$ = function(scoped_selector) {
+        return $selector.find(scoped_selector);
+      }
 
   _$.api    = m$[this.js_name].api
   _$.router = m$[this.js_name].router
