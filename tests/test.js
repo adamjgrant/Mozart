@@ -20,24 +20,18 @@ describe("Mozart 1st Class Instance Variable", function() {
     _$_api_outside_event = _$.api;
   };
 
-  test_component_without_router.api = {
-    show: function(_$) {
-      $.get(_$.router.show());
-    }
-  }
-
   test_component_with_everything.events = function(_$) {
     $("p").click(function() { return "foo" })
   };
 
   test_component_with_everything.config = {
     api: {
-      show: function(_$) {
-        $.get(_$.router.show);
+      show: function(_$, options) {
+        $.get(_$.router.show(options));
       }
     },
     router: {
-      base_url: "custom_base",
+      base_url: "/custom_base/",
       name: "custom_name",
       routes: {
         show: {
@@ -72,7 +66,7 @@ describe("Mozart 1st Class Instance Variable", function() {
   });
 
   it("sets a router object with default functions for interpolating", function() {
-    expect(test_component_with_everything.router.index()).to.be.a('function');
+    expect(test_component_with_everything.router.index).to.be.a('function');
   });
 });
 

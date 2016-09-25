@@ -113,25 +113,21 @@ Mozart.Component.prototype.get_router = function() {
 };
 
 Mozart.Component.prototype.get_api = function() {
-  // TODO: Like what we're going to do with route, this should be split out into
-  // a component.api function and component.config.api object so that _$ can be
-  // applied to component.config.api's functions from component.api functions
   var api = $.extend(true, {
     index: function(_$, options) {
-      $.get(window[this.js_name].router.index());
+      return $.get(window[this.js_name].router.index());
     }
   }, window[this.js_name].api);
-  // for (key in api) { this.set_scope(api[key]); }
-
-  return api
+  return api;
 };
 
 Mozart.Component.prototype.set_api = function() {
-  var api = {};
+  var api = {},
+      _$ = this.set_scope();
+
   $.each(window[this.js_name].config.api, function(api_key, value) {
     api[api_key] = function(options) {
-      _$ = this.set_scope()
-      window[this.js_name].config.api[api_key].apply(this, _$, options)
+      window[this.js_name].config.api[api_key].call(this, _$, options)
     }.bind(this);
   }.bind(this));
 
