@@ -74,7 +74,6 @@ describe("Mozart 1st Class Instance Variable", function() {
     api: {
       custom: function(_$, options) {
         options_id_outside_api_custom = options.id;
-        $.ajax(_$.router.show(options))
       }
     },
     router: {
