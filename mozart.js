@@ -184,5 +184,5 @@ Mozart.Component.prototype.set_scope = function(fn_name_or_function) {
   _$.api    = m$[this.js_name].api
   _$.router = m$[this.js_name].router
   var fn = typeof(fn_name_or_function) == "function" ? fn_name_or_function : m$[this.js_name][fn_name_or_function];
-  return (fn === undefined ? _$ : fn.call(this, _$));
+  return (fn === undefined ? _$ : $(document).ready(function() { fn.call(this, _$) }));
 };
