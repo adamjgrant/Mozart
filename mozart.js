@@ -110,11 +110,16 @@ Mozart.Component.prototype.get_router = function() {
 };
 
 Mozart.Component.prototype.get_api = function() {
-  var api = $.extend(true, {
-    index: function(_$, options) {
-      return $.get(window[this.js_name].router.index());
-    }
-  }, window[this.js_name].api);
+  var methods = ["index", "show", "destroy", "update", "new", "create"],
+      default_api = {};
+
+      $.each(methods, function(index, method) {
+        default_api[method] = function(_$, options) {
+          return $.ajax(window[this.js_name].router[method].call(this, options))
+        }.bind(this);
+      }.bind(this));
+
+  var api = $.extend(true, default_api, window[this.js_name].api);
   return api;
 };
 

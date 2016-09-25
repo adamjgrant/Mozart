@@ -9,9 +9,10 @@ describe("Mozart 1st Class Instance Variable", function() {
   var _$_outside_event,
       _$_router_outside_event;
 
-  window.test_component_without_api = {};
-  window.test_component_without_router = {};
+  window.test_component_without_api     = {};
+  window.test_component_without_router  = {};
   window.test_component_with_everything = {};
+  window.test_component_for_extending   = {};
 
   test_component_without_api.events = function(_$) {
     _$("p").click(function() { return "foo"; });
@@ -45,7 +46,8 @@ describe("Mozart 1st Class Instance Variable", function() {
   Mozart.init([
     "test-component-without-router",
     "test-component-without-api",
-    "test_component_with_everything"
+    "test_component_with_everything",
+    "test_component_for_extending"
   ]);
 
   it("defines a scoped jQuery (_$)", function() {
