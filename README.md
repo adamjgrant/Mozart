@@ -9,11 +9,12 @@ Based on
 Note, the component's files should be loaded before Mozart itself.
 
 1. Pick a name for your component. For this guide, we'll use "filter table".
-2. Define a variable with the name of your component as slugs and set to a variable.
+2. Create an empty `m$` object to hold your components. Define a variable with the name of your component as slugs and set to a variable.
 
 For example,
 
-    var filter_table = {};
+    var m$ = {};
+    m$.filter_table = {};
 
 3. Set a key of this object to the variable `events`.
 

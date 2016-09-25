@@ -1,3 +1,4 @@
+window.m$ = {}
 // Constructor
 var Mozart = {
   init: function(_components) {
@@ -34,7 +35,7 @@ var Mozart = {
   Component: function(name) {
     this.html_name = Mozart.parameterize(name, true);
     this.js_name   = Mozart.parameterize(name);
-    window[this.js_name].config = window[this.js_name].config || {}
+    m$[this.js_name].config = m$[this.js_name].config || {}
     default_variable = {
       config: {
         router: this.get_router(),
@@ -43,10 +44,10 @@ var Mozart = {
       router: {},
       api: {}
     };
-    window[this.js_name] = $.extend(true, default_variable, window[this.js_name]);
+    m$[this.js_name] = $.extend(true, default_variable, m$[this.js_name]);
     default_variable.router = this.set_router();
     default_variable.api = this.set_api();
-    window[this.js_name] = $.extend(true, default_variable, window[this.js_name]);
+    m$[this.js_name] = $.extend(true, default_variable, m$[this.js_name]);
     this._$ = function(fn) { return this.set_scope(fn) };
   }
 }
@@ -61,12 +62,12 @@ String.prototype.interpolate = function (o) {
 };
 
 Mozart.Component.prototype.get_variable = function() {
-  variable = window[this.js_name];
+  variable = m$[this.js_name];
   if (!variable) {
     return console.error("Could not find the base component variable " + this.js_name)
   }
   else {
-    return window[this.js_name];
+    return m$[this.js_name];
   }
 };
 
@@ -76,7 +77,7 @@ Mozart.Component.prototype.get_router = function() {
       base_url: "/",
       name: this.js_name
     },
-    window[this.js_name].config["router"]
+    m$[this.js_name].config["router"]
   );
 
   router.routes = {
@@ -115,11 +116,11 @@ Mozart.Component.prototype.get_api = function() {
 
       $.each(methods, function(index, method) {
         default_api[method] = function(_$, options) {
-          return $.ajax(window[this.js_name].router[method].call(this, options))
+          return $.ajax(m$[this.js_name].router[method].call(this, options))
         }.bind(this);
       }.bind(this));
 
-  var api = $.extend(true, default_api, window[this.js_name].api);
+  var api = $.extend(true, default_api, m$[this.js_name].api);
   return api;
 };
 
@@ -127,9 +128,9 @@ Mozart.Component.prototype.set_api = function() {
   var api = {},
       _$ = this.set_scope();
 
-  $.each(window[this.js_name].config.api, function(api_key, value) {
+  $.each(m$[this.js_name].config.api, function(api_key, value) {
     api[api_key] = function(options) {
-      window[this.js_name].config.api[api_key].call(this, _$, options)
+      m$[this.js_name].config.api[api_key].call(this, _$, options)
     }.bind(this);
   }.bind(this));
 
@@ -137,9 +138,9 @@ Mozart.Component.prototype.set_api = function() {
 };
 Mozart.Component.prototype.set_router = function() {
   var routes = {};
-  $.each(window[this.js_name].config.router.routes, function(route_key, value) {
+  $.each(m$[this.js_name].config.router.routes, function(route_key, value) {
     routes[route_key] = function(options) {
-      router_config = window[this.js_name].config.router;
+      router_config = m$[this.js_name].config.router;
       options = $.extend(true, {
         base_url: router_config.base_url,
         name: router_config.name
@@ -159,8 +160,8 @@ Mozart.Component.prototype.set_scope = function(fn_name_or_function) {
       }),
       _$ = function(scoped_selector) { return $(selector + " " + scoped_selector); };
 
-  _$.api    = window[this.js_name].api
-  _$.router = window[this.js_name].router
-  var fn = typeof(fn_name_or_function) == "function" ? fn_name_or_function : window[this.js_name][fn_name_or_function];
+  _$.api    = m$[this.js_name].api
+  _$.router = m$[this.js_name].router
+  var fn = typeof(fn_name_or_function) == "function" ? fn_name_or_function : m$[this.js_name][fn_name_or_function];
   return (fn === undefined ? _$ : fn.call(this, _$));
 };

@@ -9,23 +9,23 @@ describe("Mozart 1st Class Instance Variable", function() {
   var _$_outside_event,
       _$_router_outside_event;
 
-  window.test_component_without_api     = {};
-  window.test_component_without_router  = {};
-  window.test_component_with_everything = {};
-  window.test_component_for_extending   = {};
+  m$.test_component_without_api     = {};
+  m$.test_component_without_router  = {};
+  m$.test_component_with_everything = {};
+  m$.test_component_for_extending   = {};
 
-  test_component_without_api.events = function(_$) {
+  m$.test_component_without_api.events = function(_$) {
     _$("p").click(function() { return "foo"; });
     _$_outside_event = _$;
     _$_router_outside_event = _$.router;
     _$_api_outside_event = _$.api;
   };
 
-  test_component_with_everything.events = function(_$) {
+  m$.test_component_with_everything.events = function(_$) {
     $("p").click(function() { return "foo" })
   };
 
-  test_component_with_everything.config = {
+  m$.test_component_with_everything.config = {
     api: {
       show: function(_$, options) {
         $.get(_$.router.show(options));
@@ -47,7 +47,8 @@ describe("Mozart 1st Class Instance Variable", function() {
     "test-component-without-router",
     "test-component-without-api",
     "test_component_with_everything",
-    "test_component_for_extending"
+    { "test_component_for_extending": "extended1" },
+    { "test_component_for_extending": "extended2" }
   ]);
 
   it("defines a scoped jQuery (_$)", function() {
@@ -55,8 +56,8 @@ describe("Mozart 1st Class Instance Variable", function() {
   });
 
   it("sees a component variables", function() {
-    expect(test_component_without_api).to.be.a('object');
-    expect(test_component_without_router).to.be.a('object');
+    expect(m$.test_component_without_api).to.be.a('object');
+    expect(m$.test_component_without_router).to.be.a('object');
   });
 
   it("defines a router if one is not present", function() {
@@ -68,16 +69,20 @@ describe("Mozart 1st Class Instance Variable", function() {
   });
 
   it("sets a router object with default functions for interpolating", function() {
-    expect(test_component_with_everything.router.index).to.be.a('function');
-    expect(test_component_with_everything.router.show).to.be.a('function');
+    expect(m$.test_component_with_everything.router.index).to.be.a('function');
+    expect(m$.test_component_with_everything.router.show).to.be.a('function');
   });
 
   it("sets an api object with default functions for executing AJAX", function() {
-    expect(test_component_with_everything.api.index).to.be.a('function');
-    expect(test_component_with_everything.api.show).to.be.a('function');
+    expect(m$.test_component_with_everything.api.index).to.be.a('function');
+    expect(m$.test_component_with_everything.api.show).to.be.a('function');
   });
 });
 
 describe("2nd class Mozart instance variable", function() {
-
+  it("creates a 2nd class component variable", function() {
+    expect(m$.test_component_for_extending).to.be.a('object');
+    expect(extended1).to.be.a('object');
+    expect(extended2).to.be.a('object');
+  });
 });
