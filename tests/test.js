@@ -67,6 +67,12 @@ describe("Mozart 1st Class Instance Variable", function() {
 
   it("sets a router object with default functions for interpolating", function() {
     expect(test_component_with_everything.router.index).to.be.a('function');
+    expect(test_component_with_everything.router.show).to.be.a('function');
+  });
+
+  it("sets an api object with default functions for executing AJAX", function() {
+    expect(test_component_with_everything.api.index).to.be.a('function');
+    expect(test_component_with_everything.api.show).to.be.a('function');
   });
 });
 
