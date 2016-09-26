@@ -179,8 +179,12 @@ Mozart.Component.prototype.set_scope = function(fn_name_or_function) {
         return a + '[data-component~="' + b + '"]';
       }),
       _$ = function(scoped_selector) {
-        // Allows for $(this) to equal original component
-        return (typeof(scoped_selector == "function")) ? $(selector) : $(selector).find(scoped_selector);
+        if (JSON.stringify($(selector)) == JSON.stringify(scoped_selector)) {
+          return $(selector)
+        }
+        else {
+          return $(selector).find(scoped_selector);
+        }
       }
 
   _$.api    = m$[this.js_name].api
@@ -188,6 +192,6 @@ Mozart.Component.prototype.set_scope = function(fn_name_or_function) {
   _$.selector = selector
   var fn = typeof(fn_name_or_function) == "function" ? fn_name_or_function : m$[this.js_name][fn_name_or_function];
   return (fn === undefined ? _$ : $(document).ready(function() {
-    fn.call(_$, _$) }.bind(_$)
+    fn.call($(selector), _$) }.bind($(selector))
   ));
 };
