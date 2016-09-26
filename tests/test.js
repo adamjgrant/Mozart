@@ -8,7 +8,7 @@ describe("Mozart class", function() {
 describe("_$ scoped jQuery", function() {
   var $p_outside_test_component2 = [],
       _$_this,
-      $p = $("<div data-component='test_component2'><p>foo</p></div>");
+      $p = $("<div data-component='test_component2'><p data-marco='polo'>foo</p></div>");
 
   $('body').append($p);
   m$.test_component2 = {};
@@ -27,6 +27,10 @@ describe("_$ scoped jQuery", function() {
 
   it("sets _$(this) to component element", function() {
     expect(_$_this.data("component")).to.equal("test_component2");
+  });
+
+  it("sets _$('p') to element inside component", function() {
+    expect($p_outside_test_component2.data("marco")).to.equal("polo");
   });
 });
 
