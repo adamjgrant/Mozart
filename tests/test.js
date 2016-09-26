@@ -26,7 +26,7 @@ describe("_$ scoped jQuery", function() {
   });
 
   it("sets _$(this) to component element", function() {
-    expect(_$_this.data("component")).to.equal("test-component2");
+    expect(_$_this.data("component")).to.equal("test_component2");
   });
 });
 
