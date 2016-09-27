@@ -34,9 +34,15 @@ describe("_$ scoped jQuery", function() {
   });
 });
 
+var _$_outside_event;
+m$.store = {
+  test_component_without_api: {
+    test_var: "test"
+  }
+}
+
 describe("Mozart 1st Class Instance Variable", function() {
-  var _$_outside_event,
-      _$_router_outside_event,
+  var _$_router_outside_event,
       _$_outside_ready;
 
   m$.test_component_without_api     = {};
@@ -186,5 +192,11 @@ describe("2nd class Mozart instance variable", function() {
 
   it("does not change base 1st class component", function() {
     expect(m$.test_component_for_extending_without_bare_initialization.config.router.routes.custom.url).to.equal('notoverwritten');
+  });
+});
+
+describe("variable store", function() {
+  it("reads from a corresponding store of variables", function() {
+    expect(_$_outside_event.store.test_var).to.equal("test");
   });
 });
