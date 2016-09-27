@@ -4,17 +4,19 @@ Mozart's strategy is to consider each piece of your app as a "component."
 
 Inside each component lives its own private API, routes, events, and a scoped jQuery variable `_$` you can use alongside the normal `$`.
 
-# Convention over configuration
+## Convention over configuration
 
 Upon declaration, Mozart automatically sets up an AJAX API ready to use out of the box or customized to your liking.
 
-# Extendible
+## Extendible
 
 Components are designed to used in dual layers if desired. This means you write components that inherit from another component's implementation and continue evolving the class or instance component loosely-coupled.
 
-# Plays well with others
+## Plays well with others
 
 Mozart's syntax may look like other frameworks, but it's mutually exclusive to selector libraries like jQuery and UI-binding frameworks like React and Angular. To the contrary, you can use Mozart in harmony with other frameworks.
+
+[See the Wiki guide for more](https://github.com/adamjgrant/Mozart/wiki)
 
 Based on
  - [Scoped Component pattern](https://gist.github.com/adamjgrant/599530dab67db17c5b2d) ([Example Usage](http://codepen.io/ajkochanowicz/pen/pyeqpO))
