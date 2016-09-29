@@ -151,7 +151,7 @@ Mozart.Component.prototype.set_api = function() {
 
     $.each(m$[this.js_name].config.api, function(api_key, value) {
       api[api_key] = function(options) {
-        return m$[this.js_name].config.api[api_key].call(_$(this.js_name), _$, options)
+        return m$[this.js_name].config.api[api_key].call(_$, _$, options)
       }.bind(this);
     }.bind(this));
 
