@@ -140,7 +140,7 @@ Mozart.Component.prototype.get_api = function() {
         }.bind(this);
       }.bind(this));
 
-  var api = $.extend(true, {}, default_api, m$[this.js_name].api);
+  var api = $.extend(true, {}, default_api, m$[this.js_name].config.api);
   return api;
 };
 
