@@ -51,6 +51,7 @@ var Mozart = {
         api: {}
       };
       default_variable        = origin ? m$[origin] : default_variable
+      this.$self              = $("[data-component~='" + this.js_name + "']");
       m$[this.js_name]        = $.extend(true, {}, default_variable, m$[this.js_name]);
       default_variable.router = this.set_router(origin);
       this.set_api(origin);
@@ -147,11 +148,12 @@ Mozart.Component.prototype.get_api = function() {
 Mozart.Component.prototype.set_api = function() {
   var decorate = function() {
     var api = {},
+        self = this.$self,
         _$ = this.set_scope();
 
     $.each(m$[this.js_name].config.api, function(api_key, value) {
       api[api_key] = function(options) {
-        return m$[this.js_name].config.api[api_key].call(_$, _$, options)
+        return m$[this.js_name].config.api[api_key].call(self, _$, options)
       }.bind(this);
     }.bind(this));
 
