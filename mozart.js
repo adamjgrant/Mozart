@@ -196,7 +196,7 @@ Mozart.Component.prototype.set_scope = function(fn_name_or_function) {
   }.bind(this);
   _$.set_api   = function(obj) {
     m$[this.js_name].config.api = $.extend(true, {}, m$[this.js_name].config.api, obj);
-    this.set_api();
+    m$[this.js_name].api = this.set_api();
   }.bind(this);
   var fn = typeof(fn_name_or_function) == "function" ? fn_name_or_function : m$[this.js_name][fn_name_or_function];
   return (fn === undefined ? _$ : $(document).ready(function() {
