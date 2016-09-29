@@ -43,7 +43,8 @@ m$.store = {
 
 describe("Mozart 1st Class Instance Variable", function() {
   var _$_router_outside_event,
-      _$_outside_ready;
+      _$_outside_ready,
+      _$_api_outside_api;
 
   m$.test_component_without_api     = {};
   m$.test_component_without_router  = {};
@@ -62,10 +63,6 @@ describe("Mozart 1st Class Instance Variable", function() {
   m$.test_component_with_everything.events = function(_$) {
     $("p").click(function() { return "foo" })
     _$.set("foo", "bar");
-    _$.set_api({
-      foo: function(_$, options) {
-      }
-    });
   };
 
   m$.test_component_with_everything.ready = function(_$) {
@@ -76,6 +73,16 @@ describe("Mozart 1st Class Instance Variable", function() {
     api: {
       show: function(_$, options) {
         $.get(_$.router.show(options));
+      },
+      call_set_api: function(_$, options) {
+        _$.set_api({
+          fizz: function(_$, options) {
+            return "bar";
+          }
+        });
+      },
+      blank_call: function(_$, options) {
+        _$_api_outside_api = _$.api;
       }
     },
     router: {
@@ -176,8 +183,14 @@ describe("Mozart 1st Class Instance Variable", function() {
     expect(m$.test_component_with_everything.foo).to.equal("bar");
   });
 
+  it("allows _$.api to be called within itself", function() {
+    m$.test_component_with_everything.api.blank_call();
+    should.exist(_$_api_outside_api.create);
+  });
+
   it("allows for the api after initialization", function() {
-    should.exist(m$.test_component_with_everything.api.foo);
+    m$.test_component_with_everything.api.call_set_api();
+    expect(m$.test_component_with_everything.api.fizz()).to.equal("bar");
   });
 });
 

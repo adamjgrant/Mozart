@@ -53,7 +53,7 @@ var Mozart = {
       default_variable        = origin ? m$[origin] : default_variable
       m$[this.js_name]        = $.extend(true, {}, default_variable, m$[this.js_name]);
       default_variable.router = this.set_router(origin);
-      default_variable.api    = this.set_api(origin);
+      this.set_api(origin);
       m$[this.js_name]        = $.extend(true, {}, default_variable, m$[this.js_name]);
       this._$                 = function(fn) { return this.set_scope(fn) };
       Mozart.initialized.push(name);
@@ -145,17 +145,24 @@ Mozart.Component.prototype.get_api = function() {
 };
 
 Mozart.Component.prototype.set_api = function() {
-  var api = {},
-      _$ = this.set_scope();
+  var decorate = function() {
+    var api = {},
+        _$ = this.set_scope();
 
-  $.each(m$[this.js_name].config.api, function(api_key, value) {
-    api[api_key] = function(options) {
-      return m$[this.js_name].config.api[api_key].call(this, _$, options)
-    }.bind(this);
-  }.bind(this));
+    $.each(m$[this.js_name].config.api, function(api_key, value) {
+      api[api_key] = function(options) {
+        // _$.api = this;
+        return m$[this.js_name].config.api[api_key].call(this, _$, options)
+      }.bind(this);
+    }.bind(this));
 
-  return api
+    m$[this.js_name].api = api;
+  }.bind(this);
+  // Calls twice to nest the api on the _$ within each api call itself.
+  decorate();
+  decorate();
 };
+
 Mozart.Component.prototype.set_router = function() {
   var routes = {};
   $.each(m$[this.js_name].config.router.routes, function(route_key, value) {
@@ -196,8 +203,7 @@ Mozart.Component.prototype.set_scope = function(fn_name_or_function) {
   }.bind(this);
   _$.set_api   = function(obj) {
     m$[this.js_name].config.api = $.extend(true, {}, m$[this.js_name].config.api, obj);
-    m$[this.js_name].api = this.set_api();
-    debugger;
+    this.set_api();
   }.bind(this);
   var fn = typeof(fn_name_or_function) == "function" ? fn_name_or_function : m$[this.js_name][fn_name_or_function];
   return (fn === undefined ? _$ : $(document).ready(function() {
