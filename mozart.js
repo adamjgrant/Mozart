@@ -182,11 +182,12 @@ Mozart.Component.prototype.set_router = function() {
 };
 
 Mozart.Component.prototype.set_scope = function(fn_name_or_function) {
-  var selector = [""].concat((this.js_name).split(" ")).reduce(function(a, b) {
+  var component_name = this.js_name,
+      selector = [""].concat((component_name).split(" ")).reduce(function(a, b) {
         return a + '[data-component~="' + b + '"]';
       }),
       _$ = function(scoped_selector) {
-        if (JSON.stringify($(selector)) == JSON.stringify(scoped_selector)) {
+        if ($(scoped_selector).data("component") == component_name) {
           return $(selector)
         }
         else {
