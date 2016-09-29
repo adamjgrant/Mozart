@@ -194,6 +194,9 @@ Mozart.Component.prototype.set_scope = function(fn_name_or_function) {
   // TODO: Lots of confusion about what _$ means. Is it a shortcut to m$.mycomponent? Should it be?
   // Maybe we could decorate that with the above and then set _$ equal to it.
   // Although...one problem would be that config stuff wouldn't be picked up at init time.
+  _$.set      = function(key, value) {
+    m$[this.js_name][key] = value;
+  }.bind(this);
   var fn = typeof(fn_name_or_function) == "function" ? fn_name_or_function : m$[this.js_name][fn_name_or_function];
   return (fn === undefined ? _$ : $(document).ready(function() {
     fn.call($(selector), _$) }.bind($(selector))
