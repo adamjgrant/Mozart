@@ -52,9 +52,8 @@ var Mozart = {
       };
       default_variable        = origin ? m$[origin] : default_variable
       m$[this.js_name]        = $.extend(true, {}, default_variable, m$[this.js_name]);
-      default_variable.router = this.set_router(origin);
+      this.set_router(origin);
       this.set_api(origin);
-      m$[this.js_name]        = $.extend(true, {}, default_variable, m$[this.js_name]);
       this._$                 = function(fn) { return this.set_scope(fn) };
       Mozart.initialized.push(name);
     }.bind(this);
@@ -180,7 +179,8 @@ Mozart.Component.prototype.set_router = function() {
       }
     }.bind(this);
   }.bind(this));
-  return routes
+
+  m$[this.js_name].router = routes;
 };
 
 Mozart.Component.prototype.set_scope = function(fn_name_or_function) {
