@@ -134,11 +134,11 @@ Mozart.Component.prototype.get_api = function() {
   var methods = ["index", "show", "destroy", "update", "new", "create"],
       default_api = {};
 
-      $.each(methods, function(index, method) {
-        default_api[method] = function(_$, options) {
-          return $.ajax(m$[this.js_name].router[method].call(this, options))
-        }.bind(this);
-      }.bind(this));
+  $.each(methods, function(index, method) {
+    default_api[method] = function(_$, options) {
+      return $.ajax(m$[this.js_name].router[method].call(this, options))
+    }.bind(this);
+  }.bind(this));
 
   var api = $.extend(true, {}, default_api, m$[this.js_name].config.api);
   return api;
@@ -169,8 +169,9 @@ Mozart.Component.prototype.set_router = function() {
       router_config = m$[this.js_name].config.router;
       options = $.extend(true, {}, {
         base_url: router_config.base_url,
-        name: router_config.name
-      }, options);
+        name: router_config.name,
+        routes: router_config.routes
+      });
       return {
         url: value.url.interpolate(options),
         method: value.method
