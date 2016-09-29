@@ -136,6 +136,7 @@ Mozart.Component.prototype.get_api = function() {
 
   $.each(methods, function(index, method) {
     default_api[method] = function(_$, options) {
+      options = options || {}
       return $.ajax(m$[this.js_name].router[method].call(this, options))
     }.bind(this);
   }.bind(this));
@@ -151,6 +152,7 @@ Mozart.Component.prototype.set_api = function() {
 
     $.each(m$[this.js_name].config.api, function(api_key, value) {
       api[api_key] = function(options) {
+        options = options || {}
         return m$[this.js_name].config.api[api_key].call(this, _$, options)
       }.bind(this);
     }.bind(this));
