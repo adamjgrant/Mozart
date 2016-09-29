@@ -61,6 +61,7 @@ describe("Mozart 1st Class Instance Variable", function() {
 
   m$.test_component_with_everything.events = function(_$) {
     $("p").click(function() { return "foo" })
+    _$.set("foo", "bar");
   };
 
   m$.test_component_with_everything.ready = function(_$) {
@@ -165,6 +166,10 @@ describe("Mozart 1st Class Instance Variable", function() {
   it("sets an api object with default functions for executing AJAX", function() {
     expect(m$.test_component_with_everything.api.index).to.be.a('function');
     expect(m$.test_component_with_everything.api.show).to.be.a('function');
+  });
+
+  it("allows for setting a component's key to a certain value", function() {
+    expect(m$.test_component_with_everything.foo).to.equal("bar");
   });
 });
 
