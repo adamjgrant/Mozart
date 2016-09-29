@@ -150,7 +150,7 @@ Mozart.Component.prototype.set_api = function() {
 
   $.each(m$[this.js_name].config.api, function(api_key, value) {
     api[api_key] = function(options) {
-      m$[this.js_name].config.api[api_key].call(this, _$, options)
+      return m$[this.js_name].config.api[api_key].call(this, _$, options)
     }.bind(this);
   }.bind(this));
 
@@ -197,6 +197,7 @@ Mozart.Component.prototype.set_scope = function(fn_name_or_function) {
   _$.set_api   = function(obj) {
     m$[this.js_name].config.api = $.extend(true, {}, m$[this.js_name].config.api, obj);
     m$[this.js_name].api = this.set_api();
+    debugger;
   }.bind(this);
   var fn = typeof(fn_name_or_function) == "function" ? fn_name_or_function : m$[this.js_name][fn_name_or_function];
   return (fn === undefined ? _$ : $(document).ready(function() {
