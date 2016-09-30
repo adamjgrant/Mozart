@@ -172,7 +172,7 @@ Mozart.Component.prototype.set_router = function() {
         base_url: router_config.base_url,
         name: router_config.name,
         routes: router_config.routes
-      });
+      }, options);
       return {
         url: value.url.interpolate(options),
         method: value.method
@@ -207,10 +207,17 @@ Mozart.Component.prototype.set_scope = function(fn_name_or_function) {
   _$.set      = function(key, value) {
     m$[this.js_name][key] = value;
   }.bind(this);
+
   _$.set_api   = function(obj) {
     m$[this.js_name].config.api = $.extend(true, {}, m$[this.js_name].config.api, obj);
     this.set_api();
   }.bind(this);
+
+  _$.set_router = function(obj) {
+    m$[this.js_name].config.router = $.extend(true, {}, m$[this.js_name].config.router, obj);
+    this.set_router();
+  }.bind(this);
+
   var fn = typeof(fn_name_or_function) == "function" ? fn_name_or_function : m$[this.js_name][fn_name_or_function];
   return (fn === undefined ? _$ : $(document).ready(function() {
       fn.call($(selector), _$)
