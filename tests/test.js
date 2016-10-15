@@ -1,6 +1,9 @@
 describe("Mozart class", function() {
-  it("is defined", function() {
+  it("Mozart is defined", function() {
     expect(Mozart).to.be.a('object');
+  });
+
+  it("m$ is defined", function() {
     expect(Mozart.init).to.be.a('function');
   });
 });
