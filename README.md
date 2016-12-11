@@ -178,6 +178,11 @@ library but scoped to the component.
 
 So `_$("button")` is the same as `$("[data-component~='form'] button")`
 
+If you're not using jQuery, `$` will instead become a thin wrapper around
+JavaScript's native `document.querySelectorAll` and converted to a real `Array`
+type. `_$` will work the same way, but be mindful that `$` and `_$` will always
+return arrays even if one element is found.
+
 `_$` is also decorated with `_$.api` and `_$.routes` which just call to the
 component's own `.api` and `.routes` without having to hold on to your `this`
 within functions.
