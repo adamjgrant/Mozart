@@ -189,6 +189,15 @@ within functions.
 
 So `_$.api.create_user` is the same as `m$.form.api.create_user`
 
+### Initialize
+
+All that's left to do now is to tell Mozart our implementation is ready.
+Run this after all your code.
+
+~~~javascript
+Mozart.init();
+~~~
+
 ## What else?
 
 - You only need **one JS file**. It's Just **under 3kb unminified** and **barely over 1kb minified**.
