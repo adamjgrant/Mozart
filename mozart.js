@@ -49,7 +49,7 @@ var Mozart = function() {
 
   this.api    = {};
   this.routes = {};
-  this.events = {};
+  this.events = new Function;
   this.template = {}
   this.template.clone = function(id) {
     var template = $(this.scope + " template#" + id)[0],
