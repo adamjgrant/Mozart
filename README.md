@@ -189,6 +189,81 @@ within functions.
 
 So `_$.api.create_user` is the same as `m$.form.api.create_user`
 
+### Document Fragments
+
+But if we're not using Angular, React, Ember, etc. How do we manage reusable and
+configurable chunks of HTML like React's Components or Angular's Directives?
+
+Again, JavaScript has native functionality already that emulates this well. Enter
+[Document Fragments](https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment).
+
+Let's look at our `list` component, which will show a user's row with their full
+name.
+
+~~~html
+<aside data-component="list">
+  <ul>  
+    <li>
+      <i class="available"></i>
+      John Smith
+    </li>
+    <li>
+      <i class="busy"></i>
+      Jane Doe
+    </li>
+    ...
+  </ul>
+</aside>
+~~~
+
+To use a more interesting example, we'll assume each user has a status icon next
+to their name, shown above.
+
+We want to populate this list from a dynamic list. So let's store the template
+of a user row and generate new DOM elements from it whenever needed.
+
+~~~html
+<aside data-component="list">
+  <ul></ul>
+
+  <template id="row">
+    <li>
+      <i></i>
+      <span></span>
+    </li>
+  </template>
+</aside>
+~~~
+
+Now, in our api, we can define a function to populate this list from JSON.
+
+#### list.js
+
+~~~javascript
+m$.list = new Mozart();
+~~~
+
+#### list_api.js
+
+~~~javascript
+m$.list.set_api({
+  ...
+  map_users: function(_$, options) {
+    var list_html = ""
+
+    options.users.forEach(function(user) {
+      var $row = _$.template("row").clone();
+      $row.find("i").addClass(user.status);
+      $row.find("span").html(user.name);
+      list_html += $row.html();
+    });
+
+    _$("ul").html(list_html);
+  }
+  ...
+});
+~~~
+
 ### Initialize
 
 All that's left to do now is to tell Mozart our implementation is ready.

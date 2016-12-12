@@ -3,6 +3,7 @@ var _$_decorated = function(context) {
   var decorated = context._$.bind(context);
   decorated.api = context.api;
   decorated.routes = context.routes;
+  decorated.template = context.template;
   return decorated;
 }
 
@@ -60,7 +61,7 @@ var Mozart = function() {
       clone: function() {
         var parent = document.createElement("div");
         parent.append(document.importNode(this.template.content, true));
-        return parent.childNodes[0]
+        return (typeof(jQuery) == "undefined") ? parent.childNodes[0] : $(parent.childNodes[0]);
       }
     };
   }
