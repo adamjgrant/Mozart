@@ -133,9 +133,7 @@ m$.form.set_api(
         });
     },
 
-    clear_form: function(_$, options) {
-      _$("input[type='text'], input[type='search']").val("");
-    }
+    clear_form: function(_$, options) { _$("input").val(""); }
   }
 );
 ~~~
