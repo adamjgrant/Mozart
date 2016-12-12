@@ -271,7 +271,7 @@ Or we could implement our "add one row" call from form_api.js above
 map_users: function(_$, options) { ... }
 ...
 add_row: function(_$, options) {
-  var $row = _$.template("row").clone();
+  var $row = _$.template.clone("row");
   $row.find("i").addClass(user.status);
   $row.find("span").html(user.name);
 
