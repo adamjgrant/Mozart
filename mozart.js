@@ -53,6 +53,7 @@ var Mozart = function() {
   this.template = {}
   this.template.clone = function(id) {
     var template = $(this.scope + " template#" + id)[0],
+        parser = new DOMParser,
         parent = document.createElement("div");
 
     if (!template) {
@@ -60,7 +61,10 @@ var Mozart = function() {
     }
 
     parent.append(document.importNode(template.content, true));
-    return (typeof(jQuery) == "undefined") ? parent.childNodes[0] : $(parent.childNodes[0]);
+    // TODO Leverage DocumentFragment.cloneNode? Might not need some of the above.
+    var copy = parser.parseFromString(parent.innerHTML, "text/xml").documentElement;
+    
+    return (typeof(jQuery) == "undefined") ? copy : $(copy);
   }.bind(this);
 };
 
