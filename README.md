@@ -264,6 +264,22 @@ m$.list.set_api({
 });
 ~~~
 
+Or we could implement our "add one row" call from form_api.js above
+
+~~~javascript
+...
+map_users: function(_$, options) { ... }
+...
+add_row: function(_$, options) {
+  var $row = _$.template("row").clone();
+  $row.find("i").addClass(user.status);
+  $row.find("span").html(user.name);
+
+  _$("ul").append($row);
+}
+...
+~~~
+
 ### Initialize
 
 All that's left to do now is to tell Mozart our implementation is ready.
