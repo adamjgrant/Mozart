@@ -252,7 +252,7 @@ m$.list.set_api({
     var list_html = ""
 
     options.users.forEach(function(user) {
-      var $row = _$.template("row").clone();
+      var $row = _$.template.clone("row");
       $row.find("i").addClass(user.status);
       $row.find("span").html(user.name);
       list_html += $row.html();
