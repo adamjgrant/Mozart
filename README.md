@@ -118,11 +118,11 @@ m$.form.set_api(
   {
     new_user: function(_$, options) {
       $.ajax(_$.routes.create({
-          data: {
-            name: options.name,
-            email: options.email
-          }
-        })
+        data: {
+          name: options.name,
+          email: options.email
+        }
+      }))
         .done(function(user) {
           m$.alert.api({ msg: "User created.", type: "success" });
           m$.list.api.add_row({ user: user });
