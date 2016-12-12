@@ -1,8 +1,8 @@
 // Returns _$ with proper context and _$.api
 var _$_decorated = function(context) {
-  var decorated = context._$.bind(context);
-  decorated.api = context.api;
-  decorated.routes = context.routes;
+  var decorated      = context._$.bind(context);
+  decorated.api      = context.api;
+  decorated.routes   = context.routes;
   decorated.template = context.template;
   return decorated;
 }
@@ -65,6 +65,7 @@ var Mozart = function() {
 };
 
 Mozart.prototype._$ = function(selector) {
+  if (selector instanceof Mozart) { return $(this.scope) }
   var subscope = selector ? " " + selector : "";
   return $(this.scope + subscope);
 };
