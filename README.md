@@ -291,6 +291,7 @@ Mozart.init();
 
 ## What else?
 
+- The above is just a tour. Visit the wiki for [full documentation](https://github.com/adamjgrant/Mozart/wiki)
 - You only need **one JS file**. It's Just **under 3kb unminified** and **barely over 1kb minified**.
 - **Zero dependencies** but works seamlessly with jQuery.
 - ECMAScript 5, 6, and 7 compatible.

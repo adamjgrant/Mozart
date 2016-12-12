@@ -50,34 +50,31 @@ var Mozart = function() {
   this.api    = {};
   this.routes = {};
   this.events = {};
-  this.template = function(id) {
-    var template = this._$("template#" + id)[0];
+  this.template = {}
+  this.template.clone = function(id) {
+    var template = $(this.scope + " template#" + id)[0],
+        parent = document.createElement("div");
+
     if (!template) {
       return console.error("Could not find <template> with id " + id + " in " + this.scope);
     }
 
-    return {
-      template: template,
-      clone: function() {
-        var parent = document.createElement("div");
-        parent.append(document.importNode(this.template.content, true));
-        return (typeof(jQuery) == "undefined") ? parent.childNodes[0] : $(parent.childNodes[0]);
-      }
-    };
-  }
+    parent.append(document.importNode(template.content, true));
+    return (typeof(jQuery) == "undefined") ? parent.childNodes[0] : $(parent.childNodes[0]);
+  }.bind(this);
 };
 
 Mozart.prototype._$ = function(selector) {
   var subscope = selector ? " " + selector : "";
   return $(this.scope + subscope);
-}
+};
 
 Mozart.prototype.set_api = function(apis) {
   // Bind API functions
   for (var api_key in apis) {
     var self = this;
     this.api[api_key] = function(options) {
-      this.api_fn.call(self, _$_decorated(self), options);
+      return this.api_fn.call(self, _$_decorated(self), options);
     }.bind({api_fn: apis[api_key]});
   }
 };
