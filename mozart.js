@@ -6,6 +6,15 @@ var _$_decorated = function(context) {
   return decorated;
 }
 
+// $ (if not jQuery) is just a thin wrapper around doc.qSA
+if (typeof(jQuery) == "undefined") {
+  window["$"] = function(selector) {
+    return [].slice.call(
+      document.querySelectorAll(selector)
+    );
+  }.bind(this)
+}
+
 String.prototype.interpolate = function (o) {
   return this.replace(/#\{(.+?)\}/g,
     function (a, b) {
@@ -40,6 +49,21 @@ var Mozart = function() {
   this.api    = {};
   this.routes = {};
   this.events = {};
+  this.template = function(id) {
+    var template = this._$("template#" + id)[0];
+    if (!template) {
+      return console.error("Could not find <template> with id " + id + " in " + this.scope);
+    }
+
+    return {
+      template: template,
+      clone: function() {
+        var parent = document.createElement("div");
+        parent.append(document.importNode(this.template.content, true));
+        return parent.childNodes[0]
+      }
+    };
+  }
 };
 
 Mozart.prototype._$ = function(selector) {
@@ -84,13 +108,4 @@ Mozart.init = function() {
     component.scope = '[data-component~="' + component_name + '"]';
     component.events.call(component, _$);
   }
-}
-
-// $ (if not jQuery) is just a thin wrapper around doc.qSA
-if (typeof(jQuery) == "undefined") {
-  window["$"] = function(selector) {
-    return [].slice.call(
-      document.querySelectorAll(selector)
-    );
-  }.bind(this)
 }
