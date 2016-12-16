@@ -62,12 +62,8 @@
           <p>The API of your component will define named entry points into discreet functionality.</p>
           <p>For this example, we'll assume we need to perform a basic database query to populate the table</p>
           <h3 class="xxs">Arguments</h3>
-          <p>It's important to notice we are calling the <code>set_api</code> function here even though
-            the api will be pulled up via <code>.api</code>. This allows mozart to pick up each function and apply a
-            a decorated <code>_$</code> variable along with the api's options.</p>
-        </div>
         <div class="code">
-          <pre><code class="javascript">m$.user_table.set_api({
+          <pre><code class="javascript">m$.user_table.api({
   get_users: function(_$, options) {
     // ...
   }
