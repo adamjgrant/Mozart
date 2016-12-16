@@ -87,7 +87,7 @@
             at the end if you expect and want to work with only one element.</p>
         </div>
         <div class="code">
-          <pre><code class="javascript">m$.user_table.set_api({
+          <pre><code class="javascript">m$.user_table.api({
   get_users: function(_$, options) {
     _$("h1").html("test");
 
@@ -105,7 +105,7 @@
           <p></p>
         </div>
         <div class="code">
-          <pre><code class="javascript">m$.user_table.set_routes({
+          <pre><code class="javascript">m$.user_table.routes({
   index: {
     method: "GET",
     route: "/users"
