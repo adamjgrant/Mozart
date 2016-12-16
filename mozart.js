@@ -45,10 +45,6 @@ window["m$"] = {}
 //    var m$.my_component = new Mozart();
 var Mozart = function() {
   this.scope = undefined;
-
-  this.api    = {};
-  this.routes = {};
-  this.events = new Function;
 };
 
 Mozart.prototype._$ = function(selector) {
@@ -57,7 +53,7 @@ Mozart.prototype._$ = function(selector) {
   return $(this.scope + subscope);
 };
 
-Mozart.prototype.set_api = function(apis) {
+Mozart.prototype.api = function(apis) {
   // Bind API functions
   for (var api_key in apis) {
     var self = this;
@@ -67,7 +63,7 @@ Mozart.prototype.set_api = function(apis) {
   }
 };
 
-Mozart.prototype.set_routes = function(routes) {
+Mozart.prototype.routes = function(routes) {
   // Interpolate routes
   for (var route_key in routes) {
     var route_data = JSON.parse(JSON.stringify(routes[route_key]));
@@ -80,7 +76,7 @@ Mozart.prototype.set_routes = function(routes) {
   }
 };
 
-Mozart.prototype.set_events = function(fn) { this.events = fn; }
+Mozart.prototype.events = function(fn) { this.events = fn; }
 
 // Initialize all components. Don't call this until after all your component code.
 // Allows any cross talk between components to happen only when all components have loaded.
@@ -103,7 +99,7 @@ Mozart.init = function() {
 
 Mozart.clone = function(template_element) {
   // TODO: template_element could be a jQuery element. Let's make sure we scrub
-  // it to work with as a native DOM node for the below.
+  // it to work as a native DOM element.
   var parser = new DOMParser,
       parent = document.createElement("div");
 
