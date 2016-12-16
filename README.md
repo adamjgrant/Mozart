@@ -86,7 +86,7 @@ m$.form = new Mozart();
 #### form_routes.js
 
 ~~~javascript
-m$.form.set_routes(
+m$.form.routes(
   {
     create: {
       method: "POST",
@@ -116,7 +116,7 @@ the route when it is called.
 // This example uses jQuery, but you don't have to.
 // More on that later.
 
-m$.form.set_api(
+m$.form.api(
   {
     new_user: function(_$, options) {
       $.ajax(_$.routes.create({
@@ -157,7 +157,7 @@ We'll look at `_$` in more detail coming up.
 #### form_events.js
 
 ~~~javascript
-m$.form.set_events(function(_$) {
+m$.form.events(function(_$) {
   _$("button").click(function() {
     var name = _$("input[type='text']"),
         email = _$("input[type='email']");
@@ -247,7 +247,7 @@ m$.list = new Mozart();
 #### list_api.js
 
 ~~~javascript
-m$.list.set_api({
+m$.list.api({
   ...
   map_users: function(_$, options) {
     var list_html = ""
