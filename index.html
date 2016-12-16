@@ -17,6 +17,9 @@
           <pre><code></code></pre>
         </div>
       </header>
+      
+      <main class="document">
+      </main>
 
       <main class="document">
         <div class="content">
@@ -139,11 +142,16 @@
         padding: 25px;
       }
 
-      .document .content {}
+      .document .content {
+        padding-left: calc(50vw - 600px);
+        max-width: calc(50vw + 12px);
+      }
+      
       .document .code {
         background: #233c46;
         padding: 0;
       }
+      
       pre, code {
         padding: 0;
         border-radius: 0px;
