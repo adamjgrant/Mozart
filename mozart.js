@@ -102,6 +102,8 @@ Mozart.init = function() {
 }
 
 Mozart.clone = function(template_element) {
+  // TODO: template_element could be a jQuery element. Let's make sure we scrub
+  // it to work with as a native DOM node for the below.
   var parser = new DOMParser,
       parent = document.createElement("div");
 

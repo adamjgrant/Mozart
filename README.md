@@ -226,13 +226,14 @@ of a user row and generate new DOM elements from it whenever needed.
 <aside data-component="list">
   <ul></ul>
 
-  <template id="row">
-    <li>
-      <i></i>
-      <span></span>
-    </li>
-  </template>
 </aside>
+
+<template id="row">
+  <li>
+    <i></i>
+    <span></span>
+  </li>
+</template>
 ~~~
 
 Now, in our api, we can define a function to populate this list from JSON.
@@ -252,7 +253,8 @@ m$.list.set_api({
     var list_html = ""
 
     options.users.forEach(function(user) {
-      var $row = _$.template.clone("row");
+      var row_template = $("template#row")
+      var $row = Mozart.clone(row_template);
       $row.find("i").addClass(user.status);
       $row.find("span").html(user.name);
       list_html += $row.html();
@@ -271,7 +273,8 @@ Or we could implement our "add one row" call from form_api.js above
 map_users: function(_$, options) { ... }
 ...
 add_row: function(_$, options) {
-  var $row = _$.template.clone("row");
+  var row_template = $("template#row")
+  var $row = Mozart.clone(row_template);
   $row.find("i").addClass(user.status);
   $row.find("span").html(user.name);
 
