@@ -1,6 +1,8 @@
 # Mozart
 ## A pattern for dependency-free AJAX applications
 
+_Read the tutorial below or view the [full documentation](http://adamjgrant.github.io/Mozart/)_
+
 Imagine you're building this application
 
 ![UI Example](http://cdn.everything.io/mozart/UI.png)
@@ -289,7 +291,7 @@ Mozart.init();
 
 ## What else?
 
-- The above is just a tour. Visit the wiki for [full documentation](https://github.com/adamjgrant/Mozart/wiki)
+- The above is just a tour. View the [full documentation](http://adamjgrant.github.io/Mozart/)
 - You only need **one JS file**. It's Just **under 3kb unminified** and **barely over 1kb minified**.
 - **Zero dependencies** but works seamlessly with jQuery.
 - ECMAScript 5, 6, and 7 compatible.

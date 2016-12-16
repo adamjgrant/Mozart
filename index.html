@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="stylesheet" href="http://cdn.everything.io/kickstart/3.x/css/kickstart.min.css" />
+  </head>
+  <body>
+    <style>.docs { opacity: 0; transition: 2s all; }</style>
+    <header>
+      <br><h1>Mozart Documentation</h1>
+      <p>Learn more on <a href="https://github.com/adamjgrant/Mozart">Github</a></p>
+      <br>
+    </header>
+    <div class="docs">
+      <main class="document">
+        <div class="content">
+          <h5>Create a component</h5>
+          <p>Before anything else, you'll need to load the Mozart script and declare your first component.</p>
+          <p>The variable <code>m$</code> is provided by Mozart to organize your components at a high level
+            without cluttering the <code>window</code> namespace.</p>
+          <p>Every component should follow the pattern <code>m$.[component name]</code></p>
+        </div>
+        <div class="code">
+          <pre><code class="javascript">m$.user_table = new Mozart;</code>
+          </pre>
+        </div>
+      </main>
+    </div>
+    <style>
+      header {
+        padding: 15px;
+      }
+
+      .docs {
+        opacity: 1;
+        width: 100%;
+      }
+
+      .document {
+        width: 100%;
+        display: flex;
+        align-items: stretch;
+      }
+
+      .document .content,
+      .document .code {
+        width: 100%;
+        padding: 15px;
+      }
+
+      .document .content {}
+      .document .code {
+        background: slategray;
+        padding: 0;
+      }
+      pre, code {
+        padding: 0;
+        border-radius: 0px;
+        height: 100%;
+      }
+
+      pre code.hljs {
+        padding: 15px;
+      }
+    </style>
+    <script>
+    // Use the browser's built-in functionality to quickly and safely escape
+    // the string
+    function escapeHtml(str) {
+      var div = document.createElement('div');
+      div.appendChild(document.createTextNode(str));
+      return div.innerHTML;
+    }
+    </script>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
