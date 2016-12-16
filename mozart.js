@@ -3,7 +3,6 @@ var _$_decorated = function(context) {
   var decorated      = context._$.bind(context);
   decorated.api      = context.api;
   decorated.routes   = context.routes;
-  decorated.template = context.template;
   return decorated;
 }
 
@@ -50,18 +49,6 @@ var Mozart = function() {
   this.api    = {};
   this.routes = {};
   this.events = new Function;
-  this.template = {}
-  this.template.clone = function(id) {
-    var template = $(this.scope + " template#" + id)[0],
-        parent = document.createElement("div");
-
-    if (!template) {
-      return console.error("Could not find <template> with id " + id + " in " + this.scope);
-    }
-
-    parent.append(document.importNode(template.content, true));
-    return (typeof(jQuery) == "undefined") ? parent.childNodes[0] : $(parent.childNodes[0]);
-  }.bind(this);
 };
 
 Mozart.prototype._$ = function(selector) {
@@ -99,12 +86,33 @@ Mozart.prototype.set_events = function(fn) { this.events = fn; }
 // Allows any cross talk between components to happen only when all components have loaded.
 Mozart.init = function() {
   // Find all components
+  var component_events = []
   for (var component_name in window["m$"]) {
     var component = m$[component_name],
         _$ = _$_decorated(component);
 
     if (!component instanceof Mozart) { return; }
     component.scope = '[data-component~="' + component_name + '"]';
-    component.events.call(component, _$);
+    component_events.push([component, _$]);
   }
+
+  component_events.forEach(function(component_context) {
+    component_context[0].events.call(component_context[0], component_context[1]);
+  });
+}
+
+Mozart.clone = function(template_element) {
+  var parser = new DOMParser,
+      parent = document.createElement("div");
+
+  if (!template_element) { return console.error("No <template> element provided"); }
+  if (typeof(template_element) !== "object") {
+    return console.error("Element to clone expected to be a <template> element. Was a " + typeof(template_element));
+  }
+
+  parent.append(document.importNode(template_element.content, true));
+  // TODO Leverage DocumentFragment.cloneNode? Might not need some of the above.
+  var copy = parser.parseFromString(parent.innerHTML, "text/xml").documentElement;
+
+  return (typeof(jQuery) == "undefined") ? copy : $(copy);
 }
