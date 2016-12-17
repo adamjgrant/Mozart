@@ -17,7 +17,7 @@
           <pre><code></code></pre>
         </div>
       </header>
-      
+
       <main class="document">
       </main>
 
@@ -64,7 +64,6 @@
           <h2 class="xs">Define an API</h2>
           <p>The API of your component will define named entry points into discreet functionality.</p>
           <p>For this example, we'll assume we need to perform a basic database query to populate the table</p>
-          <h3 class="xxs">Arguments</h3>
         </div>
         <div class="code">
           <pre><code class="javascript">m$.user_table.api({
@@ -101,8 +100,75 @@
 
       <main class="document">
         <div class="content">
+          <h3 class="xxs">Calling api commands</h3>
+          <p>If calling the component's own api command, you can either call from
+            <code>this</code> (assuming you maintain binding as you would in any JavaScript project)
+            or <code>_$.api</code> which will persist <code>this</code> and can also be used in your
+            events configuration.</p>
+        </div>
+        <div class="code">
+          <pre><code class="javascript">m$.user_table.api({
+  ask_bar_to_say_foo: function(_$, options) {
+    _$.api.bar_says_foo();
+    // or this.bar_says_foo();
+  },
+
+  bar_says_foo: function(_$, options) {
+    alert("foo");
+  }
+});</code></pre>
+        </div>
+      </main>
+
+      <main class="document">
+        <div class="content">
+          <p>To call another component's api, just replace the <code>_$</code> with <code>m$</code>
+        </div>
+        <div class="code">
+          <pre><code class="javascript">m$.component_a.api({
+  tell_b_to_say_foo: function(_$, options) {
+    m$.component_b.say_foo();
+  }
+});
+
+m$.component_b.api({
+  say_foo: function(_$, options) {
+    alert("foo");
+  }
+});</code></pre>
+        </div>
+      </main>
+
+      <main class="document">
+        <div class="content">
+          <h3 class="xxs">Arguments</h3>
+          <p>Notice that each api function has two arguments, <code>_$</code> and <code>options</code></p>
+          <p>Callers need not worry about passing in <code>_$</code>, Mozart does this for you. Instead treat
+            the api function as if it took only the argument <code>options</code>
+        </div>
+        <div class="code">
+          <pre><code class="javascript">m$.person_reporter.api({
+  display_name_and_age: function(_$, options) {
+    alert("Name is " + options.name + " and age is " + options.age);
+  }
+});
+
+m$.person_reporter.events(function(_$) {
+  _$("button").click(function() {
+    var name = _$(".name").val(),
+        age  = _$(".age").val();
+
+    // Only one {} argument needed.
+    _$.api.display_name_and_age({ name: name, age: age })
+  });
+});</code></pre>
+        </div>
+      </main>
+
+      <main class="document">
+        <div class="content">
           <h2 class="xs">Define routes</h2>
-          <p></p>
+          <p>Routes allow you to easily categorize the urls and REST methods to call for different purposes</p>.
         </div>
         <div class="code">
           <pre><code class="javascript">m$.user_table.routes({
@@ -110,9 +176,102 @@
     method: "GET",
     route: "/users"
   }
+});
+
+m$.user_table.api({
+  get_users: function(_$, options) {
+    $.ajax(_$.routes.index)
+      .done(function() { alert("yeah!") })
+      .fail(function() { alert("aww.") });
+  }
 });</code></pre>
         </div>
       </main>
+
+      <main class="document">
+        <div class="content">
+          <p>You can also interpolate strings for id-specific routing</p>
+        </div>
+        <div class="code">
+          <pre><code class="javascript">m$.user_table.routes({
+  show: {
+    method: "GET",
+    route: "/users/#{user_id}"
+  }
+});
+
+m$.user_table.api({
+  show_user: function(_$, options) {
+    // Will GET "/users/5"
+    $.ajax(_$.routes.index({ user_id: options.id }))
+      .done(function() { alert("yeah!") })
+      .fail(function() { alert("aww.") });
+  }
+});
+
+m$.user_table.events(function(_$) {
+  _$(".user-row").click(function() {
+    // Assuming id = 5
+    _$.api.show_user({ id: $(this).data().id });
+  })
+});</code></pre>
+        </div>
+      </main>
+
+      <main class="document">
+        <div class="content">
+          <h2 class="xs">Define events</h2>
+          <h3 class="xxs">Selecting</h3>
+          <p>Events allow you to scope selectors to your component and easily route behaviors to your api.</p>
+          <p>Remember to pass in a function that takes <code>_$</code>.</p>
+        </div>
+        <div class="code">
+          <pre><code class="javascript">m$.user_table.events(function(_$) {
+  _$("button").click(function() {
+    alert("You clicked on the button that was in the user_table component")
+  });
+
+  $("button").click(function() {
+    // Notice this one uses $ and not _$
+    alert("The button you clicked on may or may not be in user_table component");
+  });
+});</code></pre>
+        </div>
+      </main>
+
+      <main class="document">
+        <div class="content">
+          <h3 class="xxs">Calling the API</h3>
+          <p>Use the same syntax to call to the api as you would in an API function.</p>
+          <p>Ideally, event definitions do nothing more than route actions to apis.</p>
+        </div>
+        <div class="code">
+          <pre><code class="javascript">m$.user_table.events(function(_$) {
+  _$("button").click(function() {
+    m$.notification.show({
+      message: "Loading users...",
+      type: "info"
+    });
+    _$.api.load_users();
+    m$.notification.hide();
+
+    // Notice the first and last calls are to
+    // another component's api while the middle
+    // line calls to its own.
+  });
+});</code></pre>
+        </div>
+      </main>
+
+      <!-- <main class="document">
+        <div class="content">
+        </div>
+        <div class="code">
+          <pre><code class="javascript">
+</code></pre>
+        </div>
+      </main> -->
+
 
       <main class="document">
         <div class="content">
@@ -147,13 +306,13 @@
         max-width: calc(50vw - 20px);
         margin-left:25px;
       }
-      
+
       .document .code {
         background: #233c46;
         padding: 0;
         max-width:calc(50vw - 5px);
       }
-      
+
       pre, code {
         padding: 0;
         border-radius: 0px;
