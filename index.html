@@ -263,6 +263,52 @@ m$.user_table.events(function(_$) {
         </div>
       </main>
 
+      <main class="document">
+        <div class="content">
+          <h1 class="sm">Special Topics</h1>
+          <h2 class="xs">Dealing with collections</h2>
+          <p><code>_$</code> is a useful shortcut to scoping to a particular
+            but this will give you all instances anywhere on the page.</p>
+          <p>This is of course different from scoping to one of several copies
+          of your component.</p>
+        </div>
+        <div class="code">
+          <pre><code class="html"><div data-component="title_maker">
+  <h1>Title unchanged</h1>
+  <button>Change title</button>
+</div>
+
+<div data-component="title_maker">
+  <h1>Title unchanged</h1>
+  <button>Change title</button>
+</div></code>
+
+<code class="javascript">m$.title_maker.events(function(_$) {
+  _$("button").click(function() {
+    // Change the title of the container this button is in.
+  })
+});</code></pre>
+        </div>
+      </main>
+
+      <main class="document">
+        <div class="content">
+          <p><code>_$</code> lets us immediately select the title_maker component
+            but we want <em>this button's</em> title_maker.</p>
+          <p>With jQuery, we can use the parent finding <code>closest</code> and
+            pull in <code>_$.scope</code> to give us the string, <code>[data-component~="title_maker"]</code></p>
+          <p>Although in this case we could also skip this and use the <code>sibling</code>
+          selector to reach across to the <code><h1></h1></code>
+        </div>
+        <div class="code">
+          <pre><code class="javascript">m$.title_maker.events(function(_$){
+  _$("button").click(function() {
+    $(this).closest(_$.scope).find("h1")).html("title changed")
+  })
+});</code></pre>
+        </div>
+      </main>
+
       <!-- <main class="document">
         <div class="content">
         </div>
