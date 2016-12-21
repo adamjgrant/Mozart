@@ -1,0 +1,26 @@
+<script src="mozart.js"></script>
+
+<div data-component="parent">
+  <h1>Change me 1</h1>
+  <button data-key="1">Change 1</button>
+</div>
+
+<div data-component="parent">
+  <h1>Change me 2</h1>
+  <button data-key="2">Change 2</button>
+</div>
+
+<script>
+m$.parent = new Mozart();
+
+m$.parent.events(function(_$) {
+  _$("button").forEach(function(button) {
+    button.addEventListener("click", function(e) {
+      // On button click, get this button's component's h1.
+      _$.here(this, "h1")[0].innerHTML = "Title Changed";
+    });
+  })
+});
+
+Mozart.init();
+</script>

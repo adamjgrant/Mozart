@@ -3,6 +3,21 @@ var _$_decorated = function(context) {
   var decorated      = context._$.bind(context);
   decorated.api      = context.api;
   decorated.routes   = context.routes;
+  decorated.here = function(nodeScope, selector) {
+    parent_component_name = context.scope.split("\"")[1];
+
+    var setParentScope = function(node) {
+      if (node.dataset.component == parent_component_name) {
+        return node
+      }
+      else {
+        parentScope = node.parentNode;
+        return setParentScope(parentScope);
+      }
+    }
+    context.nodeScope = setParentScope(nodeScope);
+    return decorated.call(context, selector);
+  }
   return decorated;
 }
 
@@ -44,13 +59,19 @@ window["m$"] = {}
 // Create a new component with
 //    var m$.my_component = new Mozart();
 var Mozart = function() {
-  this.scope = undefined;
+  this.scope     = undefined;
+  this.nodeScope = undefined;
 };
 
 Mozart.prototype._$ = function(selector) {
-  if (selector instanceof Mozart) { return $(this.scope) }
+  if (selector instanceof Mozart) { return $(this.scope) } // TODO handle Node Scope being set.
   var subscope = selector ? " " + selector : "";
-  return $(this.scope + subscope);
+  if (this.nodeScope) {
+    return typeof(jQuery) == "undefined" ? this.nodeScope.querySelectorAll(selector) : $(selector).find(selector);
+  }
+  else {
+    return $(this.scope + subscope);
+  }
 };
 
 Mozart.prototype.api = function(apis) {
