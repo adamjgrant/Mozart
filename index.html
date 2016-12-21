@@ -295,16 +295,30 @@ m$.user_table.events(function(_$) {
         <div class="content">
           <p><code>_$</code> lets us immediately select the title_maker component
             but we want <em>this button's</em> title_maker.</p>
-          <p>With jQuery, we can use the parent finding <code>closest</code> and
-            pull in <code>_$.scope</code> to give us the string, <code>[data-component~="title_maker"]</code></p>
-          <p>Although in this case we could also skip this and use the <code>sibling</code>
-          selector to reach across to the <code><h1></h1></code>
+          <p>We can take advantage of Mozart's <code>_$.here</code> which is the same
+            scoped <code>_$</code> selector but restricted to only this <code>button</code>'s
+            parent instance of <code>title_maker</code>.</p>
+          <p>If this is too foreign, remember jQuery also has its own <code>sibling</code>
+            selector.</p>
         </div>
         <div class="code">
           <pre><code class="javascript">m$.title_maker.events(function(_$){
   _$("button").click(function() {
-    $(this).closest(_$.scope).find("h1").html("title changed")
+    _$.here(this, "h1").html("Title Changed");
   })
+});</code></pre>
+        </div>
+      </main>
+
+      <main class="document">
+        <div class="content">
+          <p>If you're not using jQuery, you'll just need to adjust this a bit.</p>
+        </div>
+        <div class="code">
+          <pre><code class="javascript">m$.title_maker.events(function(_$){
+  _$("button")[0].addEventListener("click", function() {
+    _$.here(this, "h1")[0].innerHTML = "Title Changed";
+  });
 });</code></pre>
         </div>
       </main>
