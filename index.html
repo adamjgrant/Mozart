@@ -19,6 +19,71 @@
       </header>
 
       <main class="document">
+        <div class="content">
+          <h1 class="sm">Why Mozart will be your new indispensible tool</h1>
+          <p>Front end coding is getting out of hand. Projects that could easily
+          robust and lightweight implementations fall into the pit of throwing in
+          complex single page app frameworks to solve their needs.</p>
+          <p>Yet JavaScript already supports many of the basic parts of these frameworks
+          on its own. The author of Mozart believes it's the organization of code
+          we're really running after with gargantuan frameworks.</p>
+          <p>Mozart is not a framework. In fact, it's a small file that actually
+            does very little more than give you some guide rails to adhering to
+            a pattern.</p>
+          <p>Mozart uses the Scoped Component pattern to logically organize the
+            entire front end into "components". Each of which has an API, routes,
+            and events. <a href="">Read more on the Readme</a></p>
+
+          <h2 class="xs">But isn't it more code?</h2>
+          <p>Maybe. But <em>better</em> code is the goal, not necessarily less code.</p>
+        </div>
+        <div class="code">
+          <pre><code class="javascript">m$.invoice_reporter = new Mozart;
+
+m$.invoice_reporter.events(function(_$) {
+  _$(".send").click(function() {
+    var invoice = {
+      name: _$(".name").val(),
+      date: _$(".date").val(),
+      amount: _$(".amount").val(),
+      user: _$(".user").val()
+    }
+    _$.api.send({ invoice: invoice });
+  });
+  // ...
+});
+
+m$.invoice_reporter.api({
+  send: function(_$, options) {
+    m$.notification.api.info({
+      message: "Sending invoice...", dismiss: false
+    });
+    m$.progress_bar.api.start();
+
+    $.ajax(_$.routes.create({ data: options.invoice }))
+      .done(function(data) {
+        m$.notification.api.success({ message: "Invoice created" });
+        m$.progress_bar.api.stop();
+        _$.api.get_index();
+      })
+      .fail(function(data) {
+        m$.notification.api.success({
+          message: "Could not create invoice. Error: " + data
+        });
+        m$.progress_bar.api.stop();
+      });
+  },
+  // ...
+});
+
+m$.invoice_reporter.routes({
+  create: {
+    method: "post",
+    url: "/invoices"
+  }
+});
+</code></pre>
+        </div>
       </main>
 
       <main class="document">
@@ -300,6 +365,7 @@ m$.user_table.events(function(_$) {
             parent instance of <code>title_maker</code>.</p>
           <p>If this is too foreign, remember jQuery also has its own <code>sibling</code>
             selector.</p>
+
         </div>
         <div class="code">
           <pre><code class="javascript">m$.title_maker.events(function(_$){
@@ -319,6 +385,104 @@ m$.user_table.events(function(_$) {
   _$("button")[0].addEventListener("click", function() {
     _$.here(this, "h1")[0].innerHTML = "Title Changed";
   });
+});</code></pre>
+        </div>
+      </main>
+
+      <main class="document">
+        <div class="content">
+          <h2 class="xs">Reuse HTML</h2>
+          <p>Single page app frameworks have a few different ways of letting you
+            define an html template to use for multiplying and filling in from a
+            dataset.</p>
+          <p>It bears repeating that native HTML and JavaScript already has this
+            functionality. Mozart has just added a thin wrapper around it to make
+            it easier to use and compatible with the Mozart pattern.</p>
+        </div>
+        <div class="code">
+          <pre><code class="html"><ul class="people">
+  <li>
+    <a href="/person/1.html">
+      <span class="status status-online"></span>
+      <span class="name">John Smith</span>
+      <span class="email">johnsmith@example.com</span>
+    </a>
+  </li>
+  <li>
+    <a href="/person/2.html">
+      <span class="status status-online"></span>
+      <span class="name">Jane Doe</span>
+      <span class="email">janedoe@example.com</span>
+    </a>
+  </li>
+  <li>
+    <a href="/person/3.html">
+      <span class="status status-offline"></span>
+      <span class="name">Alex Webster</span>
+      <span class="email">alexwebster@example.com</span>
+    </a>
+  </li>
+</ul></code></pre>
+        </div>
+      </main>
+
+      <main class="document">
+        <div class="content">
+          <h3 class="xxs">Create a template</h3>
+          <p>We can simply put our HTML template right in the HTML itself, using
+            the <code>&lt;template&gt;</code> tag.</p>
+          <p>Note, it is highly recommended not to nest template tags within
+          each other. You can still create nested HTML without doing this and this
+        will be explained later.</p>
+        </div>
+        <div class="code">
+          <pre><code class="html"><ul data-component="user_table"></ul>
+
+<atemplate id="user_row">
+  <li data-component="user_link">
+    <a>
+      <span class="status"></span>
+      <span class="name"></span>
+      <span class="email"></span>
+    </a>
+  </li>
+</atemplate></code></pre>
+        </div>
+      </main>
+
+      <main class="document">
+        <div class="content">
+          <h3 class="xxs">Duplicate template</h3>
+          <p>In your api, you can clone the template in one line with
+            <code>Mozart.clone</code></p>
+          <p>This will make a copy of and instantiate from your template
+            element's contents.</p>
+        </div>
+        <div class="code">
+          <pre><code class="javascript">m$.user_table = new Mozart;
+
+m$.user_table.api({
+  populate: function(_$, options) {
+    var $link_template = $("#user_row");
+    $.ajax(_$.router.get)
+      .done(function(users) {
+        var $tableHTML = $("&lt;div&gt;&lt;/div&gt;");
+        users.forEach(function(user) {
+          // We're wrapping in $() just so we can treat it
+          // as a jQuery object.
+          var $user_link = $(Mozart.clone($link_template));
+          if (user.offline) {
+            $user_link.find(".status").addClass("status-offline")
+          }
+          $user_link.find(".name").html(user.name);
+          $user_link.find(".email").html(user.email);
+          $tableHTML.append($user_link);
+        });
+
+        // Only talk to the DOM once, when we're done.
+        _$(this).html($tableHTML.html());
+      })
+  }
 });</code></pre>
         </div>
       </main>
@@ -393,7 +557,9 @@ m$.user_table.events(function(_$) {
       return div.innerHTML;
     }
     document.querySelectorAll('code.html').forEach(function(htmlcode) {
-      htmlcode.innerHTML = escapeHTML(htmlcode.innerHTML);
+      var escaped = escapeHTML(htmlcode.innerHTML);
+      escaped = escaped.replace(new RegExp(/atemplate/, 'g'), "template");
+      htmlcode.innerHTML = escaped
     });
     </script>
     <link rel="stylesheet" href="tomorrow-night-eighties.min.css">
