@@ -166,16 +166,14 @@ m$.invoice_reporter.routes({
       <main class="document">
         <div class="content">
           <h3 class="xxs">Calling api commands</h3>
-          <p>If calling the component's own api command, you can either call from
-            <code>this</code> (assuming you maintain binding as you would in any JavaScript project)
-            or <code>_$.api</code> which will persist <code>this</code> and can also be used in your
+          <p>If calling the component's own api command, you can call from
+            <code>_$.api</code> which will persist <code>this</code> and can also be used in your
             events configuration.</p>
         </div>
         <div class="code">
           <pre><code class="javascript">m$.user_table.api({
   ask_bar_to_say_foo: function(_$, options) {
     _$.api.bar_says_foo();
-    // or this.bar_says_foo();
   },
 
   bar_says_foo: function(_$, options) {
