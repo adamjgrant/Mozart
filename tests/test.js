@@ -8,5 +8,5 @@ describe("Mozart class", function() {
   });
 });
 
-describe("_$ scoped jQuery", function() {
+describe("_$ scoped document selector", function() {
 });

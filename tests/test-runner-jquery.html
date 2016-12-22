@@ -6,8 +6,14 @@
     </head>
     <body>
         <div id="mocha"></div>
+
+        <div data-component="test">
+          <h1>foo</h1>
+        </div>
+
         <script src="../node_modules/mocha/mocha.js"></script>
         <script src="../node_modules/chai/chai.js"></script>
+        <script src="jquery.js"></script>
         <script>
             mocha.ui('bdd');
             mocha.reporter('html');
@@ -16,10 +22,12 @@
                 assert = chai.assert;
         </script>
         <script src="../mozart.js"></script>
-        <script src="./test.js"></script>
+        <script src="./test-jquery.js"></script>
         <script>
-          if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
-          else { mocha.run(); }
+          $(document).ready(function() {
+            if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
+            else { mocha.run(); }
+          });
         </script>
     </body>
 </html>
