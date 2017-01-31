@@ -1,5 +1,8 @@
 // Returns _$ with proper context and _$.api
 var _$_decorated = function(context) {
+  // TODO: The _$ between two api functions are different instances.
+  // So if a user makes their own _$.foo = "blah", _$.foo in another
+  // fn of the same api will not exist.
   var decorated      = context._$.bind(context);
   decorated.api      = context.api;
   decorated.routes   = context.routes;
@@ -89,10 +92,11 @@ Mozart.prototype.routes = function(routes) {
   for (var route_key in routes) {
     var route_data = JSON.parse(JSON.stringify(routes[route_key]));
     this.routes[route_key] = function(options) {
-      route_data.url = route_data.url.interpolate(options)
-      route_data.data = route_data.data || {}
-      route_data.data = Object.deepExtend(route_data.data, options["data"]);
-      return route_data;
+      var _route_data = JSON.parse(JSON.stringify(route_data));
+      _route_data.url = route_data.url.interpolate(options)
+      _route_data.data = route_data.data || {}
+      _route_data.data = Object.deepExtend(_route_data.data, options["data"]);
+      return _route_data;
     }.bind(this)
   }
 };
@@ -132,6 +136,9 @@ Mozart.clone = function(template_element) {
   parent.append(document.importNode(template_element.content, true));
   // TODO Leverage DocumentFragment.cloneNode? Might not need some of the above.
   var copy = parser.parseFromString(parent.innerHTML, "text/xml").documentElement;
+  var div = document.createElement('div');
+  div.appendChild(copy);
+  copy = div.childNodes[0];
 
   return (typeof(jQuery) == "undefined") ? copy : $(copy);
 }
