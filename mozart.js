@@ -91,13 +91,17 @@ Mozart.prototype.routes = function(routes) {
   // Interpolate routes
   for (var route_key in routes) {
     var route_data = JSON.parse(JSON.stringify(routes[route_key]));
-    routes[route_key] = function(options) {
-      var _route_data = JSON.parse(JSON.stringify(route_data));
+    this.routes[route_key] = function() {
+      var args = Array.prototype.slice.call(arguments),
+          options = args[1],
+          route_data = args[0],
+          _route_data = {};
+
       _route_data.url = route_data.url.interpolate(options)
       _route_data.data = route_data.data || {}
       _route_data.data = Object.deepExtend(_route_data.data, options["data"]);
       return _route_data;
-    }.bind(this)
+    }.bind(this, route_data)
   }
 };
 
