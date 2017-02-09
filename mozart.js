@@ -91,7 +91,7 @@ Mozart.prototype.routes = function(routes) {
   // Interpolate routes
   for (var route_key in routes) {
     var route_data = JSON.parse(JSON.stringify(routes[route_key]));
-    this.routes[route_key] = function(options) {
+    routes[route_key] = function(options) {
       var _route_data = JSON.parse(JSON.stringify(route_data));
       _route_data.url = route_data.url.interpolate(options)
       _route_data.data = route_data.data || {}
