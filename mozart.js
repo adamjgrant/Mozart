@@ -97,8 +97,9 @@ Mozart.prototype.routes = function(routes) {
           route_data = args[0],
           _route_data = {};
 
-      _route_data.url = route_data.url.interpolate(options)
-      _route_data.data = route_data.data || {}
+      _route_data.url = route_data.url.interpolate(options);
+      _route_data.data = route_data.data || {};
+      _route_data.method = route_data.method;
       _route_data.data = Object.deepExtend(_route_data.data, options["data"]);
       return _route_data;
     }.bind(this, route_data)
