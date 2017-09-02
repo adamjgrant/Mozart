@@ -30,14 +30,39 @@ describe("Mozart class", function() {
     expect(resp_b).to.eq("b");
 
     // Reset
-    m$.a = undefined
-    m$.b = undefined
+    delete m$.a
+    delete m$.b
   });
 
   it("allows calling from between api commands from within an api", function() {
     m$.a = new Mozart
 
-    var resp = ""
+    var resp = "nothing"
+
+    m$.a.api({
+      one: function(_$, options) {
+        return _$.api.two();
+      },
+      two: function(_$, options) {
+        return "bar"
+      },
+    });
+
+    m$.a.events = function(_$) {
+      resp = _$.api.one()
+    }
+
+    Mozart.init()
+
+    expect(resp).to.eq("bar");
+  
+    delete m$.a
+  });
+
+  it("allows passing options from between api commands from within an api", function() {
+    m$.a = new Mozart
+
+    var resp = "nothing"
 
     m$.a.api({
       one: function(_$, options) {
@@ -48,13 +73,15 @@ describe("Mozart class", function() {
       },
     });
 
-    m$.events = function(_$) {
+    m$.a.events = function(_$) {
       resp = _$.api.one()
     }
 
+    Mozart.init()
+
     expect(resp).to.eq("bar");
   
-    m$.a = undefined;
+    delete m$.a
   });
 });
 
