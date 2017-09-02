@@ -21,8 +21,15 @@ describe("Mozart class", function() {
       resp_b = _$.api.test()
     }
 
-    m$.a.api({ test: function(_$, options) { return "a" } }) 
-    m$.b.api({ test: function(_$, options) { return "b" } })
+    m$.a.api({ 
+      test: function(_$, options) { return "a" },
+      testa: function(_$, options) { return "a2" } 
+    }) 
+
+    m$.b.api({ 
+      test: function(_$, options) { return "b" },
+      testb: function(_$, options) { return "b2" }
+    })
 
     Mozart.init();
 

@@ -3,8 +3,10 @@ var _$_decorated = function(context) {
   // TODO: The _$ between two api functions are different instances.
   // So if a user makes their own _$.foo = "blah", _$.foo in another
   // fn of the same api will not exist.
-  var decorated      = context._$.bind(context);
-  decorated.api      = context.api;
+  var decorated;
+  
+  decorated          = context._$.bind(context);
+  decorated.api      = context._api;
   decorated.routes   = context.routes;
   decorated.here = function(nodeScope, selector) {
     parent_component_name = context.scope.split("\"")[1];
@@ -64,6 +66,7 @@ window["m$"] = {}
 var Mozart = function() {
   this.scope     = undefined;
   this.nodeScope = undefined;
+  this._api      = {};
 };
 
 Mozart.prototype._$ = function(selector) {
@@ -80,10 +83,11 @@ Mozart.prototype._$ = function(selector) {
 Mozart.prototype.api = function(apis) {
   // Bind API functions
   for (var api_key in apis) {
-    var self = this;
-    this.api[api_key] = function(options) {
-      return this.api_fn.call(self, _$_decorated(self), options);
-    }.bind({api_fn: apis[api_key]});
+    (function(apis, api_key, self) {
+      self._api[api_key] = function(options) {
+        return apis[api_key].call(self, _$_decorated(self), options);
+      }
+    })(apis, api_key, this)
   }
 };
 
@@ -114,11 +118,13 @@ Mozart.init = function() {
   // Find all components
   var component_events = []
   for (var component_name in window["m$"]) {
-    var component = m$[component_name],
-        _$ = _$_decorated(component);
-
+    var component = m$[component_name];
     if (!component instanceof Mozart) { return; }
+
     component.scope = '[data-component~="' + component_name + '"]';
+
+    var _$ = _$_decorated(component);
+
     component_events.push([component, _$]);
   }
 
