@@ -28,6 +28,33 @@ describe("Mozart class", function() {
 
     expect(resp_a).to.eq("a");
     expect(resp_b).to.eq("b");
+
+    // Reset
+    m$.a = undefined
+    m$.b = undefined
+  });
+
+  it("allows calling from between api commands from within an api", function() {
+    m$.a = new Mozart
+
+    var resp = ""
+
+    m$.a.api({
+      one: function(_$, options) {
+        return _$.api.two({ foo: "bar"});
+      },
+      two: function(_$, options) {
+        return options.foo
+      },
+    });
+
+    m$.events = function(_$) {
+      resp = _$.api.one()
+    }
+
+    expect(resp).to.eq("bar");
+  
+    m$.a = undefined;
   });
 });
 
