@@ -353,39 +353,6 @@ m$.user_table.events(function(_$) {
 
       <main class="document">
         <div class="content">
-          <p><code>_$</code> lets us immediately select the title_maker component
-            but we want <em>this button's</em> title_maker.</p>
-          <p>We can take advantage of Mozart's <code>_$.here</code> which is the same
-            scoped <code>_$</code> selector but restricted to only this <code>button</code>'s
-            parent instance of <code>title_maker</code>.</p>
-          <p>If this is too foreign, remember jQuery also has its own <code>sibling</code>
-            selector.</p>
-
-        </div>
-        <div class="code">
-          <pre><code class="javascript">m$.title_maker.events(function(_$){
-  _$("button").click(function() {
-    _$.here(this, "h1").html("Title Changed");
-  })
-});</code></pre>
-        </div>
-      </main>
-
-      <main class="document">
-        <div class="content">
-          <p>If you're not using jQuery, you'll just need to adjust this a bit.</p>
-        </div>
-        <div class="code">
-          <pre><code class="javascript">m$.title_maker.events(function(_$){
-  _$("button")[0].addEventListener("click", function() {
-    _$.here(this, "h1")[0].innerHTML = "Title Changed";
-  });
-});</code></pre>
-        </div>
-      </main>
-
-      <main class="document">
-        <div class="content">
           <h2 class="xs">Reuse HTML</h2>
           <p>Single page app frameworks have a few different ways of letting you
             define an html template to use for multiplying and filling in from a
