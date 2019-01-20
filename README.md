@@ -18,7 +18,7 @@ The Mozart pattern defines each logical unit as a "component"
 <header data-component="form">...</header>
 <main>
   <aside data-component="list">...</aside>
-  <div data-component="details">...</aside>
+  <div data-component="details">...</div>
 </main>
 ~~~
 
