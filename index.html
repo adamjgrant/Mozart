@@ -8,8 +8,14 @@
   </head>
 
   <body> 
+    <article>
+      <div class="text">
+        <h1>Basics</h1>
+      </div>
+      <pre></pre>
+    </article>
+
     <article data-attach="create-a-component">
-      <h1>Basics</h1>
       <h2>Creating a component</h2>
       <p>Every Mozart component is a class that extends the Mozart base class.</p> 
     </article>
@@ -23,6 +29,10 @@
     <script src="tests/tests.js"></script> 
     <link rel="stylesheet" href="tomorrow-night-eighties.min.css">
     <script src="highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    <script>
+      setTimeout(() => { 
+        hljs.initHighlighting(); 
+      }, 2000);
+    </script>
   </body>
 </html>

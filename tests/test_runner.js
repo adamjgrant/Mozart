@@ -24,7 +24,10 @@ attachees.forEach(attachee => {
       request.onload = function() {
         if (this.status >= 200 && this.status < 400) {
           pre_content += this.response;
-          attachee.querySelector("pre code").innerHTML += escapeHTML(pre_content);
+          var code = attachee.querySelector("pre code")
+          code.innerHTML += escapeHTML(pre_content);
+          code.classList.add(extension);
+          hljs.initHighlighting();
         }
         else { return }
       }

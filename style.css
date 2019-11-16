@@ -11,6 +11,10 @@ article {
   flex-wrap: wrap;
 }
 
+dl {
+  margin: 0;
+}
+
 article .text { 
   width: 100%;
   padding: 15px;
@@ -29,11 +33,13 @@ article pre {
   background: #eee;
   padding: 15px;
   font-size: 0.75rem;
+  border-radius: 10px;
 }
 
 [data-component="test_container"] h1 {
   font-size: 0.8rem;
   margin: 0;
+  margin-bottom: 5px;
 }
 
 .testing_sandbox {
