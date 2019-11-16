@@ -18,7 +18,7 @@ attachees.forEach(attachee => {
 
   doc_fetchers = [];
 
-  ["html", "js"].forEach(extension => {
+  ["html", "js", "css"].forEach(extension => {
     doc_fetchers.push(new Promise((resolve, reject) => {
       ((extension, attachee, resolve, reject) => {
         var pre_content = "",
@@ -55,7 +55,6 @@ Promise.all(doc_fetchers).then(() => {
 var assert,
     doc,
     body,
-    tests,
     test;
 
 assert      = (message, actual, expected) => [actual == expected, actual, expected, message]; 
@@ -75,6 +74,7 @@ test        = (term, assertions) => {
 
 doc = (config) => {
   var body        = document.querySelector(`article[data-attach="${config.attach_id}"] [data-component="test_container"]`);
+  body.innerHTML = `<div class="testing_sandbox" id="test_${config.attach_id}">${config.sandbox || ""}</div>`
   var test_results = config.tests.map(test => {
     var results = test.results.map(result => {
       var definition, description;
@@ -83,7 +83,7 @@ doc = (config) => {
       return `<dl>
         <dt>${definition}</dt>
         <dd>${description || ""}<dd>
-      </dl><div class="testing_sandbox" id="test_${config.attach_id}">${config.sandbox || ""}</div>`
+      </dl>`
     }).join("");
 
     return `<h1>${test.term}</h1>${results}`

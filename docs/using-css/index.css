@@ -1,0 +1,13 @@
+[data-component~="contacts"] {
+  background: #CCC;
+}
+
+[data-component~="contacts"] a {
+  color: cornflowerblue;
+  text-decoration: none;
+}
+
+[data-component~="contacts"] li {
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}

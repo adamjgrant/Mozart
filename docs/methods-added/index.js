@@ -1,4 +1,4 @@
-m = {}
+var m = {}
 m.contacts = new Component;
 
 m.contacts.acts({});

@@ -1,8 +1,27 @@
 * { box-sizing: border-box }
 
+:root {
+  --blue: rgb(3, 11, 27);
+}
+
+nav {
+  width: 100%;
+  line-height: 60px;
+  background: cornflowerblue;
+  color: white;
+  padding: 0 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+}
+
 body { 
   font-family: sans-serif; 
   font-size: 16px;
+}
+
+article > .text,
+article > pre {
+  padding-top: 50px; 
 }
 
 article {
@@ -17,19 +36,25 @@ dl {
 
 article .text { 
   width: 100%;
-  padding: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
 }
 
 article pre {
   width: 100%;
   padding: 15px;
-  background: #2d2d2d;
+  background: var(--blue);
   border-radius: 0;
   margin: 0;
 }
 
 article pre code {
   font-size: 0.75rem;
+}
+
+article pre code.hljs {
+  background: var(--blue);
 }
 
 [data-component="test_container"] {

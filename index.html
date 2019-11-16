@@ -4,10 +4,11 @@
     <link rel="stylesheet" href="kickstart.min.css">
     <link rel="stylesheet" href="style.css">
     <meta charset="utf8">
-    <title>Mozart Documentation and Test Runner</title>
+    <title>Mozart.js Documentation</title>
   </head>
 
   <body> 
+    <nav>Mozart.js Documentation</nav>
     <article>
       <div class="text">
         <h1>Basics</h1>
@@ -25,7 +26,20 @@
     </article>
 
     <article data-attach="methods-added"> 
-      <p>Your new component automatically has a set of methods. We'll go through each one of these to explain how they work.</p>
+      <p>Your new component automatically has a set of methods. You might notice some funny stuff going on there, especially that <code>_$</code> variable. We'll go through each one of these methods and cover that along the way.</p>
+    </article>
+
+    <article data-attach="using-css">
+      <p>Mozart doesn't provide any tooling at the moment to assist with CSS styling, but then again, you don't really need that overhead anyway.</p>
+      <p>Simply use the attirbute selector syntax to easily style only the elements in your component. This is even easier when nesting with SCSS/Sass, or a similar precompiler.</p>
+    </article>
+
+    <article data-attach="events">
+      <p>Events are simply the events that can happen on your component or an element in the component.</p>
+      <p>Mozart provides a "scoped selector" to make this easier. You can name it however you want, but we like to use <code>_$</code>.</p>
+      <p><code>_$</code> is a pass through for either jQuery's <code>$</code>, or <code>document.querySelectorAll</code> if you're not using it.</p>
+      <p>However, it provides an additional function by automatically scoping the query to the component. That's why we're free to be a little reckless here and just refer to the button as <code>button</code>. It's not necessary to use a class or ID here but I could if I wanted to.<p>
+      <p>In both examples, this event fires off a <code>generate</code> action. We'll cover actions next, but normally the actions would be referenced with <code>m.generator.acts</code>. This is another helper function <code>_$</code> provides, by giving us a shorthand to the component's own methods.</p>
     </article>
 
     <script src="mozart.js"></script> 
