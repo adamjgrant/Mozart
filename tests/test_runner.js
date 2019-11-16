@@ -4,12 +4,12 @@ attachees.forEach(attachee => {
   attachee.innerHTML = `
     <div class="text">
       ${attachee.innerHTML}
-      <div class="test_container"></div>
+      <div data-component="test_container"></div>
     </div>
   `;
 
   attachee.innerHTML += `
-    <pre class="code"></pre>
+    <pre><code></code></pre>
   `;
 
   function escapeHTML(str) {
@@ -24,7 +24,7 @@ attachees.forEach(attachee => {
       request.onload = function() {
         if (this.status >= 200 && this.status < 400) {
           pre_content += this.response;
-          attachee.querySelector("pre.code").innerHTML += escapeHTML(pre_content);
+          attachee.querySelector("pre code").innerHTML += escapeHTML(pre_content);
         }
         else { return }
       }
@@ -56,7 +56,7 @@ test        = (term, assertions) => {
 }
 
 doc = (config) => {
-  var body        = document.querySelector(`article[data-attach="${config.attach_id}"] .test_container`);
+  var body        = document.querySelector(`article[data-attach="${config.attach_id}"] [data-component="test_container"]`);
   var test_results = config.tests.map(test => {
     var results = test.results.map(result => {
       var definition, description;

@@ -2,36 +2,9 @@
 <html>
   <head>
     <link rel="stylesheet" href="kickstart.min.css">
+    <link rel="stylesheet" href="style.css">
     <meta charset="utf8">
     <title>Mozart Documentation and Test Runner</title>
-    <style>
-      body { 
-        font-family: sans-serif; 
-        max-width: 900px; 
-        margin: 0px auto; 
-        font-size: 16px;
-        padding: 25px;
-      }
-
-      .test_container {
-        background: #eee;
-        padding: 15px;
-        font-size: 0.85rem;
-      }
-
-      .test_container h1 {
-        font-size: 1rem;
-        margin: 0;
-      }
-
-      .testing_sandbox {
-        height: 0;
-        width: 0;
-        overflow: hidden;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
   </head>
 
   <body> 
@@ -41,16 +14,15 @@
       <p>Every Mozart component is a class that extends the Mozart base class.</p> 
     </article>
 
-    <article> 
+    <article data-attach="methods-added"> 
       <p>Your new component automatically has a set of methods.
-      <pre>
-        mComponent.acts({});
-        mComponent.events(m => {});
-      </pre>
     </article>
 
     <script src="mozart.js"></script> 
     <script src="tests/test_runner.js"></script>
     <script src="tests/tests.js"></script> 
+    <link rel="stylesheet" href="tomorrow-night-eighties.min.css">
+    <script src="highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </body>
 </html>
