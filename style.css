@@ -22,11 +22,14 @@ article .text {
 
 article pre {
   width: 100%;
-  padding: 0;
+  padding: 15px;
   background: #2d2d2d;
   border-radius: 0;
-  padding: 15px;
   margin: 0;
+}
+
+article pre code {
+  font-size: 0.75rem;
 }
 
 [data-component="test_container"] {
@@ -56,25 +59,21 @@ article pre {
   }
 
   article .text {
-    padding-left: calc(50vw - 600px);
+    padding-left: calc((100vw - 800px)/2);
   }
 
   article pre {
-    padding-right: calc(50vw - 300px);
+    padding-right: calc((100vw - 800px)/2);
   }
 }
 
-@media screen and (min-width: 1200px) {
-  article {
-    flex-wrap: nowrap;
-  }
-
+@media screen and (min-width: 1200px) { 
   article .text {
-    padding-left: calc(50vw - 700px);
+    padding-left: calc((100vw - 1000px)/2);
   }
 
   article pre {
-    padding-right: calc(50vw - 350px);
+    padding-right: calc((100vw - 1000px)/2);
   }
 }
 

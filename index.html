@@ -11,28 +11,26 @@
     <article>
       <div class="text">
         <h1>Basics</h1>
+        <label>
+          <input id="show-tests" type="checkbox">
+          Show tests
+        </label>
       </div>
       <pre></pre>
     </article>
 
     <article data-attach="create-a-component">
       <h2>Creating a component</h2>
-      <p>Every Mozart component is a class that extends the Mozart base class.</p> 
+      <p>Every Mozart component is a class that extends the Mozart base class. To enable the most customization, we recommend you always extend the <code>Mozart</code> base class with one called <code>Component</code>.</p>
     </article>
 
     <article data-attach="methods-added"> 
-      <p>Your new component automatically has a set of methods.
+      <p>Your new component automatically has a set of methods. We'll go through each one of these to explain how they work.</p>
     </article>
 
     <script src="mozart.js"></script> 
-    <script src="tests/test_runner.js"></script>
-    <script src="tests/tests.js"></script> 
+    <script src="docs.js"></script>
     <link rel="stylesheet" href="tomorrow-night-eighties.min.css">
     <script src="highlight.js"></script>
-    <script>
-      setTimeout(() => { 
-        hljs.initHighlighting(); 
-      }, 2000);
-    </script>
   </body>
 </html>
