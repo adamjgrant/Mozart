@@ -8,8 +8,8 @@ doc({
       class Component extends Mozart {};
 
       var m = Component.index
-      var generator = new Component;
-      generator.events(_$ => {
+      new Component("generator");
+      m.generator.events(_$ => {
         was_i_called = "called";
         button = _$("button");
       });

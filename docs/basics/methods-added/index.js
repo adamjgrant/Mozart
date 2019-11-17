@@ -1,10 +1,10 @@
 // You only need to do this once for the project.
-// Any component you create is a object of m 
+// Any component you create is a object of m
 class Component extends Mozart {};
 var m = Component.index;
 
 // <-- For each component you create
-m.contacts = new Component; 
+new Component("contacts");
 // Now you have these methods available.
 m.contacts.acts({});
 m.contacts.routes({});

@@ -1,15 +1,15 @@
 class Component extends Mozart {
-  transactions(args) {
-    return this.function_method(args);
+  transactions(fn) {
+    this.function_method(fn);
   }
 
-  calculations(args) {
-    return this.object_method(args);
+  calculations(obj) {
+    this.object_method(obj);
   }
 };
 
 var m = Component.index;
-m.accountant = new Component;
+new Component("accountant");
 
 m.accountant.transactions(_$ =>  {
   // ...
@@ -17,6 +17,6 @@ m.accountant.transactions(_$ =>  {
 
 m.accountant.calculations({
   add: (_$, args) {
-    // ...  
+    // ...
   }
 })

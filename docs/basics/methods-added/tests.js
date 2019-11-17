@@ -5,7 +5,7 @@ doc({
       class Component extends Mozart {};
 
       var m = Component.index;
-      m.contacts = new Component;
+      new Component("contacts");
 
       m.init();
 
