@@ -7,7 +7,7 @@ doc({
       var m = Component.index;
       new Component("contacts");
 
-      m.init();
+      Mozart.init();
 
       return [
         assert("Component is a function", typeof(Component), "function")

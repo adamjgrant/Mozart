@@ -7,12 +7,15 @@ doc({
 
       class Component extends Mozart {};
 
-      var m = Component.index
+      var m = Component.index;
       new Component("generator");
+
       m.generator.events(_$ => {
         was_i_called = "called";
         button = _$("button");
       });
+
+      Mozart.init();
 
       return [
         assert("Button can be selected with scoped selector", button.length, 1)

@@ -4,16 +4,16 @@ doc({
     test("Function and Object Methods can be added", () => {
       class Component extends Mozart {
         myfunction_method(args) {
-          return this.function_method(args);
+          super.function_method(args);
         }
 
         myobject_method(args) {
-          return this.object_method(args);
+          super.object_method(args);
         }
       };
 
       var m = Component.index;
-      m.mycomponent = new Component;
+      new Component("mycomponent");
 
       var scoped  = "not scoped",
           scoped2 = "not scoped",
@@ -30,9 +30,9 @@ doc({
         }
       })
 
-      m.init();
+      Mozart.init();
 
-      m.mycomponent.myobject_method.subfunc({ foo: "bar" })
+      // m.mycomponent.myobject_method.subfunc({ foo: "bar" })
 
       return [
         assert("myfunction_method is defined on instance variable and has scoped _$", scoped, "scoped")

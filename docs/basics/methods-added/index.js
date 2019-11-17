@@ -13,4 +13,4 @@ m.contacts.config({});
 // -->
 
 // Run this once after you've defined all your components.
-m.init();
+Mozart.init();

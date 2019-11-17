@@ -1,10 +1,10 @@
 class Component extends Mozart {
   transactions(fn) {
-    this.function_method(fn);
+    super.function_method(fn);
   }
 
   calculations(obj) {
-    this.object_method(obj);
+    super.object_method(obj);
   }
 };
 
@@ -20,3 +20,5 @@ m.accountant.calculations({
     // ...
   }
 })
+
+Mozart.init();
