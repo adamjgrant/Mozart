@@ -1,17 +1,43 @@
 * { box-sizing: border-box }
 
 :root {
-  --blue: rgb(3, 11, 27);
+  --blueh: 209;
+  --blues: 80%;
+  --bluel: 60%;
+  --blue: hsl(var(--blueh), var(--blues), var(--bluel));
+  --darkblue: hsl(var(--blueh), calc(var(--blues) - 25%), calc(var(--bluel) - 45%));
 }
 
 nav {
   width: 100%;
-  line-height: 60px;
-  background: cornflowerblue;
+  line-height: 30px;
+  font-weight: 100;
+  background: hsl(var(--blueh), var(--blues), var(--bluel));
   color: white;
   padding: 0 25px;
   font-family: 'Lato', sans-serif;
-  font-weight: bold;
+  font-size: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: 50px;
+}
+
+@media screen and (min-width: 600px) {
+  nav {
+    text-align: left;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  nav {
+    font-size: 50px;
+    font-weight: 400;
+    line-height: 36px;
+  }
+}
+
+html {
+  background: var(--blue);
 }
 
 body { 
@@ -30,6 +56,10 @@ article {
   flex-wrap: wrap;
 }
 
+article .text {
+  background: white;
+}
+
 dl {
   margin: 0;
 }
@@ -44,7 +74,7 @@ article .text {
 article pre {
   width: 100%;
   padding: 15px;
-  background: var(--blue);
+  background: var(--darkblue);
   border-radius: 0;
   margin: 0;
 }
@@ -54,7 +84,7 @@ article pre code {
 }
 
 article pre code.hljs {
-  background: var(--blue);
+  background: var(--darkblue);
 }
 
 [data-component="test_container"] {

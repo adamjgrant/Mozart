@@ -1,11 +1,13 @@
 doc({
-  attach_id: "methods-added",
+  attach_id: "basics/methods-added",
   tests: [
     test("Mozart can be extended and is given proper methods", () => {
       class Component extends Mozart {};
 
-      var m = {}
+      var m = Component.index;
       m.contacts = new Component;
+
+      m.init();
 
       return [
         assert("Component is a function", typeof(Component), "function")

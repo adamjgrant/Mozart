@@ -7,8 +7,8 @@
     <title>Mozart.js Documentation</title>
   </head>
 
-  <body> 
-    <nav>Mozart.js Documentation</nav>
+  <body>
+    <nav>Mozart</nav>
     <article>
       <div class="text">
         <h1>Basics</h1>
@@ -20,21 +20,21 @@
       <pre></pre>
     </article>
 
-    <article data-attach="create-a-component">
+    <article data-attach="basics/create-a-component">
       <h2>Creating a component</h2>
       <p>Every Mozart component is a class that extends the Mozart base class. To enable the most customization, we recommend you always extend the <code>Mozart</code> base class with one called <code>Component</code>.</p>
     </article>
 
-    <article data-attach="methods-added"> 
+    <article data-attach="basics/methods-added">
       <p>Your new component automatically has a set of methods. You might notice some funny stuff going on there, especially that <code>_$</code> variable. We'll go through each one of these methods and cover that along the way.</p>
     </article>
 
-    <article data-attach="using-css">
+    <article data-attach="basics/using-css">
       <p>Mozart doesn't provide any tooling at the moment to assist with CSS styling, but then again, you don't really need that overhead anyway.</p>
       <p>Simply use the attirbute selector syntax to easily style only the elements in your component. This is even easier when nesting with SCSS/Sass, or a similar precompiler.</p>
     </article>
 
-    <article data-attach="events">
+    <article data-attach="basics/events">
       <p>Events are simply the events that can happen on your component or an element in the component.</p>
       <p>Mozart provides a "scoped selector" to make this easier. You can name it however you want, but we like to use <code>_$</code>.</p>
       <p><code>_$</code> is a pass through for either jQuery's <code>$</code>, or <code>document.querySelectorAll</code> if you're not using it.</p>
@@ -42,7 +42,13 @@
       <p>In both examples, this event fires off a <code>generate</code> action. We'll cover actions next, but normally the actions would be referenced with <code>m.generator.acts</code>. This is another helper function <code>_$</code> provides, by giving us a shorthand to the component's own methods.</p>
     </article>
 
-    <script src="mozart.js"></script> 
+    <article data-attach="advanced/adding-methods">
+      <h1>Advanced</h1>
+      <h2>Adding custom methods</h2>
+      <p>We've shown how Mozart has a few methods out of the box, such as <code>acts</code> and <code>events</code>. Here's how you can add your own.</p>
+    </article>
+
+    <script src="mozart.js"></script>
     <script src="docs.js"></script>
     <link rel="stylesheet" href="tomorrow-night-eighties.min.css">
     <script src="highlight.js"></script>
