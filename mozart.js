@@ -7,37 +7,63 @@ class Mozart {
     return this;
   }
 
-  function_method(name, fn) { this.function_methods.push(fn); }
-  object_method(name, obj)  { this.object_methods.push([name, obj]); }
-
-  acts(obj)   { this.object_method("acts", obj); }
-  routes(obj) { this.object_method("routes", obj); }
-  config(obj) { this.object_method("config", obj); }
-  events(fn)  { this.function_method("events", fn); }
-
-  _$(selector) {
-    if (selector) {
-      return document.querySelectorAll(`[data-component~='${this.name}'] ${selector}`)
-    }
-    return { foo: "bar" }
+  add_function_method(name, fn) {
+    this.function_methods.push(fn);
+    this[name] = fn;
+  }
+  add_object_method(name, obj)  {
+    this.object_methods.push([name, obj]);
+    this[name] = obj;
   }
 
-  init() {
-    var self = this;
+  functional_object(obj) {
+    var _obj = {};
+    for (var key in obj) {
+      _obj[key] = args => {
+        var _$ = this.scoped_selector();
+        obj[key](_$, args);
+      }
+    }
+    return _obj;
+  }
 
-    this.function_methods.forEach(function_method => {
-      function_method(this._$.bind(this));
-    });
+  acts(obj) {
+    var _obj = this.functional_object(obj);
+    this.add_object_method("acts", _obj);
+  }
+
+  routes(obj) {
+    var _obj = {};
+    for (var key in obj) {
+      _obj[key] = args => {
+        var __obj = JSON.parse(JSON.stringify(obj[key]));
+        __obj.url = obj[key].url.interpolate(args);
+        return __obj;
+      }
+    }
+    this.add_object_method("routes", _obj);
+  }
+  config(obj) { this.add_object_method("config", obj); }
+  events(fn)  { this.add_function_method("events", fn); }
+
+  scoped_selector() {
+    var scoped_selector = (selector) => {
+      return document.querySelectorAll(`[data-component~='${this.name}'] ${selector}`);
+    }
 
     this.object_methods.forEach(object_method => {
       var name, object;
-      [name, object] = object_method;
+      [name, object] = object_method
+      scoped_selector[name] = object;
+    });
 
-      for (var sub_method in object) {
-        this[name][sub_method] = (args) => {
-          object[sub_method].call(this, this._$.bind(this), args);
-        }
-      }
+    return scoped_selector;
+  }
+
+  init() {
+    this.function_methods.forEach(function_method => {
+      var _$ = this.scoped_selector();
+      function_method(_$);
     });
   }
 };
@@ -50,3 +76,12 @@ Mozart.init = () => {
     component.init();
   }
 }
+
+String.prototype.interpolate = function(o) {
+  return this.replace(/#\{(.+?)\}/g,
+    function (a, b) {
+      var r = o[b];
+      return typeof r === 'string' || typeof r === 'number' ? r : a;
+    }
+  );
+};
