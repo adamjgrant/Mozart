@@ -24,7 +24,7 @@ attachees.forEach(attachee => {
         var pre_content = "",
             request = new XMLHttpRequest();
 
-        request.open("GET", `/docs/${attachee.dataset.attach}/index.${extension}`, true);
+        request.open("GET", `docs/${attachee.dataset.attach}/index.${extension}`, true);
         request.onload = function() {
           if (this.status >= 200 && this.status < 400) {
             pre_content += this.response;
@@ -43,7 +43,7 @@ attachees.forEach(attachee => {
   });
 
   var script = document.createElement("script");
-  script.src = `/docs/${attachee.dataset.attach}/tests.js`
+  script.src = `docs/${attachee.dataset.attach}/tests.js`
   document.body.appendChild(script);
 });
 
