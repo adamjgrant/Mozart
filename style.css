@@ -40,14 +40,14 @@ html {
   background: var(--blue);
 }
 
-body { 
-  font-family: sans-serif; 
+body {
+  font-family: sans-serif;
   font-size: 16px;
 }
 
 article > .text,
 article > pre {
-  padding-top: 50px; 
+  padding-top: 50px;
 }
 
 article {
@@ -64,7 +64,7 @@ dl {
   margin: 0;
 }
 
-article .text { 
+article .text {
   width: 100%;
   padding-left: 15px;
   padding-right: 15px;
@@ -92,6 +92,10 @@ article pre code.hljs {
   padding: 15px;
   font-size: 0.75rem;
   border-radius: 10px;
+}
+
+[data-component="test_container"]:empty {
+  display: none;  
 }
 
 [data-component="test_container"] h1 {
@@ -122,7 +126,7 @@ article pre code.hljs {
   }
 }
 
-@media screen and (min-width: 1200px) { 
+@media screen and (min-width: 1200px) {
   article .text {
     padding-left: calc((100vw - 1000px)/2);
   }

@@ -10,7 +10,10 @@ doc({
         myobject_method(obj) {
           super.add_object_method(
             "myobject_method",
-            super.functional_object(obj)
+            super.parse_object(obj, (args, key) => {
+              var _$ = this.scoped_selector();
+              obj[key](_$, args);
+            })
           );
         }
       };

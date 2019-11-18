@@ -16,32 +16,32 @@ class Mozart {
     this[name] = obj;
   }
 
-  functional_object(obj) {
+  parse_object(obj, fn) {
     var _obj = {};
     for (var key in obj) {
       _obj[key] = args => {
-        var _$ = this.scoped_selector();
-        obj[key](_$, args);
+        return fn(args, key);
       }
     }
     return _obj;
   }
 
   acts(obj) {
-    var _obj = this.functional_object(obj);
+    var _obj = this.parse_object(obj, (args, key) => {
+      var _$ = this.scoped_selector();
+      obj[key](_$, args);
+    });
     this.add_object_method("act", _obj);
     this.add_object_method("acts", _obj);
   }
 
   routes(obj) {
-    var _obj = {};
-    for (var key in obj) {
-      _obj[key] = args => {
-        var __obj = JSON.parse(JSON.stringify(obj[key]));
-        __obj.url = obj[key].url.interpolate(args);
-        return __obj;
-      }
-    }
+    var _obj = this.parse_object(obj, (args, key) => {
+      var __obj = JSON.parse(JSON.stringify(obj[key]));
+      __obj.url = obj[key].url.interpolate(args);
+      return __obj;
+    });
+
     this.add_object_method("route", _obj);
     this.add_object_method("routes", _obj);
   }

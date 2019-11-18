@@ -29,7 +29,7 @@ doc({
       })
 
       Mozart.init();
-      m.image_resizer.acts.resize();
+      m.image_resizer.act.resize();
 
       return [
         assert("Routes set an object when called", Object.keys(params).length, 2)
