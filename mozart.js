@@ -3,7 +3,7 @@ class Mozart {
     this.name               = name;
     Mozart.index[this.name] = this;
     this.function_methods   = [];
-    this.object_methods     = [];
+    this.object_methods     = [{ priv: [] }];
     return this;
   }
 
@@ -20,14 +20,14 @@ class Mozart {
     var _obj = {};
 
     for (var key in obj) {
-      if (key == "priv") continue;
-      else {
-        ((obj, _obj, key) => {
-          _obj[key] = args => {
-            return fn.call(this, obj, args, key);
-          }
-        })(obj, _obj, key);
-      }
+      ((obj, _obj, key) => {
+        var _fn = args => { return fn.call(this, obj, args, key); }
+        if (key == "priv") {
+          _obj.priv = _obj.priv || {};
+          _obj.priv[key] = _fn;
+        }
+        else _obj[key] = _fn;
+      })(obj, _obj, key);
     }
 
     return _obj;
@@ -86,8 +86,9 @@ class Mozart {
     }
 
     this.object_methods.forEach(object_method => {
+      if (Object.keys(object_method)[0] == "priv") return;
       var name, object;
-      [name, object] = object_method
+      [name, object] = object_method;
       scoped_selector[name] = object;
     });
 
