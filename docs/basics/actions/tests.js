@@ -4,18 +4,20 @@ doc({
     test("Actions", () => {
       class Component extends Mozart {};
       var m = Component.index;
-      new Component("actionguy");
+      new Component("actionguy"); 
+      var iexist = false;
 
       m.actionguy.acts({
         iexist(_$, args) {
-          return "I exist";
+          iexist = true;
         }
       });
 
       Mozart.init();
+      m.actionguy.act.iexist();
       
       return [
-        assert("Action can be called from the outside", m.actionguy.act.iexist(), "I exist")
+        assert("Action can be called from the outside", iexist, true)
       ]
     })
   ]

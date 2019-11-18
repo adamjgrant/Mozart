@@ -99,8 +99,6 @@ class Mozart {
       this.object_methods.priv
     );
 
-    console.log(all_obj_methods_pub_and_priv);
-
     all_obj_methods_pub_and_priv.forEach(object_method => {
       var name, object;
       [name, object] = object_method; 
