@@ -85,8 +85,20 @@ class Mozart {
       return (selector_array.length == 1 ? selector_array[0] : selector_array);
     }
 
-    this.object_methods.forEach(object_method => {
-      if (Object.keys(object_method)[0] == "priv") return;
+    var remove_empty_priv = (obj) => {
+      var key = Object.keys(obj)[0];
+      if (key != "priv" || obj[key].length) {
+        return obj;
+      }
+    }
+
+    var all_obj_methods_pub_and_priv = this.object_methods.filter(remove_empty_priv).map(object_method => {
+      if (Object.keys(object_method)[0] != "priv") return object_method;
+      else { return object_method.priv; }
+    });
+
+    console.log(all_obj_methods_pub_and_priv);
+    all_obj_methods_pub_and_priv.forEach(object_method => {
       var name, object;
       [name, object] = object_method;
       scoped_selector[name] = object;

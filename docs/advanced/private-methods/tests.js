@@ -23,7 +23,8 @@ doc({
 
         init(_$, args) {
           _$.act.public_fn_from_self();
-          _$.act.private_fn_from_self();
+          try { _$.act.private_fn_from_self(); }
+          catch(e) { console.error("Could not call own private function") }
         },
 
         priv: {
@@ -39,13 +40,15 @@ doc({
       m.extrovert.act({
         init(_$, args) {
           m.introvert.act.public_fn_from_another();
-          m.introvert.act.private_fn_from_another();
+          try { m.introvert.act.private_fn_from_another(); }
+          catch(e) { console.error("Could not call private function") };
         }
       });
 
       Mozart.init();
 
       m.introvert.act.init();
+      m.extrovert.act.init();
 
       return [
         assert("Public function called from self is reachable", public_called_from_self, true) 
