@@ -6,6 +6,7 @@
   --bluel: 60%;
   --blue: hsl(var(--blueh), var(--blues), var(--bluel));
   --darkblue: hsl(var(--blueh), calc(var(--blues) - 25%), calc(var(--bluel) - 45%));
+  --max-width: 800px;
 }
 
 nav {
@@ -79,6 +80,20 @@ article pre {
   margin: 0;
 }
 
+article pre:empty {
+  display: none;
+}
+
+@media screen and (min-width: 600px) {
+  article pre {
+    padding-bottom: 150px;
+  }
+
+  article pre:empty {
+    display: block;
+  }
+}
+
 article pre code {
   font-size: 0.75rem;
 }
@@ -95,7 +110,7 @@ article pre code.hljs {
 }
 
 [data-component="test_container"]:empty {
-  display: none;  
+  display: none;
 }
 
 [data-component="test_container"] h1 {
@@ -118,22 +133,20 @@ article pre code.hljs {
   }
 
   article .text {
-    padding-left: calc((100vw - 800px)/2);
+    padding-left: calc((100vw - var(--max-width))/2);
   }
 
   article pre {
-    padding-right: calc((100vw - 800px)/2);
+    padding-right: calc((100vw - var(--max-width))/2);
   }
 }
 
 @media screen and (min-width: 1200px) {
-  article .text {
-    padding-left: calc((100vw - 1000px)/2);
-  }
+  :root { --max-width: 1000px; }
+}
 
-  article pre {
-    padding-right: calc((100vw - 1000px)/2);
-  }
+@media screen and (min-width: 1400px) {
+  :root { --max-width: 1300px; }
 }
 
 h1 {

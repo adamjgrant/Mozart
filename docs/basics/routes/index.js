@@ -1,5 +1,4 @@
 // image_resizer/routes.js
-
 m.image_resizer.routes({
   resize: {
     type: "PUSH",
@@ -13,18 +12,22 @@ m.image_resizer.routes({
 });
 
 // image_resizer/actions.js
-
 m.image_resizer.acts({
   resize: (_$, args) => {
     var params = _$.routes.retrieve({ image_id: args.id })
     $.ajax(params);
+    /*
+     *  params = {
+     *    type: "GET",
+     *    url: "/resizer/2"
+     *  }
+     */
   }
 });
 
 // image_resizer/events.js
-
 m.image_resizer.events(_$ => {
   _$("img").click(() => {
-    _$.acts.resize({ id: $(this).id })
+    _$.act.resize({ id: $(this).dataset.id })
   });
 });
