@@ -2,7 +2,7 @@ doc({
   attach_id: "basics/routes",
   tests: [
     test("Routes are generated correctly", () => {
-      var params = {};
+      var params = { image_id: undefined, foo: "bar" };
 
       class Component extends Mozart {};
       new Component("image_resizer");
@@ -26,13 +26,11 @@ doc({
         }
       })
 
-      params.data = params.data || {};
-
       Mozart.init();
       m.image_resizer.act.resize();
 
       return [
-        assert("Routes set an object when called", Object.keys(params).length, 2)
+        assert("Routes set an object when called", Object.keys(params).length, 3)
         , assert("Routes interpolates a url string", params.url, "/resizer/2")
         , assert("Routes puts noninterpolated items in the data key", params.data['foo'], "bar")
         , assert("Routes removes interpolated items in the data key", params.data['image_id'], undefined)

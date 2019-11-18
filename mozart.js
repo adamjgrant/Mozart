@@ -41,6 +41,14 @@ class Mozart {
     var _obj = this.parse_object(obj, (args, key) => {
       var __obj = JSON.parse(JSON.stringify(obj[key]));
       __obj.url = obj[key].url.interpolate(args);
+      __obj.data = args;
+
+      Object.keys(args).forEach(_key => {
+        if (!!obj[key].url.match(_key)) {
+          delete __obj.data[_key];
+        }
+      });
+
       return __obj;
     });
 
