@@ -65,6 +65,14 @@ article .text {
   background: white;
 }
 
+article .text input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 5px;
+  background: #555;
+  color: white;
+}
+
 dl {
   margin: 0;
 }
@@ -165,3 +173,21 @@ h2 {
 h3 {
   font-size: 0.85rem;
 }
+
+.github_stars {
+  width: 150px;
+  border: 0;
+  padding: 0;
+  margin-bottom: 0;
+  position: absolute;
+  right: 15px;
+  height: 60px;
+  top: 25px;
+}
+
+@media screen and (min-width: 600px) {
+  .github_stars {
+    top: 50px;
+  }
+}
+

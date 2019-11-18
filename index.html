@@ -10,14 +10,31 @@
   <body>
     <nav>
       <span class="title">Mozart</span>
-      <a href="https://github.com/adamjgrant/Mozart"></a>
+      <iframe class="github_stars" src="https://ghbtns.com/github-btn.html?user=adamjgrant&repo=Mozart&type=star&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
     </nav>
 
     <article data-attach="about/why">
       <h1>About</h1>
       <p>Not every project needs React or Angular to be zippy and modern.</p>
-      <p>After spending years developing <a href="https://getkickstart.com">Kickstart</a> after its third version and thousands of GitHub stars, I started work on Mozart.</p>
-      <p>Four years later, I'm ready to release it to the public.</p>
+      <p>I spent years developing Kickstrap, and its successor <a href="https://getkickstart.com">Kickstart</a>. After its third version, some tinkering with <a href="http://getkickstart.com/amadeus/">Amadeus</a>, and thousands of GitHub stars, I started work on Mozart. My goal was to create a freakishly tiny code snippet that lets us better leverage the native featurers of JavaScript while staying a little organized.</p>
+      <p>After three more years of revisions and lots of help and advice from the community, I'm ready to release it to the public.</p>
+      <p><a href="http://adamgrant.me">— Adam</a></p>
+    </article>
+
+    <article data-attach="about/how">
+      <h2>Components</h2>
+      <p>The central idea behind Mozart is to treat your web application like a set of components.</p>
+      <p>Once we stick to that idea, we can define events, actions, routes, and configuration within the scope of each component and not worry about them running into each other.</p>
+      <p>Much of this can already be done using simple patterns and native JavaScript, Mozart just helps us to shorthand some of this and provide easy ways to <em><a href="https://en.wikipedia.org/wiki/Loose_coupling">loosely-couple</a></em> components to one another.</p>
+    </article>
+
+    <article data-attach="about/example">
+      <img src="components.png">
+      <h3>Example</h3>
+      <p>Consider this simple example where we want to build a contacts application. Users can go through a list of contacts in the bottom left, click on a contact to see their full details in the bottom right, or create a new contact at the top.</p>
+      <p>To make this easy for ourselves, we might want to make this one big component. Maybe this helps us to separate it from the rest of the things going on in the application.</p>
+      <p>Or maybe we make this into three components and let each one call out to the other to pass some data or execute a fucntion.</p>
+      <p>In the next sections we'll show you the different tools and patterns aided by Mozart to let you build component-driven, dependency-free JavaScript applications</p>
     </article>
 
     <article>
@@ -27,9 +44,9 @@
           <input id="show-tests" type="checkbox">
           Show tests
         </label>
-        <p><a href="//cdn.everything.io/mozart/mozart.min.js">Download Mozart</a> or use the CDN links</p>
-        <input type="text" value="https://cdn.everything.io/mozart/mozart.min.js" />
-        <input type="text" value="https://cdn.everything.io/mozart/mozart.js" />
+        <p><a href="//cdn.everything.io/mozart/v2/mozart.min.js">Download Mozart</a> or use the CDN links</p>
+        <input type="text" onclick="select()" value="https://cdn.everything.io/v2/mozart/mozart.min.js" />
+        <input type="text" onclick="select()" value="https://cdn.everything.io/v2/mozart/mozart.js" />
       </div>
       <pre></pre>
     </article>
