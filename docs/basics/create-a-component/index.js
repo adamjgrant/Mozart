@@ -1,0 +1,2 @@
+class Component extends Mozart {};
+
