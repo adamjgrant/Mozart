@@ -18,19 +18,27 @@ class Mozart {
 
   parse_object(obj, fn) {
     var _obj = {};
+
     for (var key in obj) {
-      _obj[key] = args => {
-        return fn(args, key);
+      if (key == "priv") continue;
+      else {
+        ((obj, _obj, key) => {
+          _obj[key] = args => {
+            return fn.call(this, obj, args, key);
+          }
+        })(obj, _obj, key);
       }
     }
+
     return _obj;
   }
 
   acts(obj) {
-    var _obj = this.parse_object(obj, (args, key) => {
+    var _obj = this.parse_object(obj, (obj, args, key) => {
       var _$ = this.scoped_selector();
       obj[key](_$, args);
     });
+
     this.add_object_method("act", _obj);
     this.add_object_method("acts", _obj);
   }
@@ -38,7 +46,7 @@ class Mozart {
   act(obj) { return this.acts(obj); }
 
   routes(obj) {
-    var _obj = this.parse_object(obj, (args, key) => {
+    var _obj = this.parse_object(obj, (obj, args, key) => {
       var __obj = JSON.parse(JSON.stringify(obj[key]));
       __obj.url = obj[key].url.interpolate(args);
       __obj.data = args;
