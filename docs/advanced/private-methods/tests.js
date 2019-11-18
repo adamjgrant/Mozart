@@ -41,7 +41,10 @@ doc({
         init(_$, args) {
           m.introvert.act.public_fn_from_another();
           try { m.introvert.act.private_fn_from_another(); }
-          catch(e) { console.error("Could not call private function") };
+          catch(e) { 
+            return 0; 
+            // As we'd expect, this should not work.
+          };
         }
       });
 

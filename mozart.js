@@ -3,7 +3,7 @@ class Mozart {
     this.name               = name;
     Mozart.index[this.name] = this;
     this.function_methods   = [];
-    this.object_methods     = [{ priv: [] }];
+    this.object_methods     = { priv: [], pub: [] };
     return this;
   }
 
@@ -11,36 +11,46 @@ class Mozart {
     this.function_methods.push(fn);
     this[name] = fn;
   }
-  add_object_method(name, obj)  {
-    this.object_methods.push([name, obj]);
-    this[name] = obj;
+
+  add_object_method(name, obj, priv)  {
+    if (priv) {
+      this.object_methods.priv.push([name, obj]);
+    }
+    else {
+      this.object_methods.pub.push([name, obj]);
+      this[name] = obj;
+    }
   }
 
   parse_object(obj, fn) {
     var _obj = {};
 
     for (var key in obj) {
-      ((obj, _obj, key) => {
+      ((obj, _obj, key, fn) => {
         var _fn = args => { return fn.call(this, obj, args, key); }
-        if (key == "priv") {
-          _obj.priv = _obj.priv || {};
-          _obj.priv[key] = _fn;
-        }
-        else _obj[key] = _fn;
-      })(obj, _obj, key);
+        if (key != "priv") _obj[key] = _fn;
+      })(obj, _obj, key, fn);
     }
 
     return _obj;
   }
 
   acts(obj) {
-    var _obj = this.parse_object(obj, (obj, args, key) => {
+    var public_obj = this.parse_object(obj.priv, (obj, args, key) => {
       var _$ = this.scoped_selector();
       obj[key](_$, args);
     });
 
-    this.add_object_method("act", _obj);
-    this.add_object_method("acts", _obj);
+    this.add_object_method("act", public_obj, true);
+    this.add_object_method("acts", public_obj, true);
+
+    var private_obj = this.parse_object(obj, (obj, args, key) => {
+      var _$ = this.scoped_selector();
+      obj[key](_$, args);
+    });
+
+    this.add_object_method("act", private_obj);
+    this.add_object_method("acts", private_obj);
   }
 
   act(obj) { return this.acts(obj); }
@@ -85,23 +95,20 @@ class Mozart {
       return (selector_array.length == 1 ? selector_array[0] : selector_array);
     }
 
-    var remove_empty_priv = (obj) => {
-      var key = Object.keys(obj)[0];
-      if (key != "priv" || obj[key].length) {
-        return obj;
-      }
-    }
-
-    var all_obj_methods_pub_and_priv = this.object_methods.filter(remove_empty_priv).map(object_method => {
-      if (Object.keys(object_method)[0] != "priv") return object_method;
-      else { return object_method.priv; }
-    });
+    var all_obj_methods_pub_and_priv = this.object_methods.pub.concat(
+      this.object_methods.priv
+    );
 
     console.log(all_obj_methods_pub_and_priv);
+
     all_obj_methods_pub_and_priv.forEach(object_method => {
       var name, object;
-      [name, object] = object_method;
-      scoped_selector[name] = object;
+      [name, object] = object_method; 
+      scoped_selector[name] = scoped_selector[name] || {};
+
+      Object.keys(object).forEach(key => {
+        scoped_selector[name][key] = object[key];
+      });
     });
 
     return scoped_selector;
