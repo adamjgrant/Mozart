@@ -16,7 +16,10 @@ class Mozart {
   events(fn)  { this.function_method("events", fn); }
 
   _$(selector) {
-    return document.querySelectorAll(`[data-component~='${this.name}'] ${selector}`)
+    if (selector) {
+      return document.querySelectorAll(`[data-component~='${this.name}'] ${selector}`)
+    }
+    return { foo: "bar" }
   }
 
   init() {
