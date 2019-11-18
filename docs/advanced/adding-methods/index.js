@@ -1,10 +1,10 @@
 class Component extends Mozart {
   transactions(fn) {
-    super.function_method(fn);
+    super.function_method("transactions", fn);
   }
 
   calculations(obj) {
-    super.object_method(obj);
+    super.object_method("calculations", obj);
   }
 };
 
