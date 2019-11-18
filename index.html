@@ -8,7 +8,18 @@
   </head>
 
   <body>
-    <nav>Mozart</nav>
+    <nav>
+      <span class="title">Mozart</span>
+      <a href="https://github.com/adamjgrant/Mozart"></a>
+    </nav>
+
+    <article data-attach="about/why">
+      <h1>About</h1>
+      <p>Not every project needs React or Angular to be zippy and modern.</p>
+      <p>After spending years developing <a href="https://getkickstart.com">Kickstart</a> after its third version and thousands of GitHub stars, I started work on Mozart.</p>
+      <p>Four years later, I'm ready to release it to the public.</p>
+    </article>
+
     <article>
       <div class="text">
         <h1>Basics</h1>
@@ -16,6 +27,9 @@
           <input id="show-tests" type="checkbox">
           Show tests
         </label>
+        <p><a href="//cdn.everything.io/mozart/mozart.min.js">Download Mozart</a> or use the CDN links</p>
+        <input type="text" value="https://cdn.everything.io/mozart/mozart.min.js" />
+        <input type="text" value="https://cdn.everything.io/mozart/mozart.js" />
       </div>
       <pre></pre>
     </article>
@@ -37,6 +51,11 @@
     <article data-attach="basics/actions">
       <h2>Actions</h2>
       <p>Actions are stored in a dictionary to allow for calling by name either from within the component or from another.</p>
+      <p>The idea of actions is to compartmentalize atomic concerns of your application into named routes.</p>
+      <p>This allows you to separate out event-driven logic which we'll cover next, and to make it easy to follow your code as different components talk to one another.</p>
+      <h3><code>_$, args</code></h3>
+      <p>You may have noticed each method has two arguments, <code>_$</code> and <code>args</code>. When you actually call the action, you can omit the <code>_$</code> as this is added in automatically.</p>
+      <p><code>_$</code> is the scoped selector, which we'll talk about a little more in the next section. <code>args</code> can be anything you want. We recommend treating this as a simple JavaScript object for passing any arguments you wish.</p>
     </article>
 
     <article data-attach="basics/events">
