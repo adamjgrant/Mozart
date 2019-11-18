@@ -40,12 +40,12 @@ attachees.forEach(attachee => {
         request.send();
       })(extension, attachee, resolve, reject);
     }));
-  }); 
+  });
 
   var script = document.createElement("script");
   script.src = `/docs/${attachee.dataset.attach}/tests.js`
   document.body.appendChild(script);
-}); 
+});
 
 Promise.all(doc_fetchers).then(() => {
   hljs.initHighlighting();
@@ -57,7 +57,7 @@ var assert,
     body,
     test;
 
-assert      = (message, actual, expected) => [actual == expected, actual, expected, message]; 
+assert      = (message, actual, expected) => [actual == expected, actual, expected, message];
 test        = (term, assertions, sandbox) => {
   if (sandbox) {
     document.getElementById("test-sandbox").innerHTML = sandbox;
@@ -70,7 +70,7 @@ test        = (term, assertions, sandbox) => {
       [passed, actual, expected, message] = assertion;
 
       definition  = `${passed ? "🟢 PASS" : "🔴 FAIL"} ${message}`;
-      description = passed ? undefined : `Expected ${expected}, got ${actual}`; 
+      description = passed ? undefined : `Expected ${expected}, got ${actual}`;
       return [definition, description]
     })
   }

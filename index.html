@@ -52,6 +52,14 @@
       <p>The <code>config</code> method is a convenient way to add configuration values within the component.</p>
     </article>
 
+    <article data-attach="advanced/jquery">
+      <h1>Advanced</h1>
+      <h2>Using jQuery</h2>
+      <p>Mozart will automatically return from jQuery with <code>_$</code> instead of returning just plain JavaScript nodes. Just make sure jQuery is included before Mozart.</p>
+      <p>For root methods on jQuery such as <code>$.ajax</code>, continue using <code>$</code> while using <code>_$</code> for component scoped selections.</p>
+    </article>
+
+    <script src="jquery.js"></script>
     <script src="mozart.js"></script>
     <script src="docs.js"></script>
     <link rel="stylesheet" href="tomorrow-night-eighties.min.css">

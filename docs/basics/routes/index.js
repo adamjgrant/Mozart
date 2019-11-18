@@ -14,12 +14,15 @@ m.image_resizer.routes({
 // image_resizer/actions.js
 m.image_resizer.acts({
   resize: (_$, args) => {
-    var params = _$.routes.retrieve({ image_id: args.id })
+    var params = _$.routes.retrieve({ image_id: args.id, quality: "full" })
     $.ajax(params);
     /*
      *  params = {
      *    type: "GET",
      *    url: "/resizer/2"
+     *    data: {
+     *      quality: "full"
+     *    }
      *  }
      */
   }

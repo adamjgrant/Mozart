@@ -35,6 +35,8 @@ class Mozart {
     this.add_object_method("acts", _obj);
   }
 
+  act(obj) { return this.acts(obj); }
+
   routes(obj) {
     var _obj = this.parse_object(obj, (args, key) => {
       var __obj = JSON.parse(JSON.stringify(obj[key]));
@@ -46,6 +48,8 @@ class Mozart {
     this.add_object_method("routes", _obj);
   }
 
+  route(obj) { return this.routes(obj); }
+
   config(obj) {
     this.add_object_method("config", obj);
   }
@@ -55,9 +59,13 @@ class Mozart {
     this.add_function_method("event", fn);
   }
 
+  event(fn) { return this.events(fn); }
+
   scoped_selector() {
     var scoped_selector = (selector) => {
-      var selector_array = document.querySelectorAll(`[data-component~='${this.name}'] ${selector}`);
+      var selector_string = `[data-component~='${this.name}'] ${selector}`;
+      if (typeof(jQuery) == "function") return $(selector_string);
+      var selector_array = document.querySelectorAll(selector);
       return (selector_array.length == 1 ? selector_array[0] : selector_array);
     }
 

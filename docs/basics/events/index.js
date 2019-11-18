@@ -5,5 +5,5 @@ m.generator.events(_$ => {
 
 // Plain JavaScript
 m.generator.events(_$ => {
-  _$("button")[0].addEventListener("click", _$.act.generate);
+  _$("button").addEventListener("click", _$.act.generate);
 });
