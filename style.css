@@ -1,11 +1,13 @@
 * { box-sizing: border-box }
 
 :root {
-  --blueh: 209;
-  --blues: 80%;
-  --bluel: 60%;
+  --blueh: 562;
+  --blues: 68%;
+  --bluel: 55%;
   --blue: hsl(var(--blueh), var(--blues), var(--bluel));
-  --darkblue: hsl(var(--blueh), calc(var(--blues) - 25%), calc(var(--bluel) - 45%));
+  --darkblue: hsl(var(--blueh), calc(var(--blues) - 20%), calc(var(--bluel) - 40%));
+  --fadedblue: hsl(var(--blueh), calc(var(--blues) - 40%), calc(var(--bluel) + 40%));
+  --textblue: hsl(var(--blueh), calc(var(--blues) - 55%), calc(var(--bluel) - 30%));
   --max-width: 800px;
 }
 
@@ -29,16 +31,18 @@ nav {
   }
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 1000px) {
   nav {
     font-size: 50px;
     font-weight: 400;
     line-height: 36px;
+    margin-top: 100px;
   }
 }
 
 html {
   background: var(--blue);
+  color: var(--textblue);
 }
 
 body {
@@ -103,10 +107,11 @@ article pre code.hljs {
 }
 
 [data-component="test_container"] {
-  background: #eee;
+  background: var(--fadedblue);
   padding: 15px;
   font-size: 0.75rem;
   border-radius: 10px;
+  color: var(--darkblue);
 }
 
 [data-component="test_container"]:empty {
