@@ -24,17 +24,17 @@ doc({
           event_decorated_$_acts = undefined;
 
       m.mycomponent.acts({
-        foo() {}  
+        foo() {}
       });
 
       m.mycomponent.myfunction_method(_$ => {
-        if (_$("i").length) { scoped = "scoped" }
+        if (typeof(_$("i")) == "object") { scoped = "scoped" }
         event_decorated_$_acts = _$.acts;
       });
 
       m.mycomponent.myobject_method({
         subfunc(_$, args) {
-          if (_$("i").length) {  scoped2 = "scoped" }
+          if (typeof(_$("i")) == "object") {  scoped2 = "scoped" }
           if (args.foo == "bar") {  args_present = "present" }
         }
       });

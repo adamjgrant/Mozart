@@ -18,7 +18,7 @@ doc({
       Mozart.init();
 
       return [
-        assert("Button can be selected with scoped selector", button.length, 1)
+        assert("Button can be selected with scoped selector", typeof(button), "object")
         , assert("Event function is called on Mozart init", was_i_called, "called")
       ]
     }, `

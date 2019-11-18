@@ -29,6 +29,7 @@ class Mozart {
 
   acts(obj) {
     var _obj = this.functional_object(obj);
+    this.add_object_method("act", _obj);
     this.add_object_method("acts", _obj);
   }
 
@@ -41,14 +42,23 @@ class Mozart {
         return __obj;
       }
     }
+    this.add_object_method("route", _obj);
     this.add_object_method("routes", _obj);
   }
-  config(obj) { this.add_object_method("config", obj); }
-  events(fn)  { this.add_function_method("events", fn); }
+
+  config(obj) {
+    this.add_object_method("config", obj);
+  }
+
+  events(fn)  {
+    this.add_function_method("events", fn);
+    this.add_function_method("event", fn);
+  }
 
   scoped_selector() {
     var scoped_selector = (selector) => {
-      return document.querySelectorAll(`[data-component~='${this.name}'] ${selector}`);
+      var selector_array = document.querySelectorAll(`[data-component~='${this.name}'] ${selector}`);
+      return (selector_array.length == 1 ? selector_array[0] : selector_array);
     }
 
     this.object_methods.forEach(object_method => {
