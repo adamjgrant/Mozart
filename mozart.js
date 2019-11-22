@@ -76,10 +76,6 @@ class Mozart {
 
   route(obj) { return this.routes(obj); }
 
-  config(obj) {
-    this.add_object_method("config", obj);
-  }
-
   events(fn)  {
     this.add_function_method("events", fn);
     this.add_function_method("event", fn);

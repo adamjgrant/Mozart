@@ -9,7 +9,6 @@ new Component("contacts");
 m.contacts.acts({});
 m.contacts.routes({});
 m.contacts.events(_$ => {});
-m.contacts.config({});
 // -->
 
 // Run this once after you've defined all your components.

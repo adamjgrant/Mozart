@@ -14,7 +14,6 @@ doc({
         , assert("instance of class has 'acts' method", typeof(m.contacts.acts), "function")
         , assert("instance of class has 'routes' method", typeof(m.contacts.routes), "function")
         , assert("instance of class has 'events' method", typeof(m.contacts.events), "function")
-        , assert("instance of class has 'config' method", typeof(m.contacts.config), "function")
       ]
     })
   ]
