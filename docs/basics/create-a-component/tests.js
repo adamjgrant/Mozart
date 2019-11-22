@@ -16,6 +16,8 @@ doc({
         routes: "not found",
       };
 
+      var dumb_and_dumber = [undefined, undefined];
+
       new Component("check_functions");
 
       m.check_functions.routes({ foo: "bar" });
@@ -32,9 +34,14 @@ doc({
         }
       });
 
+      new Component(["dumb", "dumber"]);
+
       Mozart.init();
 
       m.check_functions.acts.start();
+
+      dumb_and_dumber[0] = typeof(m.dumb);
+      dumb_and_dumber[1] = typeof(m.dumber);
 
       return [
         assert("Mozart Function exists", typeof(Mozart), "function")
@@ -43,6 +50,7 @@ doc({
         , assert("_$ has routes method from events", funcs.routes, "object")
         , assert("_$ has acts method from acts", funcs2.acts, "object")
         , assert("_$ has routes method from acts", funcs2.routes, "object")
+        , assert("Multiple components can be created by passing in an array instead", dumb_and_dumber, ["object", "object"])
       ]
     })
   ]

@@ -102,6 +102,15 @@
       <p>Private methods allow you to define methods only the component itself can reach. Other components will not have access.</p>
     </article>
 
+    <article data-attach="advanced/selection">
+      <h2>Selection</h2>
+      <p>By default, the scoped selector <code>_$</code> only pulls up elements within the scope of your compoonent, not parent elements.
+         However, you may need to call the component itself. There are two ways to do this.</p>
+      <p>If you only have one instance of the component, you can just call <code>_$.me()</code>. However, if you need to pull up a specific
+         instance of the component, just pass in any unique node that is in the component you wish to target. Usually this can be done for actions
+         called up from an event.</p>
+    </article>
+
     <script src="jquery.js"></script>
     <script src="mozart.js"></script>
     <script src="docs.js"></script>
