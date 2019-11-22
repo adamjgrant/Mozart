@@ -38,7 +38,7 @@ class Mozart {
   acts(obj) {
     var public_obj = this.parse_object(obj.priv, (obj, args, key) => {
       var _$ = this.scoped_selector();
-      obj[key](_$, args);
+      return obj[key](_$, args);
     });
 
     this.add_object_method("act", public_obj, true);
@@ -46,7 +46,7 @@ class Mozart {
 
     var private_obj = this.parse_object(obj, (obj, args, key) => {
       var _$ = this.scoped_selector();
-      obj[key](_$, args);
+      return obj[key](_$, args);
     });
 
     this.add_object_method("act", private_obj);

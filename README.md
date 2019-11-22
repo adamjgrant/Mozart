@@ -1,6 +1,1 @@
-# Mozart
-
-## Run tests
-
-- Open test/index.html
-- Edit tests in test/tests.js
+# [Mozart](https://cdn.everything.io/mozart/v2/index.html)
