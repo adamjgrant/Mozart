@@ -3,6 +3,7 @@ doc({
   tests: [
     test("Events are scoped", function() {
       var button = [],
+          number_of_calls = 0;
           was_i_called = "not called";
 
       class Component extends Mozart {};
@@ -13,6 +14,7 @@ doc({
       m.generator.events(_$ => {
         was_i_called = "called";
         button = _$("button");
+        number_of_calls++;
       });
 
       Mozart.init();
@@ -20,6 +22,7 @@ doc({
       return [
         assert("Button can be selected with scoped selector", typeof(button), "object")
         , assert("Event function is called on Mozart init", was_i_called, "called")
+        , assert("Event function is called only once", number_of_calls, 1)
       ]
     }, `
       <div data-component="generator">

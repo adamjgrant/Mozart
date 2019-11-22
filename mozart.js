@@ -8,15 +8,19 @@ class Mozart {
   }
 
   add_function_method(name, fn) {
+    if (this.function_methods.includes(fn)) return;
     this.function_methods.push(fn);
     this[name] = fn;
   }
 
   add_object_method(name, obj, priv)  {
     if (priv) {
+
+      if (this.object_methods.priv.includes([name, obj])) return;
       this.object_methods.priv.push([name, obj]);
     }
     else {
+      if (this.object_methods.pub.includes([name, obj])) return;
       this.object_methods.pub.push([name, obj]);
       this[name] = obj;
     }
