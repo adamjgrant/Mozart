@@ -112,7 +112,7 @@ article pre code {
 
 article pre code.hljs {
   background: var(--darkblue);
-}
+} 
 
 [data-component="test_container"] {
   background: var(--fadedblue);

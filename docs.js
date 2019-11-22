@@ -1,4 +1,9 @@
-var attachees = document.querySelectorAll("article[data-attach]");
+var attachees = document.querySelectorAll("article[data-attach]"),
+    total_test_stats = {
+      total: 0
+      , passing: 0
+      , failing: 0
+    };
 
 attachees.forEach(attachee => {
   attachee.innerHTML = `
@@ -8,9 +13,7 @@ attachees.forEach(attachee => {
     </div>
   `;
 
-  attachee.innerHTML += `
-    <pre><code></code></pre>
-  `;
+  attachee.innerHTML += ` <pre><code></code></pre> `;
 
   function escapeHTML(str) {
     return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -61,6 +64,7 @@ assert      = (message, actual, expected) => {
   expected = typeof(expected) == "object" ? JSON.stringify(expected) : expected;
   actual   = typeof(actual) == "object" ? JSON.stringify(actual) : actual;
 
+  refresh_total_test_counts(actual == expected);
   return [actual == expected, actual, expected, message];
 }
 
@@ -102,14 +106,18 @@ doc = (config) => {
 
 var show_tests = document.getElementById("show-tests"),
     toggle_tests = (force) => {
-      var test_containers = document.querySelectorAll("[data-component='test_container']");
+      var test_containers = document.querySelectorAll("[data-component='test_container']"),
+          test_results    = document.getElementById("test_results");
+
       if (show_tests.checked || force === true) {
+        test_results.removeAttribute("hidden");
         test_containers.forEach(test_container => {
           test_container.removeAttribute("hidden");
         });
         localStorage.setItem("show-tests", true);
       }
       else {
+        test_results.setAttribute("hidden", true);
         test_containers.forEach(test_container => {
           test_container.setAttribute("hidden", true);
         });
@@ -117,8 +125,27 @@ var show_tests = document.getElementById("show-tests"),
       }
     }
 
+var refresh_total_test_counts = (pass) => {
+  if (pass) {
+    total_test_stats.passing += 1;
+  } else {
+    total_test_stats.failing += 1;
+  }
+  total_test_stats.total += 1;
+  refresh_total_test_display();
+};
+
+var refresh_total_test_display = () => {
+  var results = document.getElementById("test_results"),
+      parts   = results.querySelectorAll("span");
+
+  Object.keys(total_test_stats).forEach((key, index) => {
+    parts[index].innerHTML = total_test_stats[key];
+  });
+}
+
 show_tests.addEventListener("click", toggle_tests);
-if (localStorage.getItem("show-tests") == "true") { show_tests.checked = true; }
+if (localStorage.getItem("show-tests") == "true") show_tests.checked = true;
 toggle_tests();
 
 var test_sandbox = document.createElement("div")
