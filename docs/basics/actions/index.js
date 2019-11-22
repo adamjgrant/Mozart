@@ -8,8 +8,7 @@ components = [
   "controls",
   "notifier"
 ]
-
-components.each(component => Component.new(component));
+Component.register(components); 
 var m = Component.index;
 
 // notifer/actions.js

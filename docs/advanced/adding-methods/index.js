@@ -9,7 +9,7 @@ class Component extends Mozart {
 };
 
 var m = Component.index;
-new Component("accountant");
+Component.register("accountant");
 
 m.accountant.transactions(_$ =>  {
   // ...

@@ -1,5 +1,4 @@
-new Component("timer");
-new Component("controls");
+Component.register(["timer", "controls"]);
 
 // controls/events.js
 m.controls.events(_$ => {
