@@ -57,7 +57,13 @@ var assert,
     body,
     test;
 
-assert      = (message, actual, expected) => [actual == expected, actual, expected, message];
+assert      = (message, actual, expected) => {
+  expected = typeof(expected) == "object" ? JSON.stringify(expected) : expected;
+  actual   = typeof(actual) == "object" ? JSON.stringify(actual) : actual;
+
+  return [actual == expected, actual, expected, message];
+}
+
 test        = (term, assertions, sandbox) => {
   if (sandbox) {
     document.getElementById("test-sandbox").innerHTML = sandbox;
