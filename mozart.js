@@ -7,6 +7,8 @@ class Mozart {
     return this;
   }
 
+  jquery_exists() { typeof(jQuery) == "object" }
+
   add_function_method(name, fn) {
     if (this.function_methods.includes(fn)) return;
     this.function_methods.push(fn);
@@ -88,10 +90,10 @@ class Mozart {
   event(fn) { return this.events(fn); }
 
   scoped_selector() {
-    var scoped_selector = (selector) => {
+    var _scoped_selector = (selector) => {
       var selector_string = `[data-component~='${this.name}'] ${selector}`;
-      if (typeof(jQuery) == "function") return $(selector_string);
-      var selector_array = document.querySelectorAll(selector);
+      if (this.jquery_exists()) return $(selector_string);
+      var selector_array = document.querySelectorAll(selector_string);
       return (selector_array.length == 1 ? selector_array[0] : selector_array);
     }
 
@@ -102,14 +104,40 @@ class Mozart {
     all_obj_methods_pub_and_priv.forEach(object_method => {
       var name, object;
       [name, object] = object_method; 
-      scoped_selector[name] = scoped_selector[name] || {};
+      _scoped_selector[name] = _scoped_selector[name] || {};
 
       Object.keys(object).forEach(key => {
-        scoped_selector[name][key] = object[key];
+        _scoped_selector[name][key] = object[key];
       });
     });
 
-    return scoped_selector;
+    var component_name_for_element = (element) => {
+      return (element.dataset.component || "")
+    }
+
+    var find_component = (child) => {
+      var attempts = 0,
+          parent_node = child.parentNode;
+
+      if (component_name_for_element(child) == this.name) {
+        return child;
+      }
+
+      while(attempts++ < 200) {
+        var name = component_name_for_element(parent_node);
+        if (name == this.name) break; 
+        else parent_node = parent_node.parentNode;
+      }
+      return parent_node;
+    }
+
+    _scoped_selector.me = (element) => {
+      var selector_string = `[data-component~='${this.name}']`,
+          element_result;  
+      return (element ? find_component(element) : _scoped_selector(""));
+    };
+
+    return _scoped_selector;
   }
 
   init() {
@@ -127,6 +155,10 @@ Mozart.init = () => {
     var component = Mozart.index[component_name];
     component.init();
   }
+}
+
+Mozart.register = function(components) {
+  return [components].flat().forEach(component => new this(component));
 }
 
 String.prototype.interpolate = function(o) {

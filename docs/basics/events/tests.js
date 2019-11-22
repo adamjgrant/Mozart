@@ -9,7 +9,7 @@ doc({
       class Component extends Mozart {};
 
       var m = Component.index;
-      new Component("generator");
+      Component.register("generator");
 
       m.generator.events(_$ => {
         was_i_called = "called";

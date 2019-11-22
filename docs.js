@@ -61,11 +61,16 @@ var assert,
     test;
 
 assert      = (message, actual, expected) => {
-  expected = typeof(expected) == "object" ? JSON.stringify(expected) : expected;
-  actual   = typeof(actual) == "object" ? JSON.stringify(actual) : actual;
+  try {
+    expected = typeof(expected) == "object" ? JSON.stringify(expected) : expected;
+    actual   = typeof(actual) == "object" ? JSON.stringify(actual) : actual;
 
-  refresh_total_test_counts(actual == expected);
-  return [actual == expected, actual, expected, message];
+    refresh_total_test_counts(actual == expected);
+    return [actual == expected, actual, expected, message];
+  }
+  catch (e) {
+    return [false, undefined, undefined, e];
+  }
 }
 
 test        = (term, assertions, sandbox) => {
