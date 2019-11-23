@@ -9,7 +9,9 @@ doc({
 
       var single_el,
           multiple_el,
-          multiple_two_el;
+          multiple_two_el,
+          multiple_el_two,
+          multiple_two_el_two;
 
       m.single.acts({
         get_element(_$, args) { single_el = _$.me(); }
@@ -29,6 +31,9 @@ doc({
       m.single.act.get_element();
       m.multiple.act.get_element();
 
+      multiple_el_two = m.multiple.me();
+      multiple_two_el_two = m.multiple_two.me();
+
       var child = document.querySelectorAll("[data-component='multiple_two']")[1].querySelector("span");
       m.multiple_two.act.get_element({ child: child });
 
@@ -41,6 +46,8 @@ doc({
         , assert("_$.me() returns all components when only multiple exist", multiple_el.length, 3)
         , assert("_$.me(element) returns the right component parent", multiple_two_el.id, 2)
         , assert("If this child actually is the component, return that", child_parent.id, 3)
+        , assert("m.<component>.me() returns one component when only one exists", typeof(multiple_el_two), "object") 
+        , assert("m.<component>.me() returns multiple components when multiple exist", multiple_two_el_two.length, 3) 
       ]
     }, `
       <div data-component="single"></div>
@@ -51,7 +58,7 @@ doc({
 
       <div data-component="multiple_two" id="1"></div>
       <div data-component="multiple_two" id="2"><span></span></div>
-      <div data-component="multiple_two" id="3"></div>
+      <div data-component="multiple_two" id="3"></div> 
     `)
   ]
 });
