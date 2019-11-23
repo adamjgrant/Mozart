@@ -5,8 +5,11 @@ doc({
       class Component extends Mozart {};
       Component.register("registration");
       var m = Component.index,
-          outside_element = { id: undefined },
-          inside_element = { id: undefined };
+          sandbox = document.getElementById("test-sandbox"),
+          outside_element = m.registration.template(),
+          inside_element = _$.template();
+
+      sandbox.appendChild(fragment);
 
       return [
         assert("Template element could be created outside the scope", outside_element.id, "registration")
