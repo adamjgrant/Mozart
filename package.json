@@ -1,0 +1,16 @@
+{
+  "name": "mozartorganizer",
+  "version": "2.0.0",
+  "description": "Mozart is a code organizer. It helps you keep simple separations between your events, actions, and routes scoped to logical components of your UI.",
+  "main": "mozart.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adamjgrant/Mozart.git"
+  },
+  "author": "Adam Grant",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adamjgrant/Mozart/issues"
+  },
+  "homepage": "https://github.com/adamjgrant/Mozart#readme"
+}
