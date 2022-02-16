@@ -1,13 +1,13 @@
-[data-component~="contacts"] {
-  background: #CCC;
+[data-component~="dropdown_button"] {
+  background-color: cornflowerblue;
 }
 
-[data-component~="contacts"] a {
-  color: cornflowerblue;
+[data-component~="dropdown_button"] a {
+  color: #CCC;
   text-decoration: none;
 }
 
-[data-component~="contacts"] li {
+[data-component~="dropdown_button"] li {
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
 }

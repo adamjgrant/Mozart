@@ -1,1 +1,1 @@
-let navbar = new Component("navbar");
+let dropdown_button = new Component("dropdown_button");

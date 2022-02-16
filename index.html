@@ -77,12 +77,7 @@
 
     <article data-attach="basics/actions">
         <h2>Actions</h2>
-        <p>Actions are stored in a dictionary to allow for calling by name either from within the component or from another.</p>
-        <p>The idea of actions is to compartmentalize atomic concerns of your application into named routes.</p>
-        <p>This allows you to separate out event-driven logic which we'll cover next, and to make it easy to follow your code as different components talk to one another.</p>
-        <h3><code>_$, args</code></h3>
-        <p>You may have noticed each method has two arguments, <code>_$</code> and <code>args</code>. When you actually call the action, you can omit the <code>_$</code> as this is added in automatically.</p>
-        <p><code>_$</code> is the scoped selector, which we'll talk about a little more in the next section. <code>args</code> can be anything you want. We recommend treating this as a simple JavaScript object for passing any arguments you wish.</p>
+        <p>Actions are the functions of your component and they have some built in help for quickly developing.</p>
     </article>
 
     <article data-attach="basics/events">
@@ -90,7 +85,7 @@
         <p>Events are simply the events that can happen on your component or an element in the component.</p>
         <p>Mozart provides a "scoped selector" to make this easier. You can name it however you want, but we like to use <code>_$</code>.</p>
         <p><code>_$</code> is a pass through for either jQuery's <code>$</code>, or <code>document.querySelectorAll</code> if you're not using it.</p>
-        <p>However, it provides an additional function by automatically scoping the query to the component. That's why we're free to be a little reckless here and just refer to the button as <code>button</code>. It's not necessary to use a class or ID here
+        <p>However, it provides an additional function by automatically scoping the query toAc the component. That's why we're free to be a little reckless here and just refer to the button as <code>button</code>. It's not necessary to use a class or ID here
             but I could if I wanted to.
             <p>
                 <p>In both examples, this event fires off a <code>generate</code> action. We'll cover actions next, but normally the actions would be referenced with <code>m.generator.acts</code>. This is another helper function <code>_$</code> provides,

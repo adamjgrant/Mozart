@@ -1,2 +1,2 @@
-console.log(navbar.me);
-// => Node[<nav data-component="navbar"></nav>]
+console.log(dropdown_button.me);
+// => Node[<button data-component="dropdown_button"></button>]
