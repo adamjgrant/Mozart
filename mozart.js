@@ -52,6 +52,10 @@ class Component {
 
     // TODO: Bar externals from accessing the this.act.private namespace
 
+    set components(obj) {
+        // TODO: Allow  object assignment of sub components
+    }
+
     get private() {
         return {
             bootstrap_action_function: (prop, fn) => {

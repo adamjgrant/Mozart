@@ -1,12 +1,15 @@
 let index = new Component("index"),
-    index_row = new Component("index_row"),
     form = new Component("form"),
     contact = new Component("contact");
+
+index.components = {
+    row: new Component("index_row")
+}
 
 index.act((find) => {
     return {
         create_item(information) {
-            const row = index_row.node(information)
+            const row = this.components.row.node(information)
             find.me.appendChild(row);
             this.act.read_item(information.id);
         },
