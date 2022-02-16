@@ -1,9 +1,3 @@
-// With jQuery
-m.generator.events(_$ => {
-  _$("button").click(_$.act.generate);
-});
-
-// Plain JavaScript
-m.generator.events(_$ => {
-  _$("button").addEventListener("click", _$.act.generate);
-});
+navbar.e = (q) => {
+  q("a").addEventListener("click", q.act.toggle);
+}
