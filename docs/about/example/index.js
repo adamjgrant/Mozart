@@ -6,13 +6,14 @@ let index = new Component("index"),
 index.act((find) => {
     return {
         create_item(information) {
-            find.me.appendChild(index_row.node(information));
-            this.act.select_item(information.id);
+            const row = index_row.node(information)
+            find.me.appendChild(row);
+            this.act.read_item(information.id);
         },
 
         read_item(e) {
             const id = this.act.private.find_item_id(e);
-            contact.act.load(id);
+            contact.act.show(id);
         },
 
         get private() {

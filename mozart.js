@@ -17,6 +17,7 @@ class Component {
 
     node(...args) {
         // TODO: return cloned node of template.
+        // TODO: The user will need to define this, so maybe we make this a private function?
     }
 
     get act() {
@@ -48,6 +49,8 @@ class Component {
     }
 
     // TODO: Events
+
+    // TODO: Bar externals from accessing the this.act.private namespace
 
     get private() {
         return {
