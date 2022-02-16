@@ -1,2 +1,1 @@
-class Component extends Mozart {};
-
+let navbar = new Component("navbar");

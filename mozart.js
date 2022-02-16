@@ -1,63 +1,56 @@
 class Component {
-    constructor(name) {
-        this.actions = {};
-        this.name = name;
-    }
+  constructor(name) {
+    this.actions = {};
+    this.name = name;
+  }
+  
+  q(el) {
+    const scoped_selector = `[data-component~="${this.name}"] ${el}`;
+    const elements = document.querySelectorAll(scoped_selector);
+    return elements.length > 1 ? elements : elements[0];
+  }
 
-    q(el) {
-        let scoped_selector = `[data-component~="${this.name}"]`;
-        if (el) scoped_selector += ` ${el}`;
-        const elements = document.querySelectorAll(scoped_selector);
-        return elements.length > 1 ? elements : elements[0];
-    }
-
-    get me() {
-        return this.q();
-    }
-
-    get a() {
-        let _ = this;
-        let handler = {
-            get: function(obj, prop) {
-                const thing = _.actions[prop];
-                const valid = typeof(thing) === "function";
-                return valid ? thing.bind(_) : `${_.private.enum.errors.INVALID_ACTION}: "${prop}"`;
-            },
-
-            set: function(obj, prop, value) {
-                _.private.bootstrap_action_function.call(_, prop, value);
-            }
-        };
-
-        let p = new Proxy(this.actions, handler);
-
-        return p;
-    }
-
-    // TODO: Events
-
-    get private() {
-        let _ = this;
-        return {
-            bootstrap_action_function: (prop, fn) => {
-                _.actions[prop] = () => {
-                    return fn.call(_, _.q.bind(_));
-                }
-            },
-
-            enum: {
-                errors: {
-                    INVALID_ACTION: "Invalid action name"
-                }
-            }
+  get a() {
+    let handler = {
+      get: function(obj, prop) {
+        const thing = this.actions[prop];
+        const valid = typeof(thing) === "function";
+        return valid ? thing.bind(this) : `${this.private.enum.errors.INVALID_ACTION}: "${prop}"`;
+      }.bind(this),
+      
+      set: function(obj, prop, value) {
+        this.private.bootstrap_action_function.call(this, prop, value);
+      }.bind(this)
+    };
+    
+    let p = new Proxy(this.actions, handler);
+    
+    return p;
+  }
+  
+  // TODO: Events
+  
+  get private() {
+    return {
+      bootstrap_action_function: (prop, fn) => {
+        this.actions[prop] = () => {
+          return fn.call(this, this.q.bind(this));
         }
+      },
+      
+      enum: {
+        errors: {
+          INVALID_ACTION: "Invalid action name"
+        }
+      }
     }
+  }
 }
 
 let foo = new Component("foo");
 
 foo.a.something = (q) => {
-    return q("bar");
+  return q("bar");
 }
 
 foo.a.something();
