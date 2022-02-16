@@ -1,3 +1,3 @@
-navbar.e = (q) => {
-  q("a").addEventListener("click", q.act.toggle);
+navbar.events = (find) => {
+    find("a").addEventListener("click", q.act.toggle);
 }

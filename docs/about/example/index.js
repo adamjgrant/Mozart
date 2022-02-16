@@ -1,24 +1,32 @@
-m.index.events(_$ => {
-  _$("li").click(_$.act.show_contact);
+let index = new Component("index"),
+    index_row = new Component("index_row"),
+    form = new Component("form"),
+    contact = new Component("contact");
+
+index.act((find) => {
+    return {
+        create_item(information) {
+            find.me.appendChild(index_row.node(information));
+            this.act.select_item(information.id);
+        },
+
+        read_item(e) {
+            const id = this.act.private.find_item_id(e);
+            contact.act.load(id);
+        },
+
+        get private() {
+            return {
+                find_item_id(e) {
+                    const id = e.target.dataset.id;
+                    e.stopPropagation();
+                    return id;
+                }
+            }
+        },
+    }
 });
 
-// ...
-
-m.form.events(_$ => {
-  var name, email;
-  [name, email] = _$("input").map(input => input.val());
-  _$("button").click(m.index.act.add({ name: name, email: email });
-});
-
-// ...
-
-m.index.acts({
-  add(_$, args){
-    // ...
-    _$.act.show_contact({ contact: contact });
-  },
-
-  show_contact(_$, args) { 
-    // ... 
-  }
+index.events((find) => {
+    find("a").addEventListener("click", this.act.select_item);
 });

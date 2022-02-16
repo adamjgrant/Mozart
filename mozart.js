@@ -4,18 +4,22 @@ class Component {
         this.name = name;
     }
 
-    q(el) {
-        let scoped_selector = `[data-component~="${this.name}"]`;
-        if (el) scoped_selector += ` ${el}`;
-        const elements = document.querySelectorAll(scoped_selector);
+    scoped_selector(el) {
+        let scoped_query = `[data-component~="${this.name}"]`;
+        if (el) scoped_query += ` ${el}`;
+        const elements = document.querySelectorAll(scoped_query);
         return elements.length > 1 ? Array.from(elements) : elements[0];
     }
 
     get me() {
-        return this.q();
+        return this.scoped_selector();
     }
 
-    get a() {
+    node(...args) {
+        // TODO: return cloned node of template.
+    }
+
+    get act() {
         let handler = {
             get: function(obj, prop) {
                 const thing = this.actions[prop];
@@ -33,13 +37,13 @@ class Component {
         return p;
     }
 
-    set a(obj) {
+    set act(obj) {
         // Alternative method of assignment using 
-        // component.a = {b: (q) => {}} instead of component.a.b = (q) => {}
+        // component.a = {b: (scoped_selector) => {}} instead of component.a.b = (scoped_selector) => {}
         // TODO: There may be a more native way to do this.
         Object.keys(obj).forEach(key => {
             const value = obj[key];
-            this.a[key] = value;
+            this.act[key] = value;
         });
     }
 
@@ -49,7 +53,7 @@ class Component {
         return {
             bootstrap_action_function: (prop, fn) => {
                 return this.actions[prop] = () => {
-                    return fn.call(this, this.q.bind(this));
+                    return fn.call(this, this.scoped_selector.bind(this));
                 }
             },
 

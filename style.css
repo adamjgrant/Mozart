@@ -1,193 +1,199 @@
-* { box-sizing: border-box }
+* {
+    box-sizing: border-box
+}
 
 :root {
-  --blueh: 562;
-  --blues: 68%;
-  --bluel: 55%;
-  --blue: hsl(var(--blueh), var(--blues), var(--bluel));
-  --darkblue: hsl(var(--blueh), calc(var(--blues) - 20%), calc(var(--bluel) - 40%));
-  --fadedblue: hsl(var(--blueh), calc(var(--blues) - 40%), calc(var(--bluel) + 40%));
-  --textblue: hsl(var(--blueh), calc(var(--blues) - 55%), calc(var(--bluel) - 30%));
-  --max-width: 800px;
+    --blueh: 562;
+    --blues: 68%;
+    --bluel: 55%;
+    --blue: hsl(var(--blueh), var(--blues), var(--bluel));
+    --darkblue: hsl(var(--blueh), calc(var(--blues) - 20%), calc(var(--bluel) - 40%));
+    --fadedblue: hsl(var(--blueh), calc(var(--blues) - 40%), calc(var(--bluel) + 40%));
+    --textblue: hsl(var(--blueh), calc(var(--blues) - 55%), calc(var(--bluel) - 30%));
+    --max-width: 800px;
 }
 
 nav {
-  width: 100%;
-  line-height: 30px;
-  font-weight: 100;
-  background: hsl(var(--blueh), var(--blues), var(--bluel));
-  color: white;
-  padding: 0 25px;
-  font-family: 'Lato', sans-serif;
-  font-size: 40px;
-  text-align: center;
-  text-transform: uppercase;
-  margin-top: 50px;
+    width: 100%;
+    line-height: 30px;
+    font-weight: 100;
+    background: hsl(var(--blueh), var(--blues), var(--bluel));
+    color: white;
+    padding: 0 25px;
+    font-family: 'Lato', sans-serif;
+    font-size: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 50px;
 }
 
 @media screen and (min-width: 600px) {
-  nav {
-    text-align: left;
-  }
+    nav {
+        text-align: left;
+    }
 }
 
 @media screen and (min-width: 1000px) {
-  nav {
-    font-size: 50px;
-    font-weight: 400;
-    line-height: 36px;
-    margin-top: 100px;
-  }
+    nav {
+        font-size: 50px;
+        font-weight: 400;
+        line-height: 36px;
+        margin-top: 100px;
+    }
 }
 
 html {
-  background: var(--blue);
-  color: var(--textblue);
+    background: var(--blue);
+    color: var(--textblue);
 }
 
 body {
-  font-family: sans-serif;
-  font-size: 16px;
+    font-family: sans-serif;
+    font-size: 16px;
 }
 
-article > .text,
-article > pre {
-  padding-top: 50px;
+article>.text,
+article>pre {
+    padding-top: 50px;
 }
 
 article {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 article .text {
-  background: white;
+    background: white;
 }
 
 article .text input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 5px;
-  background: #555;
-  color: white;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    background: #555;
+    color: white;
 }
 
 dl {
-  margin: 0;
+    margin: 0;
 }
 
 article .text {
-  width: 100%;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-bottom: 15px;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
 }
 
 article pre {
-  width: 100%;
-  padding: 15px;
-  background: var(--darkblue);
-  border-radius: 0;
-  margin: 0;
+    width: 100%;
+    padding: 15px;
+    background: var(--darkblue);
+    border-radius: 0;
+    margin: 0;
 }
 
 article pre:empty {
-  display: none;
+    display: none;
+}
+
+article .text img {
+    max-width: 100%;
 }
 
 @media screen and (min-width: 600px) {
-  article pre {
-    padding-bottom: 150px;
-  }
-
-  article pre:empty {
-    display: block;
-  }
+    article pre {
+        padding-bottom: 150px;
+    }
+    article pre:empty {
+        display: block;
+    }
 }
 
 article pre code {
-  font-size: 0.75rem;
+    font-size: 0.75rem;
 }
 
 article pre code.hljs {
-  background: var(--darkblue);
-} 
+    background: var(--darkblue);
+}
 
 [data-component="test_container"] {
-  background: var(--fadedblue);
-  padding: 15px;
-  font-size: 0.75rem;
-  border-radius: 10px;
-  color: var(--darkblue);
+    background: var(--fadedblue);
+    padding: 15px;
+    font-size: 0.75rem;
+    border-radius: 10px;
+    color: var(--darkblue);
 }
 
 [data-component="test_container"]:empty {
-  display: none;
+    display: none;
 }
 
 [data-component="test_container"] h1 {
-  font-size: 0.8rem;
-  margin: 0;
-  margin-bottom: 5px;
+    font-size: 0.8rem;
+    margin: 0;
+    margin-bottom: 5px;
 }
 
 .testing_sandbox {
-  height: 0;
-  width: 0;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 @media screen and (min-width: 1000px) {
-  article {
-    flex-wrap: nowrap;
-  }
-
-  article .text {
-    padding-left: calc((100vw - var(--max-width))/2);
-  }
-
-  article pre {
-    padding-right: calc((100vw - var(--max-width))/2);
-  }
+    article {
+        flex-wrap: nowrap;
+    }
+    article .text {
+        padding-left: calc((100vw - var(--max-width))/2);
+    }
+    article pre {
+        padding-right: calc((100vw - var(--max-width))/2);
+    }
 }
 
 @media screen and (min-width: 1200px) {
-  :root { --max-width: 1000px; }
+     :root {
+        --max-width: 1000px;
+    }
 }
 
 @media screen and (min-width: 1400px) {
-  :root { --max-width: 1300px; }
+     :root {
+        --max-width: 1300px;
+    }
 }
 
 h1 {
-  font-size: 1.3rem;
+    font-size: 1.3rem;
 }
 
 h2 {
-  font-size: 1rem;
+    font-size: 1rem;
 }
 
 h3 {
-  font-size: 0.85rem;
+    font-size: 0.85rem;
 }
 
 .github_stars {
-  width: 150px;
-  border: 0;
-  padding: 0;
-  margin-bottom: 0;
-  position: absolute;
-  right: 15px;
-  height: 60px;
-  top: 25px;
+    width: 150px;
+    border: 0;
+    padding: 0;
+    margin-bottom: 0;
+    position: absolute;
+    right: 15px;
+    height: 60px;
+    top: 25px;
 }
 
 @media screen and (min-width: 600px) {
-  .github_stars {
-    top: 50px;
-  }
+    .github_stars {
+        top: 50px;
+    }
 }
-

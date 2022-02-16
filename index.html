@@ -70,11 +70,6 @@
         <p>The name you give your component is key. Mozart expects there to be one or more HTML elements with that name.</p>
     </article>
 
-    <article data-attach="basics/using-css">
-        <p>Mozart doesn't provide any tooling at the moment to assist with CSS styling, but then again, you don't really need that overhead anyway.</p>
-        <p>Simply use the attirbute selector syntax to easily style only the elements in your component. This is even easier when nesting with SCSS/Sass, or a similar precompiler.</p>
-    </article>
-
     <article data-attach="basics/actions">
         <h2>Actions</h2>
         <p>Actions are the functions of your component and they have some built in help for quickly developing.</p>
@@ -85,8 +80,8 @@
         <p>Events are simply the events that can happen on your component or an element in the component.</p>
         <p>Mozart provides a "scoped selector" to make this easier. You can name it however you want, but we like to use <code>_$</code>.</p>
         <p><code>_$</code> is a pass through for either jQuery's <code>$</code>, or <code>document.querySelectorAll</code> if you're not using it.</p>
-        <p>However, it provides an additional function by automatically scoping the query toAc the component. That's why we're free to be a little reckless here and just refer to the button as <code>button</code>. It's not necessary to use a class or ID here
-            but I could if I wanted to.
+        <p>However, it provides an additional function by automatically scoping the query toAc the component. That's why we're free to be a little reckless here and just refer to the button as <code>button</code>. It's not necessary to use a class or ID
+            here but I could if I wanted to.
             <p>
                 <p>In both examples, this event fires off a <code>generate</code> action. We'll cover actions next, but normally the actions would be referenced with <code>m.generator.acts</code>. This is another helper function <code>_$</code> provides,
                     by giving us a shorthand to the component's own methods.</p>
@@ -120,6 +115,11 @@
         <p>By default, the scoped selector <code>_$</code> only pulls up elements within the scope of your compoonent, not parent elements. However, you may need to call the component itself. There are two ways to do this.</p>
         <p>If you only have one instance of the component, you can just call <code>_$.me()</code>. However, if you need to pull up a specific instance of the component, just pass in any unique node that is in the component you wish to target. Usually this
             can be done for actions called up from an event.</p>
+    </article>
+
+    <article data-attach="basics/using-css">
+        <p>Mozart doesn't provide any tooling at the moment to assist with CSS styling, but then again, you don't really need that overhead anyway.</p>
+        <p>Simply use the attribute selector syntax to easily style only the elements in your component. This is even easier when nesting with SCSS/Sass, or a similar precompiler.</p>
     </article>
 
     <script src="mozart.js"></script>
