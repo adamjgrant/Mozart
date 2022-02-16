@@ -2,6 +2,8 @@ doc({
   attach_id: "basics/actions",
   tests: [
     test("Actions", () => {
+      let navbar = new Component("navbar");
+
       navbar.a.ping = (q) => {
           return ["pong", q("li").length];
       }
