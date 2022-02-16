@@ -5,9 +5,14 @@ class Component {
     }
 
     q(el) {
-        const scoped_selector = `[data-component~="${this.name}"] ${el}`;
+        let scoped_selector = `[data-component~="${this.name}"]`;
+        if (el) scoped_selector += ` ${el}`;
         const elements = document.querySelectorAll(scoped_selector);
-        return elements.length > 1 ? elements : elements[0];
+        return elements.length > 1 ? Array.from(elements) : elements[0];
+    }
+
+    get me() {
+        return this.q();
     }
 
     get a() {
