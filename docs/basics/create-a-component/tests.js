@@ -8,14 +8,14 @@ doc({
             }
 
             let navbar2 = new Component("navbar2");
-            navbar.a = {
+            navbar2.a = {
                 ping: (q) => { return "pong" },
                 pong: (q) => { return "ping" }
             }
 
             let navbar3 = new Component("navbar3");
             navbar3.a.first_ping = (q) => "first_pong";
-            navbar.a = {
+            navbar3.a = {
                 ping: (q) => { return "pong" },
                 pong: (q) => { return "ping" }
             }
@@ -30,7 +30,7 @@ doc({
                     navbar3.a.ping(),
                     navbar3.a.pong()
                 ], [
-                    "first_ping",
+                    "first_pong",
                     "pong",
                     "ping"
                 ]),
