@@ -1,20 +1,17 @@
 doc({
-  attach_id: "basics/methods-added",
-  tests: [
-    test("Mozart can be extended and is given proper methods", () => {
-      class Component extends Mozart {};
+    attach_id: "basics/methods-added",
+    tests: [
+        test("Component returns node elements", () => {
+            let navbar = new Component("navbar");
+            const one_element = navbar.me;
 
-      var m = Component.index;
-      new Component("contacts");
+            let navbar2 = new Component("navbar2");
+            const two_elements = navbar2.me;
 
-      Mozart.init();
-
-      return [
-        assert("Component is a function", typeof(Component), "function")
-        , assert("instance of class has 'acts' method", typeof(m.contacts.acts), "function")
-        , assert("instance of class has 'routes' method", typeof(m.contacts.routes), "function")
-        , assert("instance of class has 'events' method", typeof(m.contacts.events), "function")
-      ]
-    })
-  ]
+            return [
+                assert("Navbar element returned", navbar.me instanceof HTMLElement, true),
+                assert("Navbar2 elements returned", [].concat(navbar.me).map(el => el instanceof HTMLElement), [true, true]),
+            ]
+        })
+    ]
 });
