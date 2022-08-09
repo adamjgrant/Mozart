@@ -2,12 +2,10 @@ import Component from "../../mozart.js";
 
 let timer = new Component("timer")
 
-timer.update_display = (value = 0) => {
-    console.log(["This is", this]);
-    console.log(timer.q(".display"), value);
-    console.log(timer.me);
+timer.value = 0;
+timer.increment_by_one_second = () => {
+  timer.value++;
+  timer.q(".display").innerHTML = timer.value;
 }
-
-timer.update_display();
 
 export default timer;

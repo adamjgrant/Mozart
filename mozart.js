@@ -19,13 +19,7 @@ class Component {
         }, 
         {
             set(obj, prop, value) {
-                // TODO we may need this split.
-                if (obj.hasOwnProperty(prop)) {
-                    obj[prop] = value;
-                }
-                else if (typeof(value) === "function") {
-                    obj[prop] = value
-                }
+                obj[prop] = value;
                 return true;
             },
         
