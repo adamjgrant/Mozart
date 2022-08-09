@@ -17,5 +17,3 @@ controls.q(".start").addEventListener("click", controls.start);
 controls.q(".stop").addEventListener("click", controls.stop);
 
 export default controls;
-
-debugger;
