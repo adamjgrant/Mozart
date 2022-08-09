@@ -37,18 +37,18 @@ class Component {
         // TODO: Allow  object assignment of sub components
     }
 
-    get private() {
-        return {
-            bootstrap_action_function: (prop, fn) => {
-                return this.actions[prop] = () => {
-                    return fn.call(this, this.scoped_selector.bind(this));
-                }
-            },
+    // Private functions
 
-            enum: {
-                errors: {
-                    INVALID_ACTION: "Invalid action name"
-                }
+    #bootstrap_action_function(prop, fn) {
+        return this.actions[prop] = () => {
+            return fn.call(this, this.scoped_selector.bind(this));
+        }
+    }
+
+    get #enum() {
+        return {
+            errors: {
+                INVALID_ACTION: "Invalid action name"
             }
         }
     }
