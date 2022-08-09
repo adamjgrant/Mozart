@@ -1,6 +1,5 @@
 class Component {
     constructor(name) {
-        this.actions = {};
         this.name = name;
     }
 
@@ -20,31 +19,13 @@ class Component {
         // TODO: The user will need to define this, so maybe we make this a private function?
     }
 
-    get act() {
-        let handler = {
-            get: function(obj, prop) {
-                const thing = this.actions[prop];
-                const valid = typeof(thing) === "function";
-                return valid ? thing.bind(this) : `${this.private.enum.errors.INVALID_ACTION}: "${prop}"`;
-            }.bind(this),
-
-            set: function(obj, prop, value) {
-                return this.private.bootstrap_action_function.call(this, prop, value);
-            }.bind(this)
-        };
-
-        let p = new Proxy(this.actions, handler);
-
-        return p;
-    }
-
     set act(obj) {
         // Alternative method of assignment using 
         // component.a = {b: (scoped_selector) => {}} instead of component.a.b = (scoped_selector) => {}
         // TODO: There may be a more native way to do this.
         Object.keys(obj).forEach(key => {
             const value = obj[key];
-            this.act[key] = value;
+            this[key] = value;
         });
     }
 
