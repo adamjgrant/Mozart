@@ -39,6 +39,7 @@ class Component {
                     return true;
                 }
                 else {
+                    console.error(value);
                     throw `${ThisProxyComponent.name}: Value was not a function. Use .store on the component to store new information`;
                 }
             },
