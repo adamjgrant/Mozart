@@ -10,6 +10,9 @@ class Component {
         return elements.length > 1 ? Array.from(elements) : elements[0];
     }
 
+    // Alias for scoped_selector
+    q(...args) { return this.scoped_selector.apply(this, args); }
+
     get me() {
         return this.scoped_selector();
     }
