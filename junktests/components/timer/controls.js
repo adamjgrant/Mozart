@@ -5,11 +5,11 @@ let controls = new Component("controls");
 
 controls.assign({
     start() {
-        controls.store.interval = setInterval(timer.increment_by_one_second, 1000);
+        this.store.interval = setInterval(timer.increment_by_one_second, 1000);
     },
 
     stop() {
-        window.clearInterval(controls.store.interval);
+        window.clearInterval(this.store.interval);
     }
 });
 
