@@ -21,30 +21,22 @@
         <p>Mozart's purpose is to enable a component-centric pattern for web development using a <a href="https://github.com/adamjgrant/Mozart/blob/master/mozart.js">very small JavaScript file</a>.</p>
     </article>
 
-    <article data-attach="about/how">
+    <article data-attach="about/components">
         <h2>Components</h2>
         <p>Components are just ordinary DOM elements designated with <code>data-component</code> attributes.</p>
+        <img src="components.png">
     </article>
 
-    <article data-attach="about/how2">
+    <article data-attach="about/dedicated-files">
         <p>Each component gets its own dedicated JavaScript and CSS file...</p>
     </article>
 
-    <article data-attach="about/how3">
+    <article data-attach="about/scoped-selector">
         <p>Components have a scoped query selector <code>q()</code> that selects only from the elements inside of it.</p>
     </article>
 
-    <article data-attach="about/how4">
+    <article data-attach="about/deferred-actions">
         <p>Actions defined on a component can defer downstream logic to other components thereby separating concerns and keeping code tidy.</p>
-    </article>
-
-    <article data-attach="about/example">
-        <img src="components.png">
-        <h3>Example</h3>
-        <p>Consider this simple example where we want to build a contacts application. Users can go through a list of contacts in the bottom left, click on a contact to see their full details in the bottom right, or create a new contact at the top.</p>
-        <p>To make this easy for ourselves, we might want to make this one big component. Maybe this helps us to separate it from the rest of the things going on in the application.</p>
-        <p>Or maybe we make this into three components and let each one call out to the other to pass some data or execute a fucntion.</p>
-        <p>In the next sections we'll show you the different tools and patterns aided by Mozart to let you build component-driven, dependency-free JavaScript applications</p>
     </article>
 
     <article>
@@ -129,9 +121,9 @@
     </article>
 
     <script src="mozart.js"></script>
-    <script src="highlight.js"></script>
+    <script data-manual src="docs/prism.js"></script>
     <script src="docs.js"></script>
-    <link rel="stylesheet" href="tomorrow-night-eighties.min.css">
+    <link rel="stylesheet" href="docs/prism.css">
 </body>
 
 </html>

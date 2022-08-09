@@ -7,7 +7,7 @@
     --blues: 68%;
     --bluel: 55%;
     --blue: hsl(var(--blueh), var(--blues), var(--bluel));
-    --darkblue: hsl(var(--blueh), calc(var(--blues) - 20%), calc(var(--bluel) - 40%));
+    --darkblue: hsl(var(--blueh), calc(var(--blues) - 20%), calc(var(--bluel) - 45%));
     --fadedblue: hsl(var(--blueh), calc(var(--blues) - 40%), calc(var(--bluel) + 40%));
     --textblue: hsl(var(--blueh), calc(var(--blues) - 55%), calc(var(--bluel) - 30%));
     --max-width: 800px;
@@ -92,6 +92,7 @@ article pre {
     background: var(--darkblue);
     border-radius: 0;
     margin: 0;
+    color: lightblue;
 }
 
 article pre:empty {
@@ -100,6 +101,7 @@ article pre:empty {
 
 article .text img {
     max-width: 100%;
+    margin-bottom: 25px;
 }
 
 @media screen and (min-width: 600px) {

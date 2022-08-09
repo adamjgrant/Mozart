@@ -24,6 +24,9 @@ attachees.forEach(attachee => {
   ["html", "js", "css"].forEach(extension => {
     doc_fetchers.push(new Promise((resolve, reject) => {
       ((extension, attachee, resolve, reject) => {
+        const enum_prism_extension = { html: "markup", js: "javascript", css: "css" }
+        const prism_extension = enum_prism_extension[extension];
+
         var pre_content = "",
             request = new XMLHttpRequest();
 
@@ -31,10 +34,15 @@ attachees.forEach(attachee => {
         request.onload = function() {
           if (this.status >= 200 && this.status < 400) {
             pre_content += this.response;
+            console.log(pre_content);
+            if (pre_content) {
+              pre_content = Prism.highlight(
+                pre_content, Prism.languages[prism_extension], prism_extension
+              )
+            }
             var code = document.createElement("code");
-            code.innerHTML = escapeHTML(pre_content);
+            code.innerHTML = pre_content;
             code.removeAttribute("hidden");
-            code.classList.add(extension == "js" ? "javascript" : extension);
             attachee.querySelector("pre").appendChild(code);
             resolve();
           }
@@ -51,7 +59,7 @@ attachees.forEach(attachee => {
 });
 
 Promise.all(doc_fetchers).then(() => {
-  hljs.initHighlighting();
+  // TODO?: Allegedly things are ready for syntax highlighting here
 });
 
 
