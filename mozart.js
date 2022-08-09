@@ -2,6 +2,7 @@ class Component {
     constructor(name) {
       let ThisProxyComponent = new Proxy({ 
             name: undefined,
+            q: () => "Hello world",
             register(name) {
                 this.name = name;
             }
@@ -12,7 +13,8 @@ class Component {
                     obj[prop] = value;
                 }
                 else if (typeof(value) === "function") {
-                    obj[prop] = value.bind(ThisProxyComponent);
+                    value.prototype.q = () => "Hello world";
+                    obj[prop] = value
                 }
                 return true;
             },
