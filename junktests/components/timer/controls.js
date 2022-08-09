@@ -3,13 +3,13 @@ import timer from "../timer.js";
 
 let controls = new Component("controls");
 
-controls = Object.assign(controls, {
+controls.assign({
     start() {
-        controls.interval = setInterval(timer.increment_by_one_second, 1000);
+        controls.store.interval = setInterval(timer.increment_by_one_second, 1000);
     },
 
     stop() {
-        window.clearInterval(controls.interval);
+        window.clearInterval(controls.store.interval);
     }
 });
 
