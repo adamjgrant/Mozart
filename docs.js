@@ -38,7 +38,7 @@ attachees.forEach(attachee => {
             attachee.querySelector("pre").appendChild(code);
             resolve();
           }
-          else { return resolve(); }
+          // else { return resolve(); }
         }
         request.send();
       })(extension, attachee, resolve, reject);
@@ -106,7 +106,12 @@ doc = (config) => {
 
     return `<h1>${test.term}</h1>${results}`
   }).join("");
-  body.innerHTML += test_results;
+  if (body) {
+    body.innerHTML += test_results;
+  }
+  else {
+    console.error(`could not find attach ID: ${config.attach_id}`)
+  }
 }
 
 var show_tests = document.getElementById("show-tests"),

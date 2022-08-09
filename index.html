@@ -16,20 +16,26 @@
     </nav>
 
     <article data-attach="about/why">
-        <h1>About</h1>
-        <p>Not every project needs React or Angular to be zippy and modern.</p>
-        <p>I spent years developing Kickstrap, and its successor <a href="https://getkickstart.com">Kickstart</a>. After its third version, some tinkering with <a href="http://getkickstart.com/amadeus/">Amadeus</a>, and thousands of GitHub stars, I started
-            work on Mozart. My goal was to create a freakishly tiny code snippet that lets us better leverage the native featurers of JavaScript while staying a little organized.</p>
-        <p>After three more years of revisions and lots of help and advice from the community, I'm ready to release it to the public.</p>
-        <p><a href="http://adamgrant.me">— Adam</a></p>
+        <h1>Mozart is not a framework</h1>
+        <h2>In fact, it's hardly anything at all.</h2>
+        <p>Mozart's purpose is to enable a component-centric pattern for web development using a <a href="https://github.com/adamjgrant/Mozart/blob/master/mozart.js">very small JavaScript file</a>.</p>
     </article>
 
     <article data-attach="about/how">
         <h2>Components</h2>
-        <p>The central idea behind Mozart is to treat your web application like a set of components.</p>
-        <p>Once we stick to that idea, we can define events, actions, and routes within the scope of each component and not worry about them running into each other.</p>
-        <p>Much of this can already be done using simple patterns and native JavaScript, Mozart just helps us to shorthand some of this and provide easy ways to <em><a href="https://en.wikipedia.org/wiki/Loose_coupling">loosely-couple</a></em> components
-            to one another.</p>
+        <p>Components are just ordinary DOM elements designated with <code>data-component</code> attributes.</p>
+    </article>
+
+    <article data-attach="about/how2">
+        <p>Each component gets its own dedicated JavaScript and CSS file...</p>
+    </article>
+
+    <article data-attach="about/how3">
+        <p>Components have a scoped query selector <code>q()</code> that selects only from the elements inside of it.</p>
+    </article>
+
+    <article data-attach="about/how4">
+        <p>Actions defined on a component can defer downstream logic to other components thereby separating concerns and keeping code tidy.</p>
     </article>
 
     <article data-attach="about/example">
@@ -123,9 +129,9 @@
     </article>
 
     <script src="mozart.js"></script>
+    <script src="highlight.js"></script>
     <script src="docs.js"></script>
     <link rel="stylesheet" href="tomorrow-night-eighties.min.css">
-    <script src="highlight.js"></script>
 </body>
 
 </html>
