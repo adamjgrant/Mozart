@@ -30,10 +30,8 @@ class Component {
                     let _native_methods = {}
                     for (let key in native_methods) {
                         let val = native_methods[key];
-                        if (key !== "assign") {
-                            _native_methods[key] = {
-                                value: val, writable: true
-                            }
+                        _native_methods[key] = {
+                            value: val, writable: true
                         }
                     }
                     let _value = Object.defineProperties(value, _native_methods);
