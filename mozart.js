@@ -7,10 +7,26 @@ class Component {
                 for (let key in obj) {
                     let prop_descriptor = Object.getOwnPropertyDescriptor(obj, key);
                     if (!!prop_descriptor['get']) {
-                      Object.defineProperty(ThisProxyComponent, key, { get() { return obj[key] } });
+                      Object.defineProperty(ThisProxyComponent, key, { get() { 
+                        let _native_methods = {}
+                        for (let key in native_methods) {
+                            let val = native_methods[key];
+                            _native_methods[key] = { value: val, writable: true }
+                        }
+                        Object.defineProperties(obj, _native_methods);
+                        return obj[key] 
+                    } });
                     }
                     else if (!!prop_descriptor['set']) {
-                      Object.defineProperty(ThisProxyComponent, key, { set(...args) { return obj[key] = args[0] } });
+                      Object.defineProperty(ThisProxyComponent, key, { set(...args) { 
+                        let _native_methods = {}
+                        for (let key in native_methods) {
+                            let val = native_methods[key];
+                            _native_methods[key] = { value: val, writable: true }
+                        }
+                        Object.defineProperties(obj, _native_methods);
+                        return obj[key] = args[0] 
+                    } });
                     }
                     else if (!!prop_descriptor.value && typeof(prop_descriptor.value) === "function") {
                       ThisProxyComponent[key] = (...args) => obj[key].apply(obj, args)
