@@ -1,5 +1,5 @@
 import Component from "./mozart.js";
-let form = new Component();
+let form = new Component("form");
 
 form.create = function() { /* ... */ }
 
