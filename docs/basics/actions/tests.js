@@ -1,35 +1,18 @@
+import Component from "../../../mozart.js";
+let dropdown_button = new Component("dropdown_button");
+
+dropdown_button.open = function() { return "open" }
+dropdown_button.close = function() { return "close" }
+
 doc({
-  attach_id: "basics/actions",
-  tests: [
-    test("Actions", () => {
-      class Component extends Mozart {};
-      var m = Component.index;
-      new Component("actionguy"); 
-      var iexist = false;
-      var neighbor_response = "";
+    attach_id: "basics/actions",
+    tests: [
+        test("Actions", () => {
 
-      m.actionguy.acts({
-        iexist(_$, args) {
-          iexist = true;
-        },
-
-        value_from_neighbor(_$, args) {
-          neighbor_response = _$.act.neighbor();
-        },
-
-        neighbor(_$, args) {
-          return { "foo": "bar" }
-        },
-      });
-
-      Mozart.init();
-      m.actionguy.act.iexist();
-      m.actionguy.act.value_from_neighbor();
-      
-      return [
-        assert("Action can be called from the outside", iexist, true)
-        , assert("A value returned from a neighbor function comes back through the caller", neighbor_response, { "foo": "bar" })
-      ]
-    })
-  ]
+            return [
+                assert("Methods can be added one-by-one", [dropdown_button.open(), dropdown_button.close()], ["open", "close"])
+            ]
+        }, `
+    `)
+    ]
 });

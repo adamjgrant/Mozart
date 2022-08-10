@@ -1,135 +1,121 @@
 <!DOCTYPE HTML>
 <html>
-  <head>
+
+<head>
     <link rel="stylesheet" href="kickstart.min.css">
     <link rel="stylesheet" href="style.css">
     <meta charset="utf8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
     <title>Mozart.js Documentation</title>
-  </head>
+</head>
 
-  <body>
+<body>
     <nav>
-      <span class="title">Mozart</span>
-      <iframe class="github_stars" src="https://ghbtns.com/github-btn.html?user=adamjgrant&repo=Mozart&type=star&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+        <span class="title">Mozart 3</span>
+        <iframe class="github_stars" src="https://ghbtns.com/github-btn.html?user=adamjgrant&repo=Mozart&type=star&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
     </nav>
 
     <article data-attach="about/why">
-      <h1>About</h1>
-      <p>Not every project needs React or Angular to be zippy and modern.</p>
-      <p>I spent years developing Kickstrap, and its successor <a href="https://getkickstart.com">Kickstart</a>. After its third version, some tinkering with <a href="http://getkickstart.com/amadeus/">Amadeus</a>, and thousands of GitHub stars, I started work on Mozart. My goal was to create a freakishly tiny code snippet that lets us better leverage the native featurers of JavaScript while staying a little organized.</p>
-      <p>After three more years of revisions and lots of help and advice from the community, I'm ready to release it to the public.</p>
-      <p><a href="http://adamgrant.me">— Adam</a></p>
+        <h1>Mozart is not a framework</h1>
+        <h2>In fact, it's hardly anything at all.</h2>
+        <p>Mozart's purpose is to enable a component-centric pattern for web development using a <a href="https://github.com/adamjgrant/Mozart/blob/master/mozart.js">very small JavaScript file</a>.</p>
     </article>
 
-    <article data-attach="about/how">
-      <h2>Components</h2>
-      <p>The central idea behind Mozart is to treat your web application like a set of components.</p>
-      <p>Once we stick to that idea, we can define events, actions, and routes within the scope of each component and not worry about them running into each other.</p>
-      <p>Much of this can already be done using simple patterns and native JavaScript, Mozart just helps us to shorthand some of this and provide easy ways to <em><a href="https://en.wikipedia.org/wiki/Loose_coupling">loosely-couple</a></em> components to one another.</p>
+    <article data-attach="about/components">
+        <h2>Components</h2>
+        <p>Components are just ordinary DOM elements designated with <code>data-component</code> attributes.</p>
+        <img src="components.png">
     </article>
 
-    <article data-attach="about/example">
-      <img src="components.png">
-      <h3>Example</h3>
-      <p>Consider this simple example where we want to build a contacts application. Users can go through a list of contacts in the bottom left, click on a contact to see their full details in the bottom right, or create a new contact at the top.</p>
-      <p>To make this easy for ourselves, we might want to make this one big component. Maybe this helps us to separate it from the rest of the things going on in the application.</p>
-      <p>Or maybe we make this into three components and let each one call out to the other to pass some data or execute a fucntion.</p>
-      <p>In the next sections we'll show you the different tools and patterns aided by Mozart to let you build component-driven, dependency-free JavaScript applications</p>
+    <article data-attach="about/dedicated-files">
+        <p>Each component gets its own dedicated JavaScript and CSS file...</p>
+    </article>
+
+    <article data-attach="about/scoped-selector">
+        <p>Components have a scoped query selector <code>q()</code> that selects only from the elements inside of it.</p>
+    </article>
+
+    <article data-attach="about/deferred-actions">
+        <p>Actions defined on a component can defer downstream logic to other components thereby separating concerns and keeping code tidy.</p>
     </article>
 
     <article>
-      <div class="text">
-        <h1>Basics</h1>
-        <label>
+        <div class="text">
+            <h1>Basics</h1>
+            <label>
           <input id="show-tests" type="checkbox">
           Show tests
         </label>
-        <div id="test_results" hidden class="test_results">
-          <h1>Test results</h1> 
-          <p>
-            ⚪️ <span>0</span> Total,
-            🟢 <span>0</span> Passing,
-            🔴 <span>0</span> Failing,
-          </p>
+            <div id="test_results" hidden class="test_results">
+                <h1>Test results</h1>
+                <p>
+                    ⚪️ <span>0</span> Total, 🟢 <span>0</span> Passing, 🔴 <span>0</span> Failing,
+                </p>
+            </div>
+            <p><a href="//cdn.everything.io/mozart/v3/mozart.min.js">Download Mozart</a> or use the CDN links</p>
+            <input type="text" onclick="select()" value="https://cdn.everything.io/v3/mozart/mozart.min.js" />
+            <input type="text" onclick="select()" value="https://cdn.everything.io/v3/mozart/mozart.js" />
         </div>
-        <p><a href="//cdn.everything.io/mozart/v2/mozart.min.js">Download Mozart</a> or use the CDN links</p>
-        <input type="text" onclick="select()" value="https://cdn.everything.io/v2/mozart/mozart.min.js" />
-        <input type="text" onclick="select()" value="https://cdn.everything.io/v2/mozart/mozart.js" />
-      </div>
-      <pre></pre>
+        <pre></pre>
     </article>
 
     <article data-attach="basics/create-a-component">
-      <h2>Creating a component</h2>
-      <p>Every Mozart component is a class that extends the Mozart base class. To enable the most customization, we recommend you always extend the <code>Mozart</code> base class with one called <code>Component</code>.</p>
+        <h2>Creating a component</h2>
+        <p>Create your markup using <code>data-component</code> to name your component.</p>
+        <p>Import <code>Component</code> from <code>mozart.js</code> whenever you need to define a component.</p>
+        <p>Then give it a name and <code>export</code> it so other components can <code>import</code> it.</p>
     </article>
 
     <article data-attach="basics/methods-added">
-      <p>Your new component automatically has a set of methods. You might notice some funny stuff going on there, especially that <code>_$</code> variable. We'll go through each one of these methods and cover that along the way.</p>
-    </article>
-
-    <article data-attach="basics/using-css">
-      <p>Mozart doesn't provide any tooling at the moment to assist with CSS styling, but then again, you don't really need that overhead anyway.</p>
-      <p>Simply use the attirbute selector syntax to easily style only the elements in your component. This is even easier when nesting with SCSS/Sass, or a similar precompiler.</p>
+        <h2>Add some methods</h2>
+        <p>You'll probably want to define some behaviors next.</p>
+        <p>Once we define these behaviors with methods, you'll be able to call them either on the component's
+            name or on <code>this</code> if in the right context.</p>
+        </p>
     </article>
 
     <article data-attach="basics/actions">
-      <h2>Actions</h2>
-      <p>Actions are stored in a dictionary to allow for calling by name either from within the component or from another.</p>
-      <p>The idea of actions is to compartmentalize atomic concerns of your application into named routes.</p>
-      <p>This allows you to separate out event-driven logic which we'll cover next, and to make it easy to follow your code as different components talk to one another.</p>
-      <h3><code>_$, args</code></h3>
-      <p>You may have noticed each method has two arguments, <code>_$</code> and <code>args</code>. When you actually call the action, you can omit the <code>_$</code> as this is added in automatically.</p>
-      <p><code>_$</code> is the scoped selector, which we'll talk about a little more in the next section. <code>args</code> can be anything you want. We recommend treating this as a simple JavaScript object for passing any arguments you wish.</p>
+      <p>You can define your actions one-by-one on the component...</p>
     </article>
 
-    <article data-attach="basics/events">
-      <h2>Events</h2>
-      <p>Events are simply the events that can happen on your component or an element in the component.</p>
-      <p>Mozart provides a "scoped selector" to make this easier. You can name it however you want, but we like to use <code>_$</code>.</p>
-      <p><code>_$</code> is a pass through for either jQuery's <code>$</code>, or <code>document.querySelectorAll</code> if you're not using it.</p>
-      <p>However, it provides an additional function by automatically scoping the query to the component. That's why we're free to be a little reckless here and just refer to the button as <code>button</code>. It's not necessary to use a class or ID here but I could if I wanted to.<p>
-      <p>In both examples, this event fires off a <code>generate</code> action. We'll cover actions next, but normally the actions would be referenced with <code>m.generator.acts</code>. This is another helper function <code>_$</code> provides, by giving us a shorthand to the component's own methods.</p>
+    <article data-attach="basics/actions2">
+      <p>...or <code>assign</code> a whole set of them.</p>
     </article>
 
-    <article data-attach="basics/routes">
-      <h2>Routes</h2>
-      <p>Routes allow you to quickly spin up the right AJAX parameters for an AJAX call given a few parameters.</p>
+    <article data-attach="basics/calling">
+       <p>Calling a method should feel like native JavaScript because it mostly is.</p> 
     </article>
 
-    <article data-attach="basics/fragments">
-      <h2>Fragments</h2>
-      <p>Document fragments are a native feature to JavaScript that allow you to define a <em>template</em> of an element and its children
-         so you can multiply and manipulate it with minimal strain on DOM redraw.</p>
-      <p>Mozart provides the <code>.template</code> method only as a shorthand to this native implementation.</p>
+    <article data-attach="basics/element-selection">
+        <h1>Selecting elements</h1>
+        <p>Selecting an element can be done with <code>q</code> which is merely a shortcut to <code>document.querySelector</code> that:</p>
+        <ol>
+            <li>Prefaces the query with <code>[data-component="&lt;your-component-name-here&gt;"]</code></li>
+            <li>Returns one element if one is found, or an array of elements otherwise</li>
+        </ol>
+        <p>The scoped selector is also a forcing function to use short and simple class names for elements.</p>
+    </article>
+    
+    <article data-attach="events/attaching">
+        <h1>Attaching events</h1>
+        <p>Attaching events isn't mostly native JS with some help from <code>q</code> and overall shortened syntax</p>
     </article>
 
-    <article data-attach="advanced/jquery">
-      <h1>Advanced</h1>
-      <h2>Using jQuery</h2>
-      <p>Mozart will automatically return from jQuery with <code>_$</code> instead of returning just plain JavaScript nodes. Just make sure jQuery is included before Mozart.</p>
-      <p>For root methods on jQuery such as <code>$.ajax</code>, continue using <code>$</code> while using <code>_$</code> for component scoped selections.</p>
+    <article data-attach="advanced/self-selection">
+        <h1>Advanced</h1>
+        <h2>Selecting the component itself</h2>
+        <p>Select the component itself by leaving <code>q</code> empty or by calling <code>me</code>.</p>
     </article>
 
-    <article data-attach="advanced/private-methods">
-      <h2>Private methods</h2>
-      <p>Private methods allow you to define methods only the component itself can reach. Other components will not have access.</p>
+    <article data-attach="advanced/storing-data">
+        <h2>Storing data</h2>
+        <p>To save some arbitrary data to the component as you would any in-memory object, use the <code>.store</code> method.</p>
     </article>
 
-    <article data-attach="advanced/selection">
-      <h2>Selection</h2>
-      <p>By default, the scoped selector <code>_$</code> only pulls up elements within the scope of your compoonent, not parent elements.
-         However, you may need to call the component itself. There are two ways to do this.</p>
-      <p>If you only have one instance of the component, you can just call <code>_$.me()</code>. However, if you need to pull up a specific
-         instance of the component, just pass in any unique node that is in the component you wish to target. Usually this can be done for actions
-         called up from an event.</p>
-    </article>
-
-    <script src="jquery.js"></script>
-    <script src="mozart.js"></script>
+    <script type="module" src="mozart.js"></script>
+    <script data-manual src="docs/prism.js"></script>
     <script src="docs.js"></script>
-    <link rel="stylesheet" href="tomorrow-night-eighties.min.css">
-    <script src="highlight.js"></script>
-  </body>
+    <link rel="stylesheet" href="docs/prism.css">
+</body>
+
 </html>
