@@ -4,7 +4,7 @@ import contact from "./components/contact/contact.js";
 
 let form = new Component("form");
 
-form.attach({
+form.assign({
     submit() {
         const [name, email] = this.fields;
         // Defer remaining implementation to the components

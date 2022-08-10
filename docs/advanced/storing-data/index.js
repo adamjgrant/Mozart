@@ -3,7 +3,7 @@ let widget = new Component("widget");
 
 widget.store.count = 0;
 
-widget.attach({
+widget.assign({
   update_count() { 
     this.store.count++; 
   },

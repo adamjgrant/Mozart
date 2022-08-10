@@ -2,7 +2,7 @@ import Component from "mozart.js";
 import notifier from "components/notifier";
 let list = new Component("list");
 
-list.attach({
+list.assign({
   flash_error(message) {
     notifier.error(message) ;
     this.highlight();
