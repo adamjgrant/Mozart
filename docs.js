@@ -34,7 +34,6 @@ attachees.forEach(attachee => {
         request.onload = function() {
           if (this.status >= 200 && this.status < 400) {
             pre_content += this.response;
-            console.log(pre_content);
             if (pre_content) {
               pre_content = Prism.highlight(
                 pre_content, Prism.languages[prism_extension], prism_extension
@@ -55,6 +54,7 @@ attachees.forEach(attachee => {
 
   var script = document.createElement("script");
   script.src = `docs/${attachee.dataset.attach}/tests.js`
+  script.type = "module";
   document.body.appendChild(script);
 });
 

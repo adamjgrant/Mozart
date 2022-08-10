@@ -1,5 +1,5 @@
 make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/adamgrant/repos/Mozart'
-python -m http.server 8000
+python3 -m http.server 8000
 make: Leaving directory `/Users/adamgrant/repos/Mozart'
  

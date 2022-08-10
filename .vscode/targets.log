@@ -6,11 +6,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
-make: *** No rule to make target `all'.  Stop.
 
-
-# Make data base, printed on Tue Aug  9 10:41:18 2022
+# Make data base, printed on Tue Aug  9 19:47:23 2022
 
 # Variables
 
@@ -207,7 +204,7 @@ all:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-09 10:41:05
+#  Last modified 2022-08-09 10:46:41
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -218,7 +215,7 @@ watch:
 #  Modification time never checked.
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 2):
-	python -m http.server 8000
+	python3 -m http.server 8000
 	
 
 # Not a target:
@@ -240,6 +237,8 @@ watch:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Tue Aug  9 10:41:18 2022
+# Finished Make data base on Tue Aug  9 19:47:23 2022
 
  
+make: *** No rule to make target `all'.  Stop.
+
