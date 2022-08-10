@@ -9,10 +9,9 @@ doc({
                 assert("dropdown_button component exists", typeof(dropdown_button), "object"),
                 assert("dropdown_button has query_selector", !!dropdown_button.q, true),
                 assert("dropdown_button has store", !!dropdown_button.store, true),
-                assert("dropdown_button element found", dropdown_button.me.dataset.test, "123")
             ]
         },`
-        <button data-component="dropdown_button" data-test="123">
+        <button data-component="dropdown_button">
             <span class="title">Open Menu</span>
             <ul>
                 <li>
