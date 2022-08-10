@@ -87,12 +87,29 @@
     </article>
 
     <article data-attach="basics/element-selection">
+        <h1>Selecting elements</h1>
         <p>Selecting an element can be done with <code>q</code> which is merely a shortcut to <code>document.querySelector</code> that:</p>
         <ol>
             <li>Prefaces the query with <code>[data-component="&lt;your-component-name-here&gt;"]</code></li>
             <li>Returns one element if one is found, or an array of elements otherwise</li>
         </ol>
         <p>The scoped selector is also a forcing function to use short and simple class names for elements.</p>
+    </article>
+    
+    <article data-attach="events/attaching">
+        <h1>Attaching events</h1>
+        <p>Attaching events isn't mostly native JS with some help from <code>q</code> and overall shortened syntax</p>
+    </article>
+
+    <article data-attach="advanced/self-selection">
+        <h1>Advanced</h1>
+        <h2>Selecting the component itself</h2>
+        <p>Select the component itself by leaving <code>q</code> empty or by calling <code>me</code>.</p>
+    </article>
+
+    <article data-attach="advanced/storing-data">
+        <h2>Storing data</h2>
+        <p>To save some arbitrary data to the component as you would any in-memory object, use the <code>.store</code> method.</p>
     </article>
 
     <script src="mozart.js"></script>
