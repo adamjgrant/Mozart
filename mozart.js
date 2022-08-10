@@ -25,7 +25,7 @@ class Component {
                     } });
                     }
                     else if (!!prop_descriptor.value && typeof(prop_descriptor.value) === "function") {
-                      ThisProxyComponent[key] = (...args) => obj[key].apply(obj, args)
+                      ThisProxyComponent[key] = (...args) => obj[key].apply(obj, args);
                     }
                     else {
                       // Assuming at this point it's a non-computed value.
