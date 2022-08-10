@@ -1,5 +1,5 @@
-import Component from "mozart.js";
-import notifier from "components/notifier";
+import Component from "./mozart.js";
+import notifier from "./components/notifier";
 let list = new Component("list");
 
 list.assign({

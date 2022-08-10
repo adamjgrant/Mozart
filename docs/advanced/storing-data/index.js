@@ -1,4 +1,4 @@
-import Component from "mozart.js";
+import Component from "./mozart.js";
 let widget = new Component("widget");
 
 widget.store.count = 0;
