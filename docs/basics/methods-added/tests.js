@@ -16,6 +16,14 @@ doc({
                     return result;
                 },
 
+                i_talk_to_method_b() {
+                    return this.method_b();
+                },
+
+                method_b() {
+                    return "hello";
+                },
+
                 set make_it_one(value) {
                     the_value = value;
                 },
@@ -29,7 +37,8 @@ doc({
 
             return [
                 assert("Get method returns dynamic results", [dropdown_button.method_one, dropdown_button.method_one], [1, 2]),
-                assert("Set method sets value as one", dropdown_button.get_one(), 1)
+                assert("Set method sets value as one", dropdown_button.get_one(), 1),
+                assert("One method can talk to another", dropdown_button.i_talk_to_method_b(), "hello")
             ]
         }, `
         `)
