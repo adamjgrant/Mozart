@@ -61,63 +61,38 @@
 
     <article data-attach="basics/create-a-component">
         <h2>Creating a component</h2>
-        <p>Every Mozart component is an instance of <code>Component</code>. This is all you need to do to create one.</p>
+        <p>Create your markup using <code>data-component</code> to name your component.</p>
+        <p>Import <code>Component</code> from <code>mozart.js</code> whenever you need to define a component.</p>
+        <p>Then give it a name and <code>export</code> it so other components can <code>import</code> it.</p>
     </article>
 
     <article data-attach="basics/methods-added">
-        <p>The name you give your component is key. Mozart expects there to be one or more HTML elements with that name.</p>
+        <h2>Add some methods</h2>
+        <p>You'll probably want to define some behaviors next.</p>
+        <p>Once we define these behaviors with methods, you'll be able to call them either on the component's
+            name or on <code>this</code> if in the right context.</p>
+        </p>
     </article>
 
     <article data-attach="basics/actions">
-        <h2>Actions</h2>
-        <p>Actions are the functions of your component and they have some built in help for quickly developing.</p>
+      <p>You can define your actions one-by-one on the component...</p>
     </article>
 
-    <article data-attach="basics/events">
-        <h2>Events</h2>
-        <p>Events are simply the events that can happen on your component or an element in the component.</p>
-        <p>Mozart provides a "scoped selector" to make this easier. You can name it however you want, but we like to use <code>_$</code>.</p>
-        <p><code>_$</code> is a pass through for either jQuery's <code>$</code>, or <code>document.querySelectorAll</code> if you're not using it.</p>
-        <p>However, it provides an additional function by automatically scoping the query toAc the component. That's why we're free to be a little reckless here and just refer to the button as <code>button</code>. It's not necessary to use a class or ID
-            here but I could if I wanted to.
-            <p>
-                <p>In both examples, this event fires off a <code>generate</code> action. We'll cover actions next, but normally the actions would be referenced with <code>m.generator.acts</code>. This is another helper function <code>_$</code> provides,
-                    by giving us a shorthand to the component's own methods.</p>
+    <article data-attach="basics/actions2">
+      <p>...or <code>assign</code> a whole set of them.</p>
     </article>
 
-    <article data-attach="basics/routes">
-        <h2>Routes</h2>
-        <p>Routes allow you to quickly spin up the right AJAX parameters for an AJAX call given a few parameters.</p>
+    <article data-attach="basics/calling">
+       <p>Calling a method should feel like native JavaScript because it mostly is.</p> 
     </article>
 
-    <article data-attach="basics/fragments">
-        <h2>Fragments</h2>
-        <p>Document fragments are a native feature to JavaScript that allow you to define a <em>template</em> of an element and its children so you can multiply and manipulate it with minimal strain on DOM redraw.</p>
-        <p>Mozart provides the <code>.template</code> method only as a shorthand to this native implementation.</p>
-    </article>
-
-    <article data-attach="advanced/jquery">
-        <h1>Advanced</h1>
-        <h2>Using jQuery</h2>
-        <p>Mozart will automatically return from jQuery with <code>_$</code> instead of returning just plain JavaScript nodes. Just make sure jQuery is included before Mozart.</p>
-        <p>For root methods on jQuery such as <code>$.ajax</code>, continue using <code>$</code> while using <code>_$</code> for component scoped selections.</p>
-    </article>
-
-    <article data-attach="advanced/private-methods">
-        <h2>Private methods</h2>
-        <p>Private methods allow you to define methods only the component itself can reach. Other components will not have access.</p>
-    </article>
-
-    <article data-attach="advanced/selection">
-        <h2>Selection</h2>
-        <p>By default, the scoped selector <code>_$</code> only pulls up elements within the scope of your compoonent, not parent elements. However, you may need to call the component itself. There are two ways to do this.</p>
-        <p>If you only have one instance of the component, you can just call <code>_$.me()</code>. However, if you need to pull up a specific instance of the component, just pass in any unique node that is in the component you wish to target. Usually this
-            can be done for actions called up from an event.</p>
-    </article>
-
-    <article data-attach="basics/using-css">
-        <p>Mozart doesn't provide any tooling at the moment to assist with CSS styling, but then again, you don't really need that overhead anyway.</p>
-        <p>Simply use the attribute selector syntax to easily style only the elements in your component. This is even easier when nesting with SCSS/Sass, or a similar precompiler.</p>
+    <article data-attach="basics/element-selection">
+        <p>Selecting an element can be done with <code>q</code> which is merely a shortcut to <code>document.querySelector</code> that:</p>
+        <ol>
+            <li>Prefaces the query with <code>[data-component="&lt;your-component-name-here&gt;"]</code></li>
+            <li>Returns one element if one is found, or an array of elements otherwise</li>
+        </ol>
+        <p>The scoped selector is also a forcing function to use short and simple class names for elements.</p>
     </article>
 
     <script src="mozart.js"></script>

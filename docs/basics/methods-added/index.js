@@ -1,2 +1,5 @@
-console.log(dropdown_button.me);
-// => Node[<button data-component="dropdown_button"></button>]
+dropdown_button.open();
+
+// OR
+
+this.open(); // In the context of the component.

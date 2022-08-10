@@ -2,7 +2,7 @@ import Component from "./mozart.js";
 import index from "./components/index/index.js";
 import contact from "./components/contact/contact.js";
 
-let form = new Component("form");
+let form = new Component();
 
 form.attach({
     submit() {

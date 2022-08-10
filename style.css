@@ -115,6 +115,8 @@ article .text img {
 
 article pre code {
     font-size: 0.75rem;
+    display: block;
+    margin-bottom: 100px;
 }
 
 article pre code.hljs {
