@@ -5,8 +5,20 @@ class Component {
             store: {},
             assign(obj) {
                 for (let key in obj) {
-                    let val = obj[key];
-                    ThisProxyComponent[key] = val;
+                    let prop_descriptor = Object.getOwnPropertyDescriptor(obj, key);
+                    if (!!prop_descriptor['get']) {
+                      Object.defineProperty(ThisProxyComponent, key, { get() { return obj[key] } });
+                    }
+                    else if (!!prop_descriptor['set']) {
+                      Object.defineProperty(ThisProxyComponent, key, { set(...args) { return obj[key] = args[0] } });
+                    }
+                    else if (!!prop_descriptor.value && typeof(prop_descriptor.value) === "function") {
+                      ThisProxyComponent[key] = (...args) => obj[key].apply(obj, args)
+                    }
+                    else {
+                      // Assuming at this point it's a non-computed value.
+                      ThisProxyComponent[key] = obj[key];
+                    }
                 }
             },
             q(el) {
@@ -40,7 +52,7 @@ class Component {
                     return true;
                 }
                 else {
-                    console.error(value);
+                    console.error(`Value ${value} was not a function on ${ThisProxyComponent.name} component. Type of ${value} is ${typeof(value)}`);
                     throw `${ThisProxyComponent.name}: Value was not a function. Use .store on the component to store new information`;
                 }
             },

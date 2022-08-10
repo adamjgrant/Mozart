@@ -1,21 +1,37 @@
-// doc({
-//     attach_id: "basics/methods-added",
-//     tests: [
-//         test("Component returns node elements", () => {
-//             let navbar = new Component("element");
-//             const one_element = navbar.me;
+import Component from "../../../mozart.js";
 
-//             let navbar2 = new Component("element2");
-//             const two_elements = [].concat(navbar2.me);
+doc({
+    attach_id: "basics/methods-added",
+    tests: [
+        test("Component allows methods to be added", () => {
+            let dropdown_button = new Component("dropdown_button");
+            let index = 0;
+            let arr = [1, 2];
+            let the_value = 0
 
-//             return [
-//                 assert("Navbar element returned", one_element instanceof HTMLElement, true),
-//                 assert("Navbar2 elements returned", two_elements.map(el => el instanceof HTMLElement), [true, true]),
-//             ]
-//         }, `
-//           <nav data-component="element"></nav> 
-//           <nav data-component="element2"></nav> 
-//           <nav data-component="element2"></nav> 
-//         `)
-//     ]
-// });
+            dropdown_button.assign({
+                get method_one() {
+                    let result = arr[index];
+                    index++;
+                    return result;
+                },
+
+                set make_it_one(value) {
+                    the_value = value;
+                },
+
+                get_one() {
+                    return the_value;
+                }
+            })
+            
+            dropdown_button.make_it_one = 1
+
+            return [
+                assert("Get method returns dynamic results", [dropdown_button.method_one, dropdown_button.method_one], [1, 2]),
+                assert("Set method sets value as one", dropdown_button.get_one(), 1)
+            ]
+        }, `
+        `)
+    ]
+});
