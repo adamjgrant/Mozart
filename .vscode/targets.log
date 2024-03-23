@@ -10,7 +10,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Wed Aug 10 10:50:55 2022
+# Make data base, printed on Sat Mar 23 16:57:07 2024
 
 # Variables
 
@@ -19,11 +19,11 @@ make: *** No rule to make target `all'.  Stop.
 # automatic
 ?F = $(notdir $?)
 # environment
-NVM_INC = /Users/adamgrant/.nvm/versions/node/v16.16.0/include/node
+VSCODE_CRASH_REPORTER_PROCESS_TYPE = extensionHost
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
-# environment
-twitter_token_secret = rsdIhAltS1UBTykHGVrfDEVKuvf3KBZxNRm3ooM5cD9zc
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
 # automatic
 @F = $(notdir $@)
 # makefile
@@ -31,13 +31,12 @@ CURDIR := /Users/adamgrant/repos/Mozart
 # makefile
 SHELL = /bin/sh
 # environment
-VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"en-us","osLocale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+ 
 # environment
 _ = /usr/bin/make
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
-# automatic
-@D = $(patsubst %/,%,$(dir $@))
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
@@ -45,37 +44,23 @@ INFOPATH = /opt/homebrew/share/info:
 # environment
 VSCODE_CWD = /
 # environment
-twitter_consumer_secret = UBb8roLwVnmsgIVLwyM4pm4EpAe6JSrUojNWPqs
-# environment
-PATH = /Users/adamgrant/.nvm/versions/node/v16.16.0/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Postgres.app/Contents/Versions/latest/bin
-# environment
-twitter_token_key = 619382837-pNpfWXmw2vN2IrNT9HWUWAbVYY32bj6WQ8zxoHJq
-# environment
-LSCOLORS = Gxfxcxdxbxegedabagacad
-# environment
-NVM_BIN = /Users/adamgrant/.nvm/versions/node/v16.16.0/bin
+PATH = /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.cXAhIECPL7/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.J1W17QCmBu/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
-airtable_buffer_base = app2X2gnPXhFKDs1t
-# environment
-OPENAI_API_KEY = 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
-# environment
 PWD = /Users/adamgrant/repos/Mozart
-# environment
-twitter_consumer_key = LIOPNzQQ1WcRJfguhFEszA
 # environment
 HOMEBREW_CELLAR = /opt/homebrew/Cellar
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # environment
-MANPATH = /Users/adamgrant/.nvm/versions/node/v16.16.0/share/man:/opt/homebrew/share/man::
+MANPATH = /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/share/man:/Library/Developer/CommandLineTools/usr/share/man:/Library/Developer/CommandLineTools/Toolchains/XcodeDefault.xctoolchain/usr/share/man:/opt/homebrew/share/man::
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -83,15 +68,11 @@ HOME = /Users/adamgrant
 # default
 MAKEFILEPATH = $(shell /usr/bin/xcode-select -print-path 2>/dev/null || echo /Developer)/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/adamgrant/Library/Application Support/Code/CachedData/da76f93349a72022ca4670c1b84860304616aaa2
+VSCODE_CODE_CACHE_PATH = /Users/adamgrant/Library/Application Support/Code/CachedData/0ee08df0cf4527e40edc9aa28f4b5bd38bbff2b2
 # environment
 LOGNAME = adamgrant
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
-# environment
-NVM_CD_FLAGS = -q
-# environment
-ZSH = /Users/adamgrant/.oh-my-zsh
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
@@ -110,8 +91,6 @@ MAKE_VERSION := 3.81
 USER = adamgrant
 # makefile
 .DEFAULT_GOAL := watch
-# environment
-LESS = -R
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # default
@@ -119,11 +98,11 @@ MAKE_COMMAND := /Library/Developer/CommandLineTools/usr/bin/make
 # default
 .VARIABLES := 
 # environment
-TMPDIR = /var/folders/w9/r7_p3fh14mdfj9g8wj685tsm0000gn/T/
+TMPDIR = /var/folders/2p/yqsfx7rx5cv41m4_yjxsxh580000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/adamgrant/Library/Application Support/Code/1.70.0-main.sock
+VSCODE_IPC_HOOK = /Users/adamgrant/Library/Application Support/Code/1.85-main.sock
 # environment
 MallocNanoZone = 0
 # makefile
@@ -133,9 +112,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-NVM_DIR = /Users/adamgrant/.nvm
-# environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.23368604.23368612
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.6973667.6973673
 # environment
 HOMEBREW_PREFIX = /opt/homebrew
 # automatic
@@ -153,25 +130,19 @@ MAKEFILES :=
 # automatic
 <F = $(notdir $<)
 # environment
-PAGER = less
-# environment
 LC_ALL = C
 # automatic
 ^F = $(notdir $^)
 # default
 SUFFIXES := 
 # environment
-airtable_api_key = key8zh2I86egLc0do
-# default
-.INCLUDE_DIRS = /usr/local/include
-# environment
 MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 5877
+VSCODE_PID = 5396
 # variable set hash-table stats:
-# Load=78/1024=8%, Rehash=0, Collisions=2/102=2%
+# Load=63/1024=6%, Rehash=0, Collisions=1/86=1%
 
 # Pattern-specific Variable Values
 
@@ -179,7 +150,7 @@ VSCODE_PID = 5877
 
 # Directories
 
-# . (device 16777234, inode 23750998): 18 files, no impossibilities.
+# . (device 16777230, inode 10636482): 18 files, no impossibilities.
 
 # 18 files, no impossibilities in 1 directories.
 
@@ -207,7 +178,7 @@ all:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-09 10:46:41
+#  Last modified 2024-03-23 16:56:57
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -240,6 +211,6 @@ watch:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Wed Aug 10 10:50:55 2022
+# Finished Make data base on Sat Mar 23 16:57:07 2024
 
  
